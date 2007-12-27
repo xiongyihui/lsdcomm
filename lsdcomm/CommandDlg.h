@@ -1,0 +1,105 @@
+#if !defined(AFX_COMMANDDLG_H__BE6FBC09_ECC3_4E55_92E6_9CD8E05D1A9D__INCLUDED_)
+#define AFX_COMMANDDLG_H__BE6FBC09_ECC3_4E55_92E6_9CD8E05D1A9D__INCLUDED_
+
+#if _MSC_VER > 1000
+#pragma once
+#endif // _MSC_VER > 1000
+// CommandDlg.h : header file
+//
+
+/////////////////////////////////////////////////////////////////////////////
+// CCommandDlg dialog
+
+class CCommandDlg : public CDialog
+{
+// Construction
+public:
+	CCommandDlg(CWnd* pParent = NULL);   // standard constructor
+
+// Dialog Data
+	//{{AFX_DATA(CCommandDlg)
+	enum { IDD = IDD_DLGCOMMAND };
+	CString	m_strCommand_1;
+	CString	m_strName_1;
+	CString	m_chrShut_1;
+	CString	m_strName_10;
+	CString	m_strName_11;
+	CString	m_strName_12;
+	CString	m_strName_13;
+	CString	m_strName_14;
+	CString	m_strName_15;
+	CString	m_strName_16;
+	CString	m_strName_17;
+	CString	m_strName_18;
+	CString	m_strName_19;
+	CString	m_strName_2;
+	CString	m_strName_20;
+	CString	m_strName_3;
+	CString	m_strName_4;
+	CString	m_strName_5;
+	CString	m_strName_6;
+	CString	m_strName_7;
+	CString	m_strName_8;
+	CString	m_strName_9;
+	CString	m_strCommand_10;
+	CString	m_strCommand_11;
+	CString	m_strCommand_12;
+	CString	m_strCommand_13;
+	CString	m_strCommand_14;
+	CString	m_strCommand_15;
+	CString	m_strCommand_16;
+	CString	m_strCommand_17;
+	CString	m_strCommand_18;
+	CString	m_strCommand_19;
+	CString	m_strCommand_2;
+	CString	m_strCommand_20;
+	CString	m_strCommand_3;
+	CString	m_strCommand_4;
+	CString	m_strCommand_5;
+	CString	m_strCommand_6;
+	CString	m_strCommand_7;
+	CString	m_strCommand_8;
+	CString	m_strCommand_9;
+	CString	m_chrShut_10;
+	CString	m_chrShut_11;
+	CString	m_chrShut_12;
+	CString	m_chrShut_13;
+	CString	m_chrShut_14;
+	CString	m_chrShut_15;
+	CString	m_chrShut_16;
+	CString	m_chrShut_17;
+	CString	m_chrShut_18;
+	CString	m_chrShut_19;
+	CString	m_chrShut_2;
+	CString	m_chrShut_20;
+	CString	m_chrShut_3;
+	CString	m_chrShut_4;
+	CString	m_chrShut_5;
+	CString	m_chrShut_6;
+	CString	m_chrShut_7;
+	CString	m_chrShut_8;
+	CString	m_chrShut_9;
+	//}}AFX_DATA
+
+
+// Overrides
+	// ClassWizard generated virtual function overrides
+	//{{AFX_VIRTUAL(CCommandDlg)
+	protected:
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	//}}AFX_VIRTUAL
+
+// Implementation
+protected:
+
+	// Generated message map functions
+	//{{AFX_MSG(CCommandDlg)
+		// NOTE: the ClassWizard will add member functions here
+	//}}AFX_MSG
+	DECLARE_MESSAGE_MAP()
+};
+
+//{{AFX_INSERT_LOCATION}}
+// Microsoft Visual C++ will insert additional declarations immediately before the previous line.
+
+#endif // !defined(AFX_COMMANDDLG_H__BE6FBC09_ECC3_4E55_92E6_9CD8E05D1A9D__INCLUDED_)

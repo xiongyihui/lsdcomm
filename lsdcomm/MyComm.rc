@@ -1,0 +1,901 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\MyComm.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.chs\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\MyComm.ico"
+IDR_MYCOMMTYPE          ICON    DISCARDABLE     "res\\MyCommDoc.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "文件(&F)"
+    BEGIN
+        MENUITEM "新建(&N)\tCtrl+N",            ID_FILE_NEW
+        MENUITEM "打开(&O)...\tCtrl+O",         ID_FILE_OPEN
+        MENUITEM "保存(&S)\tCtrl+S",            ID_FILE_SAVE
+        MENUITEM "另存为(&A)...",               ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "最近文件",                    ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "退出(&X)",                    ID_APP_EXIT
+    END
+    POPUP "编辑(&E)"
+    BEGIN
+        MENUITEM "撤消(&U)\tCtrl+Z",            ID_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "剪切(&T)\tCtrl+X",            ID_EDIT_CUT
+        MENUITEM "复制(&C)\tCtrl+C",            ID_EDIT_COPY
+        MENUITEM "粘贴(&P)\tCtrl+V",            ID_EDIT_PASTE
+        MENUITEM SEPARATOR
+        MENUITEM "命令行编辑",                  ID_EDIT_COMMAND
+    END
+    POPUP "查看(&V)"
+    BEGIN
+        MENUITEM "状态栏(&S)",                  ID_VIEW_STATUS_BAR
+    END
+    POPUP "帮助(&H)"
+    BEGIN
+        MENUITEM "关于 MyComm(&A)...",          ID_APP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS PRELOAD MOVEABLE PURE 
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 MyComm"
+FONT 9, "宋体"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "MyComm 1.0 版",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "版权所有 (C) 2007",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "确定",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_MYCOMM_FORM DIALOG DISCARDABLE  0, 0, 500, 306
+STYLE WS_CHILD | WS_BORDER
+FONT 9, "宋体"
+BEGIN
+    GROUPBOX        "串口设置",IDC_STATIC,7,5,100,120
+    GROUPBOX        "接收区",IDC_STATIC,8,127,100,95
+    GROUPBOX        "发送区",IDC_STATIC,8,227,100,70
+    EDITTEXT        IDC_EDRECDATA,113,5,377,215,ES_MULTILINE | 
+                    ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL
+    EDITTEXT        IDC_EDSENDDATA,112,232,375,45,ES_MULTILINE | 
+                    ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL
+    PUSHBUTTON      "A",IDC_BTCOMMAND_A,111,280,20,14
+    PUSHBUTTON      "B",IDC_BTCOMMAND_B,135,280,20,14
+    PUSHBUTTON      "C",IDC_BTCOMMAND_C,159,280,20,14
+    PUSHBUTTON      "D",IDC_BTCOMMAND_D,183,280,20,14
+    PUSHBUTTON      "E",IDC_BTCOMMAND_E,207,280,20,14
+    PUSHBUTTON      "F",IDC_BTCOMMAND_F,231,280,20,14
+    PUSHBUTTON      "G",IDC_BTCOMMAND_G,255,280,20,14
+    PUSHBUTTON      "H",IDC_BTCOMMAND_H,279,280,20,14
+    PUSHBUTTON      "发送",IDC_BTSEND,436,279,50,14
+    LTEXT           "串口",IDC_STATIC,18,20,17,8
+    COMBOBOX        IDC_CBCOM,45,15,48,30,CBS_DROPDOWN | CBS_AUTOHSCROLL | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "波特率",IDC_STATIC,16,35,25,8
+    COMBOBOX        IDC_CBBANDRATE,45,32,48,30,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "数据位",IDC_STATIC,16,51,25,8
+    COMBOBOX        IDC_CBDATABITS,45,49,48,30,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "校验位",IDC_STATIC,17,68,25,8
+    LTEXT           "停止位",IDC_STATIC,17,87,25,8
+    COMBOBOX        IDC_CBPARITY,45,65,48,30,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CBSTOPBITS,45,83,48,30,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "打开串口",IDC_BTOPENCOMM,45,105,50,14
+    CONTROL         131,IDC_BMPCOM,"Static",SS_BITMAP | SS_NOTIFY,25,107,9,9
+END
+
+IDD_DLGCOMMAND DIALOGEX 0, 0, 251, 356
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "命令行设置"
+FONT 9, "宋体"
+BEGIN
+    DEFPUSHBUTTON   "确定(&O)",IDOK,138,335,50,14
+    PUSHBUTTON      "取消(&C)",IDCANCEL,194,335,50,14
+    EDITTEXT        IDC_EDNAME_1,17,10,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_1,59,10,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_1,216,10,26,14,CBS_DROPDOWN | CBS_AUTOHSCROLL | 
+                    WS_VSCROLL | WS_TABSTOP,WS_EX_CLIENTEDGE
+    LTEXT           "1",IDC_STATIC,8,13,8,8
+    EDITTEXT        IDC_EDNAME_2,17,26,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_2,59,26,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_2,216,26,26,14,CBS_DROPDOWN | CBS_AUTOHSCROLL | 
+                    WS_VSCROLL | WS_TABSTOP,WS_EX_CLIENTEDGE
+    LTEXT           "2",IDC_STATIC,8,29,8,8
+    EDITTEXT        IDC_EDNAME_3,17,42,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_3,59,42,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_3,216,42,26,14,CBS_DROPDOWN | CBS_AUTOHSCROLL | 
+                    WS_VSCROLL | WS_TABSTOP,WS_EX_CLIENTEDGE
+    LTEXT           "3",IDC_STATIC,8,45,8,8
+    EDITTEXT        IDC_EDNAME_4,17,58,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_4,59,58,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_4,216,58,26,14,CBS_DROPDOWN | CBS_AUTOHSCROLL | 
+                    WS_VSCROLL | WS_TABSTOP,WS_EX_CLIENTEDGE
+    LTEXT           "4",IDC_STATIC,8,61,8,8
+    EDITTEXT        IDC_EDNAME_5,17,74,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_5,59,74,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_5,216,74,26,14,CBS_DROPDOWN | CBS_AUTOHSCROLL | 
+                    WS_VSCROLL | WS_TABSTOP,WS_EX_CLIENTEDGE
+    LTEXT           "5",IDC_STATIC,8,77,8,8
+    EDITTEXT        IDC_EDNAME_6,17,90,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_6,59,90,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_6,216,90,26,14,CBS_DROPDOWN | CBS_AUTOHSCROLL | 
+                    WS_VSCROLL | WS_TABSTOP,WS_EX_CLIENTEDGE
+    LTEXT           "6",IDC_STATIC,8,93,8,8
+    EDITTEXT        IDC_EDNAME_7,17,106,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_7,59,106,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_7,216,106,26,14,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "7",IDC_STATIC,8,109,8,8
+    EDITTEXT        IDC_EDNAME_8,17,122,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_8,59,122,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_8,216,122,26,14,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "8",IDC_STATIC,8,125,8,8
+    EDITTEXT        IDC_EDNAME_9,17,138,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_9,59,138,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_9,216,138,26,14,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "9",IDC_STATIC,8,141,8,8
+    EDITTEXT        IDC_EDNAME_10,17,154,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_10,59,154,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_10,216,154,26,14,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "10",IDC_STATIC,8,157,8,8
+    EDITTEXT        IDC_EDNAME_11,17,170,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_11,59,170,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_11,216,170,26,14,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "11",IDC_STATIC,8,173,8,8
+    EDITTEXT        IDC_EDNAME_12,17,186,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_12,59,186,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_12,216,186,26,14,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "12",IDC_STATIC,8,189,8,8
+    EDITTEXT        IDC_EDNAME_13,17,202,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_13,59,202,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_13,216,202,26,14,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "13",IDC_STATIC,8,205,8,8
+    EDITTEXT        IDC_EDNAME_14,17,218,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_14,59,218,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_14,216,218,26,14,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "14",IDC_STATIC,8,221,8,8
+    EDITTEXT        IDC_EDNAME_15,17,234,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_15,59,234,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_15,216,234,26,14,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "15",IDC_STATIC,8,237,8,8
+    EDITTEXT        IDC_EDNAME_16,17,250,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_16,59,250,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_16,216,250,26,14,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "16",IDC_STATIC,8,253,8,8
+    EDITTEXT        IDC_EDNAME_17,17,266,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_17,59,266,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_17,216,266,26,14,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "17",IDC_STATIC,8,269,8,8
+    EDITTEXT        IDC_EDNAME_18,17,282,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_18,59,282,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_18,216,282,26,14,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "18",IDC_STATIC,8,285,8,8
+    EDITTEXT        IDC_EDNAME_19,17,298,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_19,59,298,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_19,216,298,26,14,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "19",IDC_STATIC,8,301,8,8
+    EDITTEXT        IDC_EDNAME_20,17,314,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDCOMMAND_20,59,314,154,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_CBSHUT_20,216,314,26,14,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "20",IDC_STATIC,8,317,8,8
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "MyComm Microsoft 基础类应用程序\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "MyComm\0"
+            VALUE "LegalCopyright", "版权所有 (C) 2007\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "MyComm.EXE\0"
+            VALUE "ProductName", "MyComm 应用程序\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_MYCOMM_FORM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 493
+        TOPMARGIN, 5
+        BOTTOMMARGIN, 299
+    END
+
+    IDD_DLGCOMMAND, DIALOG
+    BEGIN
+        LEFTMARGIN, 6
+        RIGHTMARGIN, 244
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 349
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_MYCOMM_FORM DLGINIT
+BEGIN
+    IDC_CBCOM, 0x403, 5, 0
+0x4f43, 0x314d, "\000" 
+    IDC_CBCOM, 0x403, 5, 0
+0x4f43, 0x324d, "\000" 
+    IDC_CBCOM, 0x403, 5, 0
+0x4f43, 0x334d, "\000" 
+    IDC_CBCOM, 0x403, 5, 0
+0x4f43, 0x344d, "\000" 
+    IDC_CBBANDRATE, 0x403, 4, 0
+0x3131, 0x0030, 
+    IDC_CBBANDRATE, 0x403, 4, 0
+0x3033, 0x0030, 
+    IDC_CBBANDRATE, 0x403, 4, 0
+0x3036, 0x0030, 
+    IDC_CBBANDRATE, 0x403, 5, 0
+0x3231, 0x3030, "\000" 
+    IDC_CBBANDRATE, 0x403, 5, 0
+0x3432, 0x3030, "\000" 
+    IDC_CBBANDRATE, 0x403, 5, 0
+0x3834, 0x3030, "\000" 
+    IDC_CBDATABITS, 0x403, 2, 0
+0x0032, 
+    IDC_CBDATABITS, 0x403, 2, 0
+0x0034, 
+    IDC_CBDATABITS, 0x403, 2, 0
+0x0038, 
+    0
+END
+
+IDD_DLGCOMMAND DLGINIT
+BEGIN
+    IDC_CBSHUT_1, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_1, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_1, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_1, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_1, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_1, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_1, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_1, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_2, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_2, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_2, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_2, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_2, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_2, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_2, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_2, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_3, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_3, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_3, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_3, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_3, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_3, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_3, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_3, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_4, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_4, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_4, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_4, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_4, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_4, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_4, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_4, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_5, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_5, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_5, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_5, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_5, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_5, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_5, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_5, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_6, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_6, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_6, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_6, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_6, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_6, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_6, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_6, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_7, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_7, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_7, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_7, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_7, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_7, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_7, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_7, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_8, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_8, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_8, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_8, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_8, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_8, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_8, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_8, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_9, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_9, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_9, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_9, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_9, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_9, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_9, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_9, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_10, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_10, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_10, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_10, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_10, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_10, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_10, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_10, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_11, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_11, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_11, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_11, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_11, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_11, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_11, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_11, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_12, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_12, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_12, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_12, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_12, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_12, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_12, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_12, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_13, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_13, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_13, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_13, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_13, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_13, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_13, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_13, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_14, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_14, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_14, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_14, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_14, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_14, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_14, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_14, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_15, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_15, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_15, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_15, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_15, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_15, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_15, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_15, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_16, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_16, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_16, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_16, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_16, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_16, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_16, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_16, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_17, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_17, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_17, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_17, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_17, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_17, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_17, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_17, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_18, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_18, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_18, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_18, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_18, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_18, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_18, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_18, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_19, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_19, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_19, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_19, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_19, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_19, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_19, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_19, 0x403, 2, 0
+0x0048, 
+    IDC_CBSHUT_20, 0x403, 2, 0
+0x0041, 
+    IDC_CBSHUT_20, 0x403, 2, 0
+0x0042, 
+    IDC_CBSHUT_20, 0x403, 2, 0
+0x0043, 
+    IDC_CBSHUT_20, 0x403, 2, 0
+0x0044, 
+    IDC_CBSHUT_20, 0x403, 2, 0
+0x0045, 
+    IDC_CBSHUT_20, 0x403, 2, 0
+0x0046, 
+    IDC_CBSHUT_20, 0x403, 2, 0
+0x0047, 
+    IDC_CBSHUT_20, 0x403, 2, 0
+0x0048, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAPCLOSECOM      BITMAP  DISCARDABLE     "res\\bitmap1.bmp"
+IDB_BITMAPOPENCOM       BITMAP  DISCARDABLE     "res\\bmp00001.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    IDR_MAINFRAME           "MyComm\n\nMyComm\nMyComm 文件 (*.comm)\n.comm\nMyComm.Document\nMyComm Document"
+END
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    AFX_IDS_APP_TITLE       "MyComm"
+    AFX_IDS_IDLEMESSAGE     "就绪"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_INDICATOR_EXT        "扩展名"
+    ID_INDICATOR_CAPS       "大写"
+    ID_INDICATOR_NUM        "数字"
+    ID_INDICATOR_SCRL       "滚动"
+    ID_INDICATOR_OVR        "改写"
+    ID_INDICATOR_REC        "记录"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_NEW             "建立新文档\n新建"
+    ID_FILE_OPEN            "打开一个现有文档\n打开"
+    ID_FILE_CLOSE           "关闭活动文档\n关闭"
+    ID_FILE_SAVE            "保存活动文档\n保存"
+    ID_FILE_SAVE_AS         "将活动文档以一个新文件名保存\n另存为"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_APP_ABOUT            "显示程序信息，版本号和版权\n关于"
+    ID_APP_EXIT             "退出应用程序；提示保存文档\n退出"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_MRU_FILE1       "打开该文档"
+    ID_FILE_MRU_FILE2       "打开该文档"
+    ID_FILE_MRU_FILE3       "打开该文档"
+    ID_FILE_MRU_FILE4       "打开该文档"
+    ID_FILE_MRU_FILE5       "打开该文档"
+    ID_FILE_MRU_FILE6       "打开该文档"
+    ID_FILE_MRU_FILE7       "打开该文档"
+    ID_FILE_MRU_FILE8       "打开该文档"
+    ID_FILE_MRU_FILE9       "打开该文档"
+    ID_FILE_MRU_FILE10      "打开该文档"
+    ID_FILE_MRU_FILE11      "打开该文档"
+    ID_FILE_MRU_FILE12      "打开该文档"
+    ID_FILE_MRU_FILE13      "打开该文档"
+    ID_FILE_MRU_FILE14      "打开该文档"
+    ID_FILE_MRU_FILE15      "打开该文档"
+    ID_FILE_MRU_FILE16      "打开该文档"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_NEXT_PANE            "切换到下一个窗格\n下一窗格"
+    ID_PREV_PANE            "切换回前一个窗格\n前一窗格"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_WINDOW_SPLIT         "将活动的窗口分隔成窗格\n分隔"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_CLEAR           "删除被选对象\n删除"
+    ID_EDIT_CLEAR_ALL       "全部删除\n全部删除"
+    ID_EDIT_COPY            "复制被选对象并将其置于剪贴板上\n复制"
+    ID_EDIT_CUT             "剪切被选对象并将其置于剪贴板上\n剪切"
+    ID_EDIT_FIND            "查找指定的正文\n查找"
+    ID_EDIT_PASTE           "插入剪贴板内容\n粘贴"
+    ID_EDIT_REPEAT          "重复上一步操作\n重复"
+    ID_EDIT_REPLACE         "用不同的正文替换指定的正文\n替换"
+    ID_EDIT_SELECT_ALL      "选择整个文档\n选择全部"
+    ID_EDIT_UNDO            "撤消最后一步操作\n撤消"
+    ID_EDIT_REDO            "重新执行先前已撤消的操作\n重新执行"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_STATUS_BAR      "显示或隐藏状态栏\n显隐状态栏"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCSIZE          "改变窗口大小"
+    AFX_IDS_SCMOVE          "改变窗口位置"
+    AFX_IDS_SCMINIMIZE      "将窗口缩小成图标"
+    AFX_IDS_SCMAXIMIZE      "把窗口放大到最大尺寸"
+    AFX_IDS_SCNEXTWINDOW    "切换到下一个文档窗口"
+    AFX_IDS_SCPREVWINDOW    "切换到先前的文档窗口"
+    AFX_IDS_SCCLOSE         "关闭活动的窗口并提示保存所有文档"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCRESTORE       "把窗口恢复到正常大小"
+    AFX_IDS_SCTASKLIST      "激活任务表"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_COMMAND         "按通信的协议编辑命令指令"
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE 4, 2
+#pragma code_page(936)
+#endif //_WIN32
+#include "res\MyComm.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.chs\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
