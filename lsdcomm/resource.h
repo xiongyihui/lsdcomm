@@ -9,6 +9,7 @@
 #define IDB_BITMAPCLOSECOM              131
 #define IDB_BITMAPOPENCOM               132
 #define IDD_DLGCOMMAND                  134
+#define IDD_DLGADVANCED                 136
 #define IDC_EDRECDATA                   1000
 #define IDC_EDSENDDATA                  1001
 #define IDC_BTCOMMAND_A                 1002
@@ -32,10 +33,16 @@
 #define IDC_EDCOMMAND_1                 1022
 #define IDC_CBSHUT_1                    1023
 #define IDC_EDCOMMAND_2                 1024
+#define IDC_BTADVANCED                  1024
 #define IDC_CBSHUT_2                    1025
+#define IDC_EDREADINTER                 1025
 #define IDC_EDNAME_3                    1026
+#define IDC_EDREADTOTALMUL              1026
 #define IDC_EDCOMMAND_3                 1027
+#define IDC_EDREATOTALCONST             1027
 #define IDC_CBSHUT_3                    1028
+#define IDC_EDWRITETOTALMUL             1028
+#define IDC_EDWRITETOTALCONST           1029
 #define IDC_EDNAME_4                    1032
 #define IDC_EDCOMMAND_4                 1033
 #define IDC_CBSHUT_4                    1034
@@ -94,9 +101,9 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        136
+#define _APS_NEXT_RESOURCE_VALUE        137
 #define _APS_NEXT_COMMAND_VALUE         32772
-#define _APS_NEXT_CONTROL_VALUE         1024
+#define _APS_NEXT_CONTROL_VALUE         1026
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

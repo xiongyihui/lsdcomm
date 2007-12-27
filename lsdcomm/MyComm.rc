@@ -154,9 +154,9 @@ BEGIN
     GROUPBOX        "串口设置",IDC_STATIC,7,5,100,120
     GROUPBOX        "接收区",IDC_STATIC,8,127,100,95
     GROUPBOX        "发送区",IDC_STATIC,8,227,100,70
-    EDITTEXT        IDC_EDRECDATA,113,5,377,215,ES_MULTILINE | 
+    EDITTEXT        IDC_EDRECDATA,112,5,378,215,ES_MULTILINE | 
                     ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL
-    EDITTEXT        IDC_EDSENDDATA,112,232,375,45,ES_MULTILINE | 
+    EDITTEXT        IDC_EDSENDDATA,112,232,378,45,ES_MULTILINE | 
                     ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL
     PUSHBUTTON      "A",IDC_BTCOMMAND_A,111,280,20,14
     PUSHBUTTON      "B",IDC_BTCOMMAND_B,135,280,20,14
@@ -167,29 +167,30 @@ BEGIN
     PUSHBUTTON      "G",IDC_BTCOMMAND_G,255,280,20,14
     PUSHBUTTON      "H",IDC_BTCOMMAND_H,279,280,20,14
     PUSHBUTTON      "发送",IDC_BTSEND,436,279,50,14
-    LTEXT           "串口",IDC_STATIC,18,20,17,8
+    LTEXT           "串口",IDC_STATIC,17,20,17,8
     COMBOBOX        IDC_CBCOM,45,15,48,30,CBS_DROPDOWN | CBS_AUTOHSCROLL | 
                     WS_VSCROLL | WS_TABSTOP
-    LTEXT           "波特率",IDC_STATIC,16,35,25,8
+    LTEXT           "波特率",IDC_STATIC,17,36,25,8
     COMBOBOX        IDC_CBBANDRATE,45,32,48,30,CBS_DROPDOWN | CBS_SORT | 
                     WS_VSCROLL | WS_TABSTOP
-    LTEXT           "数据位",IDC_STATIC,16,51,25,8
+    LTEXT           "数据位",IDC_STATIC,17,52,25,8
     COMBOBOX        IDC_CBDATABITS,45,49,48,30,CBS_DROPDOWN | CBS_SORT | 
                     WS_VSCROLL | WS_TABSTOP
     LTEXT           "校验位",IDC_STATIC,17,68,25,8
-    LTEXT           "停止位",IDC_STATIC,17,87,25,8
-    COMBOBOX        IDC_CBPARITY,45,65,48,30,CBS_DROPDOWN | CBS_SORT | 
+    LTEXT           "停止位",IDC_STATIC,17,84,25,8
+    COMBOBOX        IDC_CBPARITY,45,66,48,30,CBS_DROPDOWN | CBS_SORT | 
                     WS_VSCROLL | WS_TABSTOP
     COMBOBOX        IDC_CBSTOPBITS,45,83,48,30,CBS_DROPDOWN | CBS_SORT | 
                     WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "打开串口",IDC_BTOPENCOMM,45,105,50,14
-    CONTROL         131,IDC_BMPCOM,"Static",SS_BITMAP | SS_NOTIFY,25,107,9,9
+    PUSHBUTTON      "打开串口",IDC_BTOPENCOMM,29,105,50,14
+    CONTROL         131,IDC_BMPCOM,"Static",SS_BITMAP | SS_NOTIFY,13,108,9,9
+    PUSHBUTTON      "高级",IDC_BTADVANCED,83,105,21,14
 END
 
 IDD_DLGCOMMAND DIALOGEX 0, 0, 251, 356
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "命令行设置"
-FONT 9, "宋体"
+FONT 9, "宋体", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "确定(&O)",IDOK,138,335,50,14
     PUSHBUTTON      "取消(&C)",IDCANCEL,194,335,50,14
@@ -309,6 +310,31 @@ BEGIN
     LTEXT           "20",IDC_STATIC,8,317,8,8
 END
 
+IDD_DLGADVANCED DIALOG DISCARDABLE  0, 0, 210, 182
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "高级设置"
+FONT 9, "宋体"
+BEGIN
+    DEFPUSHBUTTON   "确定(&O)",IDOK,97,161,50,14
+    PUSHBUTTON      "取消(&C)",IDCANCEL,153,161,50,14
+    GROUPBOX        "读写超时",IDC_STATIC,14,18,181,121
+    LTEXT           "读间隔超时",IDC_STATIC,27,42,41,8
+    LTEXT           "读时间系数",IDC_STATIC,27,58,41,8
+    LTEXT           "读时间常量",IDC_STATIC,27,74,41,8
+    LTEXT           "写时间系数",IDC_STATIC,27,89,41,8
+    LTEXT           "写时间常量",IDC_STATIC,27,105,41,8
+    EDITTEXT        IDC_EDREADINTER,76,38,76,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDREADTOTALMUL,76,54,76,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDREATOTALCONST,76,70,76,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDWRITETOTALMUL,76,86,76,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDWRITETOTALCONST,76,102,76,14,ES_AUTOHSCROLL
+    LTEXT           "ms",IDC_STATIC,156,41,9,8
+    LTEXT           "ms",IDC_STATIC,156,57,9,8
+    LTEXT           "ms",IDC_STATIC,156,73,9,8
+    LTEXT           "ms",IDC_STATIC,156,89,9,8
+    LTEXT           "ms",IDC_STATIC,156,105,9,8
+END
+
 
 #ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
@@ -331,17 +357,20 @@ VS_VERSION_INFO VERSIONINFO
 BEGIN
     BLOCK "StringFileInfo"
     BEGIN
-        BLOCK "080404B0"
+        BLOCK "080404b0"
         BEGIN
+            VALUE "Comments", "\0"
             VALUE "CompanyName", "\0"
             VALUE "FileDescription", "MyComm Microsoft 基础类应用程序\0"
             VALUE "FileVersion", "1, 0, 0, 1\0"
-            VALUE "InternalName", "MyComm\0"
+            VALUE "InternalName", "LSDComm\0"
             VALUE "LegalCopyright", "版权所有 (C) 2007\0"
             VALUE "LegalTrademarks", "\0"
-            VALUE "OriginalFilename", "MyComm.EXE\0"
-            VALUE "ProductName", "MyComm 应用程序\0"
+            VALUE "OriginalFilename", "LSDComm.EXE\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "LSDComm 应用程序\0"
             VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "SpecialBuild", "\0"
         END
     END
     BLOCK "VarFileInfo"
@@ -383,6 +412,14 @@ BEGIN
         RIGHTMARGIN, 244
         TOPMARGIN, 7
         BOTTOMMARGIN, 349
+    END
+
+    IDD_DLGADVANCED, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 203
+        TOPMARGIN, 6
+        BOTTOMMARGIN, 175
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -765,12 +802,12 @@ IDB_BITMAPOPENCOM       BITMAP  DISCARDABLE     "res\\bmp00001.bmp"
 
 STRINGTABLE PRELOAD DISCARDABLE 
 BEGIN
-    IDR_MAINFRAME           "MyComm\n\nMyComm\nMyComm 文件 (*.comm)\n.comm\nMyComm.Document\nMyComm Document"
+    IDR_MAINFRAME           "LSDComm\n\nLSDComm\nLSDComm 文件 (*.comm)\n.comm\nLSDComm.Document\nLSDComm Document"
 END
 
 STRINGTABLE PRELOAD DISCARDABLE 
 BEGIN
-    AFX_IDS_APP_TITLE       "MyComm"
+    AFX_IDS_APP_TITLE       "LSDComm"
     AFX_IDS_IDLEMESSAGE     "就绪"
 END
 

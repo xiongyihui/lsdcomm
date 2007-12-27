@@ -21,6 +21,7 @@ IMPLEMENT_DYNCREATE(CMyCommView, CFormView)
 BEGIN_MESSAGE_MAP(CMyCommView, CFormView)
 	//{{AFX_MSG_MAP(CMyCommView)
 	ON_BN_CLICKED(IDC_BTOPENCOMM, OnBtopencomm)
+	ON_BN_CLICKED(IDC_BTADVANCED, OnBtadvanced)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -98,6 +99,7 @@ void CMyCommView::DoRefreshControl(void)
 	GetDlgItem(IDC_BTCOMMAND_F)->EnableWindow(myAction);
 	GetDlgItem(IDC_BTCOMMAND_G)->EnableWindow(myAction);
 	GetDlgItem(IDC_BTCOMMAND_H)->EnableWindow(myAction);
+	
 
 	// com param
 	GetDlgItem(IDC_CBCOM)->EnableWindow(!myAction);
@@ -105,6 +107,7 @@ void CMyCommView::DoRefreshControl(void)
 	GetDlgItem(IDC_CBDATABITS)->EnableWindow(!myAction);
 	GetDlgItem(IDC_CBPARITY)->EnableWindow(!myAction);
 	GetDlgItem(IDC_CBSTOPBITS)->EnableWindow(!myAction);
+	GetDlgItem(IDC_BTADVANCED)->EnableWindow(!myAction);
     //GetDlgItem(IDC_STATICCOMIMG)->VisielbWindow(!m_ComAction);
 }
 
@@ -138,4 +141,63 @@ void CMyCommView::OnBtopencomm()
 		GetDocument()->m_ComAction = TRUE;
 	}
 	DoRefreshControl();
+}
+
+int CMyCommView::DoStr2Hex(CString str,char* data)
+{
+	int t,t1;
+	int rlen=0,len=str.GetLength();
+	for (int i=0;i<len;)
+	{
+		char l,h=str[i];
+		if(h==' ')
+		{
+			i++;
+			continue;
+		}
+		i++;
+		if(i>=len) break;
+		l=str[i];
+		t=DoHexChar(h);
+		t1=DoHexChar(l);
+		if((t==16)||(t1=16)) break;
+		else t=t*16+t1;
+		i++;
+		data[rlen]=(char)t;
+		rlen++;
+	}
+	return rlen;
+}
+
+char CMyCommView::DoHexChar(char c)
+{
+	if((c>='0')&&(c<='9'))
+		return c-0x30;
+	else if((c>='A')&&(c<='F'))
+		return c-'A'+10;
+	else if((c>='a')&&(c<='f'))
+		return c-'a'+10;
+	else
+		return 0x10;
+}
+
+void CMyCommView::OnBtadvanced() 
+{
+	// TODO: Add your control notification handler code here
+	CCommAdvancedDlg dlg;
+	
+	dlg.m_dwoReadInter       = GetDocument()->m_CommTimeout.ReadIntervalTimeout;
+	dlg.m_dwoReadTotalMult   = GetDocument()->m_CommTimeout.ReadTotalTimeoutMultiplier;
+	dlg.m_dwoReadTotalConst  = GetDocument()->m_CommTimeout.ReadTotalTimeoutConstant;
+	dlg.m_dwoWriteTotalMult  = GetDocument()->m_CommTimeout.WriteTotalTimeoutMultiplier;
+	dlg.m_dwoWriteTotalConst = GetDocument()->m_CommTimeout.WriteTotalTimeoutConstant;
+	if (dlg.DoModal()==IDOK)
+	{
+		GetDocument()->m_CommTimeout.ReadIntervalTimeout = 	dlg.m_dwoReadInter;
+		GetDocument()->m_CommTimeout.ReadTotalTimeoutMultiplier = dlg.m_dwoReadTotalMult;
+		GetDocument()->m_CommTimeout.ReadTotalTimeoutConstant = dlg.m_dwoReadTotalConst;
+		GetDocument()->m_CommTimeout.WriteTotalTimeoutMultiplier = dlg.m_dwoWriteTotalMult;
+		GetDocument()->m_CommTimeout.WriteTotalTimeoutConstant = dlg.m_dwoWriteTotalConst;
+	}
+
 }

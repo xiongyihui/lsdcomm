@@ -16,6 +16,14 @@ struct CommCommand {
 	CString m_strCommand;
 } ;
 
+struct CommTimeout{
+	DWORD ReadIntervalTimeout;
+	DWORD ReadTotalTimeoutMultiplier;
+	DWORD ReadTotalTimeoutConstant;
+	DWORD WriteTotalTimeoutMultiplier;
+	DWORD WriteTotalTimeoutConstant;
+};
+
 class CMyCommDoc : public CDocument
 {
 protected: // create from serialization only
@@ -30,7 +38,11 @@ public:
 	int m_intBaudRate;
 	int m_intStopBits;
 	int m_intParity   ;  //ะฃั้ฮป 0 ,1,2 
+	CommTimeout m_CommTimeout;
 	CommCommand m_Command[20];
+
+	CString m_strReceiveData;
+	CString m_strSendData;
 
 // Operations
 public:

@@ -2,25 +2,27 @@
 
 [General Info]
 Version=1
-LastClass=CCommandDlg
+LastClass=CCommAdvancedDlg
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "MyComm.h"
 LastPage=0
 
-ClassCount=6
+ClassCount=7
 Class1=CMyCommApp
 Class2=CMyCommDoc
 Class3=CMyCommView
 Class4=CMainFrame
 
-ResourceCount=4
-Resource1=IDD_MYCOMM_FORM
+ResourceCount=5
+Resource1=IDD_ABOUTBOX
 Resource2=IDR_MAINFRAME
 Class5=CAboutDlg
-Resource3=IDD_ABOUTBOX
+Resource3=IDD_MYCOMM_FORM
 Class6=CCommandDlg
 Resource4=IDD_DLGCOMMAND
+Class7=CCommAdvancedDlg
+Resource5=IDD_DLGADVANCED
 
 [CLS:CMyCommApp]
 Type=0
@@ -112,7 +114,7 @@ CommandCount=13
 [DLG:IDD_MYCOMM_FORM]
 Type=1
 Class=CMyCommView
-ControlCount=26
+ControlCount=27
 Control1=IDC_STATIC,button,1342177287
 Control2=IDC_STATIC,button,1342177287
 Control3=IDC_STATIC,button,1342177287
@@ -139,6 +141,7 @@ Control23=IDC_CBPARITY,combobox,1344340226
 Control24=IDC_CBSTOPBITS,combobox,1344340226
 Control25=IDC_BTOPENCOMM,button,1342242816
 Control26=IDC_BMPCOM,static,1342177550
+Control27=IDC_BTADVANCED,button,1342242816
 
 [DLG:IDD_DLGCOMMAND]
 Type=1
@@ -234,5 +237,37 @@ ImplementationFile=CommandDlg.cpp
 BaseClass=CDialog
 Filter=D
 LastObject=IDC_CBSHUT_1
+VirtualFilter=dWC
+
+[DLG:IDD_DLGADVANCED]
+Type=1
+Class=CCommAdvancedDlg
+ControlCount=18
+Control1=IDOK,button,1342242817
+Control2=IDCANCEL,button,1342242816
+Control3=IDC_STATIC,button,1342177287
+Control4=IDC_STATIC,static,1342308352
+Control5=IDC_STATIC,static,1342308352
+Control6=IDC_STATIC,static,1342308352
+Control7=IDC_STATIC,static,1342308352
+Control8=IDC_STATIC,static,1342308352
+Control9=IDC_EDREADINTER,edit,1350631552
+Control10=IDC_EDREADTOTALMUL,edit,1350631552
+Control11=IDC_EDREATOTALCONST,edit,1350631552
+Control12=IDC_EDWRITETOTALMUL,edit,1350631552
+Control13=IDC_EDWRITETOTALCONST,edit,1350631552
+Control14=IDC_STATIC,static,1342308352
+Control15=IDC_STATIC,static,1342308352
+Control16=IDC_STATIC,static,1342308352
+Control17=IDC_STATIC,static,1342308352
+Control18=IDC_STATIC,static,1342308352
+
+[CLS:CCommAdvancedDlg]
+Type=0
+HeaderFile=CommAdvancedDlg.h
+ImplementationFile=CommAdvancedDlg.cpp
+BaseClass=CDialog
+Filter=D
+LastObject=IDC_EDREADINTER
 VirtualFilter=dWC
 

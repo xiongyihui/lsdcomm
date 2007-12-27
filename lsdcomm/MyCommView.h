@@ -8,7 +8,7 @@
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
-
+#include "CommAdvancedDlg.h"
 
 class CMyCommView : public CFormView
 {
@@ -49,11 +49,14 @@ public:
 
 protected:
 	void DoRefreshControl();
+	int DoStr2Hex(CString str,char* data);
+	char DoHexChar(char c);
 // Generated message map functions
 protected:
 	
 	//{{AFX_MSG(CMyCommView)
 	afx_msg void OnBtopencomm();
+	afx_msg void OnBtadvanced();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

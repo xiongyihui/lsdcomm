@@ -10,6 +10,7 @@
 #endif // _MSC_VER > 1000
 
 #include "CommandDlg.h"
+#include "MyCommDoc.h"
 
 class CMainFrame : public CFrameWnd
 {
