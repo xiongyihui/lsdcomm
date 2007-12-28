@@ -47,6 +47,7 @@ void CMyCommView::DoDataExchange(CDataExchange* pDX)
 {
 	CFormView::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CMyCommView)
+	DDX_Control(pDX, IDC_EDRECDATA, m_ctrlRecEdit);
 	DDX_Control(pDX, IDC_CHSENDHEX, m_ctrlSendHex);
 	DDX_Control(pDX, IDC_CHREVHEX, m_ctrlReceiveHex);
 	DDX_Control(pDX, IDC_BMPCOM, m_ctrlComImg);

@@ -6,13 +6,13 @@
 --------------------Configuration: MyComm - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\lsy.LSD\LOCALS~1\Temp\RSP3A6.tmp" with contents
+Creating temporary file "C:\DOCUME~1\lsy.LSD\LOCALS~1\Temp\RSPF26.tmp" with contents
 [
 /nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/MyComm.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"D:\lsdcomm\MyCommView.cpp"
+"D:\lsdcomm\LineNumberEdit.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\lsy.LSD\LOCALS~1\Temp\RSP3A6.tmp" 
-Creating temporary file "C:\DOCUME~1\lsy.LSD\LOCALS~1\Temp\RSP3A7.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\lsy.LSD\LOCALS~1\Temp\RSPF26.tmp" 
+Creating temporary file "C:\DOCUME~1\lsy.LSD\LOCALS~1\Temp\RSPF27.tmp" with contents
 [
 /nologo /subsystem:windows /incremental:yes /pdb:"Debug/MyComm.pdb" /debug /machine:I386 /out:"Debug/MyComm.exe" /pdbtype:sept 
 .\Debug\CommAdvancedDlg.obj
@@ -24,11 +24,12 @@ Creating temporary file "C:\DOCUME~1\lsy.LSD\LOCALS~1\Temp\RSP3A7.tmp" with cont
 .\Debug\SerialPort.obj
 .\Debug\StdAfx.obj
 .\Debug\MyComm.res
+.\Debug\LineNumberEdit.obj
 ]
-Creating command line "link.exe @C:\DOCUME~1\lsy.LSD\LOCALS~1\Temp\RSP3A7.tmp"
+Creating command line "link.exe @C:\DOCUME~1\lsy.LSD\LOCALS~1\Temp\RSPF27.tmp"
 <h3>Output Window</h3>
 Compiling...
-MyCommView.cpp
+LineNumberEdit.cpp
 Linking...
 
 

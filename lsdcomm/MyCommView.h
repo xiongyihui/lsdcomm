@@ -9,6 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 #include "CommAdvancedDlg.h"
+#include "LineNumberEdit.h"
 
 class CMyCommView : public CFormView
 {
@@ -19,6 +20,7 @@ protected: // create from serialization only
 public:
 	//{{AFX_DATA(CMyCommView)
 	enum { IDD = IDD_MYCOMM_FORM };
+	CLineNumberEdit	m_ctrlRecEdit;
 	CButton	m_ctrlSendHex;
 	CButton	m_ctrlReceiveHex;
 	CStatic	m_ctrlComImg;

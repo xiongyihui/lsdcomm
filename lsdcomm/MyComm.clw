@@ -15,12 +15,12 @@ Class3=CMyCommView
 Class4=CMainFrame
 
 ResourceCount=5
-Resource1=IDD_MYCOMM_FORM
-Resource2=IDR_MAINFRAME
+Resource1=IDD_DLGCOMMAND
+Resource2=IDD_ABOUTBOX
 Class5=CAboutDlg
-Resource3=IDD_DLGCOMMAND
+Resource3=IDR_MAINFRAME
 Class6=CCommandDlg
-Resource4=IDD_ABOUTBOX
+Resource4=IDD_MYCOMM_FORM
 Class7=CCommAdvancedDlg
 Resource5=IDD_DLGADVANCED
 
