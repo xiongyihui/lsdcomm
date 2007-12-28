@@ -43,6 +43,11 @@
 #define IDC_CBSHUT_3                    1028
 #define IDC_EDWRITETOTALMUL             1028
 #define IDC_EDWRITETOTALCONST           1029
+#define IDC_CHHEX_1                     1029
+#define IDC_CHHEX_2                     1030
+#define IDC_CHREVHEX                    1030
+#define IDC_CHHEX_3                     1031
+#define IDC_CHSENDHEX                   1031
 #define IDC_EDNAME_4                    1032
 #define IDC_EDCOMMAND_4                 1033
 #define IDC_CBSHUT_4                    1034
@@ -94,6 +99,23 @@
 #define IDC_EDNAME_20                   1080
 #define IDC_EDCOMMAND_20                1081
 #define IDC_CBSHUT_20                   1082
+#define IDC_CHHEX_4                     1083
+#define IDC_CHHEX_5                     1084
+#define IDC_CHHEX_6                     1085
+#define IDC_CHHEX_7                     1086
+#define IDC_CHHEX_8                     1087
+#define IDC_CHHEX_9                     1088
+#define IDC_CHHEX_10                    1089
+#define IDC_CHHEX_11                    1090
+#define IDC_CHHEX_12                    1091
+#define IDC_CHHEX_13                    1092
+#define IDC_CHHEX_14                    1093
+#define IDC_CHHEX_15                    1094
+#define IDC_CHHEX_16                    1095
+#define IDC_CHHEX_17                    1096
+#define IDC_CHHEX_18                    1097
+#define IDC_CHHEX_19                    1098
+#define IDC_CHHEX_20                    1099
 #define ID_EDIT_COMMAND                 32771
 
 // Next default values for new objects
@@ -103,7 +125,7 @@
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        137
 #define _APS_NEXT_COMMAND_VALUE         32772
-#define _APS_NEXT_CONTROL_VALUE         1026
+#define _APS_NEXT_CONTROL_VALUE         1032
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

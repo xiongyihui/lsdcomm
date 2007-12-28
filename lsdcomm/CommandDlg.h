@@ -79,6 +79,26 @@ public:
 	CString	m_chrShut_7;
 	CString	m_chrShut_8;
 	CString	m_chrShut_9;
+	BOOL	m_IsHex_1;
+	BOOL	m_IsHex_10;
+	BOOL	m_IsHex_11;
+	BOOL	m_IsHex_12;
+	BOOL	m_IsHex_13;
+	BOOL	m_IsHex_14;
+	BOOL	m_IsHex_15;
+	BOOL	m_IsHex_16;
+	BOOL	m_IsHex_17;
+	BOOL	m_IsHex_18;
+	BOOL	m_IsHex_19;
+	BOOL	m_IsHex_2;
+	BOOL	m_IsHex_20;
+	BOOL	m_IsHex_3;
+	BOOL	m_IsHex_4;
+	BOOL	m_IsHex_5;
+	BOOL	m_IsHex_6;
+	BOOL	m_IsHex_7;
+	BOOL	m_IsHex_8;
+	BOOL	m_IsHex_9;
 	//}}AFX_DATA
 
 

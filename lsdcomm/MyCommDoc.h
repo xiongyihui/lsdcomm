@@ -14,6 +14,7 @@ struct CommCommand {
 	CString m_strName;
 	char m_ShutChar;
 	CString m_strCommand;
+	BOOL  m_IsHex;  //is Hex
 } ;
 
 struct CommTimeout{
@@ -40,6 +41,9 @@ public:
 	int m_intParity   ;  //ะฃั้ฮป 0 ,1,2 
 	CommTimeout m_CommTimeout;
 	CommCommand m_Command[20];
+
+	BOOL m_IsReceiveHex;
+	BOOL m_IsSendHex;
 
 	CString m_strReceiveData;
 	CString m_strSendData;

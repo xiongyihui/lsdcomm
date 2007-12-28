@@ -139,82 +139,103 @@ void CMainFrame::OnEditCommand()
 	dlg.m_strName_1    = Doc->m_Command[0].m_strName;
 	dlg.m_strCommand_1 = Doc->m_Command[0].m_strCommand;
 	dlg.m_chrShut_1    = Doc->m_Command[0].m_ShutChar;
+	dlg.m_IsHex_1      = Doc->m_Command[0].m_IsHex;
 
 	dlg.m_strName_2    = Doc->m_Command[1].m_strName;
 	dlg.m_strCommand_2 = Doc->m_Command[1].m_strCommand;
 	dlg.m_chrShut_2    = Doc->m_Command[1].m_ShutChar;
+	dlg.m_IsHex_2      = Doc->m_Command[1].m_IsHex;
 
 	dlg.m_strName_3    = Doc->m_Command[2].m_strName;
 	dlg.m_strCommand_3 = Doc->m_Command[2].m_strCommand;
 	dlg.m_chrShut_3    = Doc->m_Command[2].m_ShutChar;
+	dlg.m_IsHex_3      = Doc->m_Command[2].m_IsHex;
 
 	dlg.m_strName_4    = Doc->m_Command[3].m_strName;
 	dlg.m_strCommand_4 = Doc->m_Command[3].m_strCommand;
 	dlg.m_chrShut_4    = Doc->m_Command[3].m_ShutChar;
+	dlg.m_IsHex_4      = Doc->m_Command[3].m_IsHex;
 
 	dlg.m_strName_5    = Doc->m_Command[4].m_strName;
 	dlg.m_strCommand_5 = Doc->m_Command[4].m_strCommand;
 	dlg.m_chrShut_5    = Doc->m_Command[4].m_ShutChar;
+	dlg.m_IsHex_5      = Doc->m_Command[4].m_IsHex;
 
 	dlg.m_strName_6    = Doc->m_Command[5].m_strName;
 	dlg.m_strCommand_6 = Doc->m_Command[5].m_strCommand;
 	dlg.m_chrShut_6    = Doc->m_Command[5].m_ShutChar;
+	dlg.m_IsHex_6      = Doc->m_Command[5].m_IsHex;
 	
 	dlg.m_strName_7    = Doc->m_Command[6].m_strName;
 	dlg.m_strCommand_7 = Doc->m_Command[6].m_strCommand;
 	dlg.m_chrShut_7    = Doc->m_Command[6].m_ShutChar;
+	dlg.m_IsHex_7      = Doc->m_Command[6].m_IsHex;
 	
 	dlg.m_strName_8    = Doc->m_Command[7].m_strName;
 	dlg.m_strCommand_8 = Doc->m_Command[7].m_strCommand;
 	dlg.m_chrShut_8    = Doc->m_Command[7].m_ShutChar;
+	dlg.m_IsHex_8      = Doc->m_Command[7].m_IsHex;
 	
 	dlg.m_strName_9    = Doc->m_Command[8].m_strName;
 	dlg.m_strCommand_9 = Doc->m_Command[8].m_strCommand;
 	dlg.m_chrShut_9    = Doc->m_Command[8].m_ShutChar;
+	dlg.m_IsHex_9      = Doc->m_Command[8].m_IsHex;
 
 	dlg.m_strName_10    = Doc->m_Command[9].m_strName;
 	dlg.m_strCommand_10 = Doc->m_Command[9].m_strCommand;
 	dlg.m_chrShut_10    = Doc->m_Command[9].m_ShutChar;
+	dlg.m_IsHex_10      = Doc->m_Command[9].m_IsHex;
 
 	dlg.m_strName_11    = Doc->m_Command[10].m_strName;
 	dlg.m_strCommand_11 = Doc->m_Command[10].m_strCommand;
 	dlg.m_chrShut_11    = Doc->m_Command[10].m_ShutChar;
+	dlg.m_IsHex_11      = Doc->m_Command[10].m_IsHex;
 
 	dlg.m_strName_12    = Doc->m_Command[11].m_strName;
 	dlg.m_strCommand_12 = Doc->m_Command[11].m_strCommand;
 	dlg.m_chrShut_12    = Doc->m_Command[11].m_ShutChar;
+	dlg.m_IsHex_12      = Doc->m_Command[11].m_IsHex;
 	
 	dlg.m_strName_13    = Doc->m_Command[12].m_strName;
 	dlg.m_strCommand_13 = Doc->m_Command[12].m_strCommand;
 	dlg.m_chrShut_13    = Doc->m_Command[12].m_ShutChar;
+	dlg.m_IsHex_13      = Doc->m_Command[12].m_IsHex;
+
 
 	dlg.m_strName_14    = Doc->m_Command[13].m_strName;
 	dlg.m_strCommand_14 = Doc->m_Command[13].m_strCommand;
 	dlg.m_chrShut_14    = Doc->m_Command[13].m_ShutChar;
+	dlg.m_IsHex_14      = Doc->m_Command[13].m_IsHex;
 
 	dlg.m_strName_15    = Doc->m_Command[14].m_strName;
 	dlg.m_strCommand_15 = Doc->m_Command[14].m_strCommand;
 	dlg.m_chrShut_15    = Doc->m_Command[14].m_ShutChar;
+	dlg.m_IsHex_15      = Doc->m_Command[14].m_IsHex;
 
 	dlg.m_strName_16    = Doc->m_Command[15].m_strName;
 	dlg.m_strCommand_16 = Doc->m_Command[15].m_strCommand;
 	dlg.m_chrShut_16    = Doc->m_Command[15].m_ShutChar;
+	dlg.m_IsHex_16      = Doc->m_Command[15].m_IsHex;
 
 	dlg.m_strName_17    = Doc->m_Command[16].m_strName;
 	dlg.m_strCommand_17 = Doc->m_Command[16].m_strCommand;
 	dlg.m_chrShut_17    = Doc->m_Command[16].m_ShutChar;
+	dlg.m_IsHex_17      = Doc->m_Command[16].m_IsHex;
 
 	dlg.m_strName_18    = Doc->m_Command[17].m_strName;
 	dlg.m_strCommand_18 = Doc->m_Command[17].m_strCommand;
 	dlg.m_chrShut_18    = Doc->m_Command[17].m_ShutChar;
+	dlg.m_IsHex_18      = Doc->m_Command[17].m_IsHex;
 
 	dlg.m_strName_19    = Doc->m_Command[18].m_strName;
 	dlg.m_strCommand_19 = Doc->m_Command[18].m_strCommand;
 	dlg.m_chrShut_19    = Doc->m_Command[18].m_ShutChar;
+	dlg.m_IsHex_19      = Doc->m_Command[18].m_IsHex;
 
 	dlg.m_strName_20    = Doc->m_Command[19].m_strName;
 	dlg.m_strCommand_20 = Doc->m_Command[19].m_strCommand;
 	dlg.m_chrShut_20    = Doc->m_Command[19].m_ShutChar;
+    dlg.m_IsHex_20      = Doc->m_Command[19].m_IsHex;
 
 	if (dlg.DoModal()==IDOK)
 	{
@@ -224,6 +245,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[0].m_ShutChar   = dlg.m_chrShut_1[0]; //如长度有问题
 		else
 			Doc->m_Command[0].m_ShutChar   =  0x00;
+		Doc->m_Command[0].m_IsHex = dlg.m_IsHex_1;
 
 		Doc->m_Command[1].m_strName    = dlg.m_strName_2;
 		Doc->m_Command[1].m_strCommand = dlg.m_strCommand_2;
@@ -231,6 +253,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[1].m_ShutChar   = dlg.m_chrShut_2[0]; //如长度有问题
 		else
 			Doc->m_Command[1].m_ShutChar   =  0x00;
+		Doc->m_Command[1].m_IsHex = dlg.m_IsHex_2;
 
 		Doc->m_Command[2].m_strName    = dlg.m_strName_3;
 		Doc->m_Command[2].m_strCommand = dlg.m_strCommand_3;
@@ -238,6 +261,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[2].m_ShutChar   = dlg.m_chrShut_3[0]; //如长度有问题
 		else
 			Doc->m_Command[2].m_ShutChar   =  0x00;
+		Doc->m_Command[2].m_IsHex = dlg.m_IsHex_3;
 
 		Doc->m_Command[3].m_strName    = dlg.m_strName_4;
 		Doc->m_Command[3].m_strCommand = dlg.m_strCommand_4;
@@ -245,6 +269,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[3].m_ShutChar   = dlg.m_chrShut_4[0]; //如长度有问题
 		else
 			Doc->m_Command[3].m_ShutChar   =  0x00;
+		Doc->m_Command[3].m_IsHex = dlg.m_IsHex_4;
 
 		Doc->m_Command[4].m_strName    = dlg.m_strName_5;
 		Doc->m_Command[4].m_strCommand = dlg.m_strCommand_5;
@@ -252,6 +277,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[4].m_ShutChar   = dlg.m_chrShut_5[0]; //如长度有问题
 		else
 			Doc->m_Command[4].m_ShutChar   =  0x00;
+		Doc->m_Command[4].m_IsHex = dlg.m_IsHex_5;
 
 		Doc->m_Command[5].m_strName    = dlg.m_strName_6;
 		Doc->m_Command[5].m_strCommand = dlg.m_strCommand_6;
@@ -259,6 +285,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[5].m_ShutChar   = dlg.m_chrShut_6[0]; //如长度有问题
 		else
 			Doc->m_Command[5].m_ShutChar   =  0x00;
+		Doc->m_Command[5].m_IsHex = dlg.m_IsHex_6;
 
 		Doc->m_Command[6].m_strName    = dlg.m_strName_7;
 		Doc->m_Command[6].m_strCommand = dlg.m_strCommand_7;
@@ -266,6 +293,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[6].m_ShutChar   = dlg.m_chrShut_7[0]; //如长度有问题
 		else
 			Doc->m_Command[6].m_ShutChar   =  0x00;
+		Doc->m_Command[6].m_IsHex = dlg.m_IsHex_7;
 
 		Doc->m_Command[7].m_strName    = dlg.m_strName_8;
 		Doc->m_Command[7].m_strCommand = dlg.m_strCommand_8;
@@ -273,6 +301,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[7].m_ShutChar   = dlg.m_chrShut_8[0]; //如长度有问题
 		else
 			Doc->m_Command[7].m_ShutChar   =  0x00;
+		Doc->m_Command[7].m_IsHex = dlg.m_IsHex_8;
 
 		Doc->m_Command[8].m_strName    = dlg.m_strName_9;
 		Doc->m_Command[8].m_strCommand = dlg.m_strCommand_9;
@@ -280,6 +309,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[8].m_ShutChar   = dlg.m_chrShut_9[0]; //如长度有问题
 		else
 			Doc->m_Command[8].m_ShutChar   =  0x00;
+		Doc->m_Command[8].m_IsHex = dlg.m_IsHex_9;
 
 		Doc->m_Command[9].m_strName    = dlg.m_strName_10;
 		Doc->m_Command[9].m_strCommand = dlg.m_strCommand_10;
@@ -287,6 +317,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[9].m_ShutChar   = dlg.m_chrShut_10[0]; //如长度有问题
 		else
 			Doc->m_Command[9].m_ShutChar   =  0x00;
+		Doc->m_Command[9].m_IsHex = dlg.m_IsHex_10;
 
 		Doc->m_Command[10].m_strName    = dlg.m_strName_11;
 		Doc->m_Command[10].m_strCommand = dlg.m_strCommand_11;
@@ -294,6 +325,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[10].m_ShutChar   = dlg.m_chrShut_11[0]; //如长度有问题
 		else
 			Doc->m_Command[10].m_ShutChar   =  0x00;
+		Doc->m_Command[10].m_IsHex = dlg.m_IsHex_11;
 
 		Doc->m_Command[11].m_strName    = dlg.m_strName_12;
 		Doc->m_Command[11].m_strCommand = dlg.m_strCommand_12;
@@ -301,6 +333,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[11].m_ShutChar   = dlg.m_chrShut_12[0]; //如长度有问题
 		else
 			Doc->m_Command[11].m_ShutChar   =  0x00;
+		Doc->m_Command[11].m_IsHex = dlg.m_IsHex_12;
 
 		Doc->m_Command[12].m_strName    = dlg.m_strName_13;
 		Doc->m_Command[12].m_strCommand = dlg.m_strCommand_13;
@@ -308,6 +341,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[12].m_ShutChar   = dlg.m_chrShut_13[0]; //如长度有问题
 		else
 			Doc->m_Command[12].m_ShutChar   =  0x00;
+		Doc->m_Command[12].m_IsHex = dlg.m_IsHex_13;
 
 		Doc->m_Command[13].m_strName    = dlg.m_strName_14;
 		Doc->m_Command[13].m_strCommand = dlg.m_strCommand_14;
@@ -315,6 +349,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[13].m_ShutChar   = dlg.m_chrShut_14[0]; //如长度有问题
 		else
 			Doc->m_Command[13].m_ShutChar   =  0x00;
+		Doc->m_Command[13].m_IsHex = dlg.m_IsHex_14;
 
 		Doc->m_Command[14].m_strName    = dlg.m_strName_15;
 		Doc->m_Command[14].m_strCommand = dlg.m_strCommand_15;
@@ -322,6 +357,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[14].m_ShutChar   = dlg.m_chrShut_15[0]; //如长度有问题
 		else
 			Doc->m_Command[14].m_ShutChar   =  0x00;
+		Doc->m_Command[14].m_IsHex = dlg.m_IsHex_15;
 
 		Doc->m_Command[15].m_strName    = dlg.m_strName_16;
 		Doc->m_Command[15].m_strCommand = dlg.m_strCommand_16;
@@ -329,6 +365,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[15].m_ShutChar   = dlg.m_chrShut_16[0]; //如长度有问题
 		else
 			Doc->m_Command[15].m_ShutChar   =  0x00;
+		Doc->m_Command[15].m_IsHex = dlg.m_IsHex_16;
 
 		Doc->m_Command[16].m_strName    = dlg.m_strName_17;
 		Doc->m_Command[16].m_strCommand = dlg.m_strCommand_17;
@@ -336,6 +373,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[16].m_ShutChar   = dlg.m_chrShut_17[0]; //如长度有问题
 		else
 			Doc->m_Command[16].m_ShutChar   =  0x00;
+		Doc->m_Command[16].m_IsHex = dlg.m_IsHex_17;
 
 		Doc->m_Command[17].m_strName    = dlg.m_strName_18;
 		Doc->m_Command[17].m_strCommand = dlg.m_strCommand_18;
@@ -343,6 +381,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[17].m_ShutChar   = dlg.m_chrShut_18[0]; //如长度有问题
 		else
 			Doc->m_Command[17].m_ShutChar   =  0x00;
+		Doc->m_Command[17].m_IsHex = dlg.m_IsHex_18;
 
 		Doc->m_Command[18].m_strName    = dlg.m_strName_19;
 		Doc->m_Command[18].m_strCommand = dlg.m_strCommand_19;
@@ -350,6 +389,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[18].m_ShutChar   = dlg.m_chrShut_19[0]; //如长度有问题
 		else
 			Doc->m_Command[18].m_ShutChar   =  0x00;
+		Doc->m_Command[18].m_IsHex = dlg.m_IsHex_19;
 
 		Doc->m_Command[19].m_strName    = dlg.m_strName_20;
 		Doc->m_Command[19].m_strCommand = dlg.m_strCommand_20;
@@ -357,6 +397,7 @@ void CMainFrame::OnEditCommand()
 			Doc->m_Command[19].m_ShutChar   = dlg.m_chrShut_20[0]; //如长度有问题
 		else
 			Doc->m_Command[19].m_ShutChar   =  0x00;
+		Doc->m_Command[19].m_IsHex = dlg.m_IsHex_20;
 
 		
 	}

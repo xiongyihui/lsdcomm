@@ -79,6 +79,26 @@ CCommandDlg::CCommandDlg(CWnd* pParent /*=NULL*/)
 	m_chrShut_7 = _T("");
 	m_chrShut_8 = _T("");
 	m_chrShut_9 = _T("");
+	m_IsHex_1 = FALSE;
+	m_IsHex_10 = FALSE;
+	m_IsHex_11 = FALSE;
+	m_IsHex_12 = FALSE;
+	m_IsHex_13 = FALSE;
+	m_IsHex_14 = FALSE;
+	m_IsHex_15 = FALSE;
+	m_IsHex_16 = FALSE;
+	m_IsHex_17 = FALSE;
+	m_IsHex_18 = FALSE;
+	m_IsHex_19 = FALSE;
+	m_IsHex_2 = FALSE;
+	m_IsHex_20 = FALSE;
+	m_IsHex_3 = FALSE;
+	m_IsHex_4 = FALSE;
+	m_IsHex_5 = FALSE;
+	m_IsHex_6 = FALSE;
+	m_IsHex_7 = FALSE;
+	m_IsHex_8 = FALSE;
+	m_IsHex_9 = FALSE;
 	//}}AFX_DATA_INIT
 }
 
@@ -147,6 +167,26 @@ void CCommandDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_CBString(pDX, IDC_CBSHUT_7, m_chrShut_7);
 	DDX_CBString(pDX, IDC_CBSHUT_8, m_chrShut_8);
 	DDX_CBString(pDX, IDC_CBSHUT_9, m_chrShut_9);
+	DDX_Check(pDX, IDC_CHHEX_1, m_IsHex_1);
+	DDX_Check(pDX, IDC_CHHEX_10, m_IsHex_10);
+	DDX_Check(pDX, IDC_CHHEX_11, m_IsHex_11);
+	DDX_Check(pDX, IDC_CHHEX_12, m_IsHex_12);
+	DDX_Check(pDX, IDC_CHHEX_13, m_IsHex_13);
+	DDX_Check(pDX, IDC_CHHEX_14, m_IsHex_14);
+	DDX_Check(pDX, IDC_CHHEX_15, m_IsHex_15);
+	DDX_Check(pDX, IDC_CHHEX_16, m_IsHex_16);
+	DDX_Check(pDX, IDC_CHHEX_17, m_IsHex_17);
+	DDX_Check(pDX, IDC_CHHEX_18, m_IsHex_18);
+	DDX_Check(pDX, IDC_CHHEX_19, m_IsHex_19);
+	DDX_Check(pDX, IDC_CHHEX_2, m_IsHex_2);
+	DDX_Check(pDX, IDC_CHHEX_20, m_IsHex_20);
+	DDX_Check(pDX, IDC_CHHEX_3, m_IsHex_3);
+	DDX_Check(pDX, IDC_CHHEX_4, m_IsHex_4);
+	DDX_Check(pDX, IDC_CHHEX_5, m_IsHex_5);
+	DDX_Check(pDX, IDC_CHHEX_6, m_IsHex_6);
+	DDX_Check(pDX, IDC_CHHEX_7, m_IsHex_7);
+	DDX_Check(pDX, IDC_CHHEX_8, m_IsHex_8);
+	DDX_Check(pDX, IDC_CHHEX_9, m_IsHex_9);
 	//}}AFX_DATA_MAP
 }
 

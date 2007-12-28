@@ -2,7 +2,7 @@
 
 [General Info]
 Version=1
-LastClass=CCommAdvancedDlg
+LastClass=CCommandDlg
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "MyComm.h"
@@ -16,13 +16,13 @@ Class4=CMainFrame
 
 ResourceCount=5
 Resource1=IDD_ABOUTBOX
-Resource2=IDR_MAINFRAME
+Resource2=IDD_DLGADVANCED
 Class5=CAboutDlg
-Resource3=IDD_MYCOMM_FORM
+Resource3=IDD_DLGCOMMAND
 Class6=CCommandDlg
-Resource4=IDD_DLGCOMMAND
+Resource4=IDR_MAINFRAME
 Class7=CCommAdvancedDlg
-Resource5=IDD_DLGADVANCED
+Resource5=IDD_MYCOMM_FORM
 
 [CLS:CMyCommApp]
 Type=0
@@ -114,7 +114,7 @@ CommandCount=13
 [DLG:IDD_MYCOMM_FORM]
 Type=1
 Class=CMyCommView
-ControlCount=27
+ControlCount=29
 Control1=IDC_STATIC,button,1342177287
 Control2=IDC_STATIC,button,1342177287
 Control3=IDC_STATIC,button,1342177287
@@ -132,21 +132,23 @@ Control14=IDC_BTSEND,button,1342242816
 Control15=IDC_STATIC,static,1342308352
 Control16=IDC_CBCOM,combobox,1344340034
 Control17=IDC_STATIC,static,1342308352
-Control18=IDC_CBBANDRATE,combobox,1344340226
+Control18=IDC_CBBANDRATE,combobox,1344339970
 Control19=IDC_STATIC,static,1342308352
 Control20=IDC_CBDATABITS,combobox,1344340226
 Control21=IDC_STATIC,static,1342308352
 Control22=IDC_STATIC,static,1342308352
-Control23=IDC_CBPARITY,combobox,1344340226
-Control24=IDC_CBSTOPBITS,combobox,1344340226
+Control23=IDC_CBPARITY,combobox,1344339971
+Control24=IDC_CBSTOPBITS,combobox,1344339971
 Control25=IDC_BTOPENCOMM,button,1342242816
 Control26=IDC_BMPCOM,static,1342177550
 Control27=IDC_BTADVANCED,button,1342242816
+Control28=IDC_CHREVHEX,button,1342242819
+Control29=IDC_CHSENDHEX,button,1342242819
 
 [DLG:IDD_DLGCOMMAND]
 Type=1
 Class=CCommandDlg
-ControlCount=82
+ControlCount=105
 Control1=IDOK,button,1342242817
 Control2=IDCANCEL,button,1342242816
 Control3=IDC_EDNAME_1,edit,1350631552
@@ -229,6 +231,29 @@ Control79=IDC_EDNAME_20,edit,1350631552
 Control80=IDC_EDCOMMAND_20,edit,1350631552
 Control81=IDC_CBSHUT_20,combobox,1344340034
 Control82=IDC_STATIC,static,1342308352
+Control83=IDC_CHHEX_1,button,1342242819
+Control84=IDC_CHHEX_2,button,1342242819
+Control85=IDC_CHHEX_3,button,1342242819
+Control86=IDC_CHHEX_4,button,1342242819
+Control87=IDC_CHHEX_5,button,1342242819
+Control88=IDC_CHHEX_6,button,1342242819
+Control89=IDC_CHHEX_7,button,1342242819
+Control90=IDC_CHHEX_8,button,1342242819
+Control91=IDC_CHHEX_9,button,1342242819
+Control92=IDC_CHHEX_10,button,1342242819
+Control93=IDC_CHHEX_11,button,1342242819
+Control94=IDC_CHHEX_12,button,1342242819
+Control95=IDC_CHHEX_13,button,1342242819
+Control96=IDC_CHHEX_14,button,1342242819
+Control97=IDC_CHHEX_15,button,1342242819
+Control98=IDC_CHHEX_16,button,1342242819
+Control99=IDC_CHHEX_17,button,1342242819
+Control100=IDC_CHHEX_18,button,1342242819
+Control101=IDC_CHHEX_19,button,1342242819
+Control102=IDC_CHHEX_20,button,1342242819
+Control103=IDC_STATIC,static,1342308352
+Control104=IDC_STATIC,static,1342308352
+Control105=IDC_STATIC,static,1342308352
 
 [CLS:CCommandDlg]
 Type=0

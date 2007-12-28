@@ -31,6 +31,13 @@ CMyCommDoc::CMyCommDoc()
 {
 	// TODO: add one-time construction code here
 	m_ComAction = FALSE;
+	m_IsReceiveHex = FALSE;
+	m_IsSendHex = FALSE;
+	m_CommTimeout.ReadIntervalTimeout = 1000;
+	m_CommTimeout.ReadTotalTimeoutMultiplier = 1000;
+	m_CommTimeout.ReadTotalTimeoutConstant = 1000;
+	m_CommTimeout.WriteTotalTimeoutMultiplier = 1000;
+	m_CommTimeout.WriteTotalTimeoutConstant = 1000;
 }
 
 CMyCommDoc::~CMyCommDoc()
@@ -68,7 +75,13 @@ void CMyCommDoc::Serialize(CArchive& ar)
 		ar<<m_intStopBits;
 		ar<<m_intStopBits;
 		ar<<m_intParity;
-
+		
+		//Timeout
+		ar<<m_CommTimeout.ReadIntervalTimeout;
+		ar<<m_CommTimeout.ReadTotalTimeoutMultiplier;
+		ar<<m_CommTimeout.ReadTotalTimeoutConstant;
+		ar<<m_CommTimeout.WriteTotalTimeoutMultiplier;
+		ar<<m_CommTimeout.WriteTotalTimeoutConstant;
 		
 		count = 20;
 		ar<<count;
@@ -79,6 +92,10 @@ void CMyCommDoc::Serialize(CArchive& ar)
 			ar<<m_Command[i].m_strCommand;
 					
 		};
+
+		ar<<m_IsReceiveHex;
+		ar<<m_IsSendHex;
+
 				
 	}
 	else
@@ -91,6 +108,13 @@ void CMyCommDoc::Serialize(CArchive& ar)
 		ar>>m_intStopBits;
 		ar>>m_intParity;
 
+		//Timeout
+		ar>>m_CommTimeout.ReadIntervalTimeout;
+		ar>>m_CommTimeout.ReadTotalTimeoutMultiplier;
+		ar>>m_CommTimeout.ReadTotalTimeoutConstant;
+		ar>>m_CommTimeout.WriteTotalTimeoutMultiplier;
+		ar>>m_CommTimeout.WriteTotalTimeoutConstant;
+
 		ar>>count;
 		for(int i=0;i<count-1;i++)
 		{
@@ -98,6 +122,10 @@ void CMyCommDoc::Serialize(CArchive& ar)
 			ar>>m_Command[i].m_ShutChar;
 			ar>>m_Command[i].m_strCommand;
 		};
+
+		ar>>m_IsReceiveHex;
+		ar>>m_IsSendHex;
+
 	};
 }
 
