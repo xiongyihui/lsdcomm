@@ -29,6 +29,7 @@ public:
 	CButton	m_ctrlSendHex;
 	CButton	m_ctrlReceiveHex;
 	CStatic	m_ctrlComImg;
+	CString	m_strSendData;
 	//}}AFX_DATA
 
 // Attributes
@@ -70,6 +71,11 @@ protected:
 	afx_msg void OnBtadvanced();
 	afx_msg void OnChrevhex();
 	afx_msg void OnChsendhex();
+	afx_msg LONG OnComm(WPARAM ch,LPARAM port);
+	afx_msg void OnBtSend();
+	afx_msg void OnChviewprotocol();
+	afx_msg void OnBtviewprotocol();
+	afx_msg void OnBtclearreceivedata();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

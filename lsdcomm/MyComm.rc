@@ -95,7 +95,8 @@ BEGIN
         MENUITEM "复制(&C)\tCtrl+C",            ID_EDIT_COPY
         MENUITEM "粘贴(&P)\tCtrl+V",            ID_EDIT_PASTE
         MENUITEM SEPARATOR
-        MENUITEM "命令行编辑",                  ID_EDIT_COMMAND
+        MENUITEM "命令行编辑...",               ID_EDIT_COMMAND
+        MENUITEM "通信协议内容...",             IDC_EDIT_PROTOCOL
     END
     POPUP "查看(&V)"
     BEGIN
@@ -189,6 +190,8 @@ BEGIN
                     WS_TABSTOP,15,140,40,10
     CONTROL         "16进制",IDC_CHSENDHEX,"Button",BS_AUTOCHECKBOX | 
                     WS_TABSTOP,15,240,40,10
+    PUSHBUTTON      "显示协议",IDC_BTVIEWPROTOCOL,50,200,50,14
+    PUSHBUTTON      "清除显示",IDC_BTCLEARRECEIVEDATA,50,180,50,14
 END
 
 IDD_DLGCOMMAND DIALOGEX 0, 0, 294, 375
@@ -383,6 +386,17 @@ BEGIN
     LTEXT           "ms",IDC_STATIC,156,105,9,8
 END
 
+IDD_DLGPROTOCOL DIALOG DISCARDABLE  0, 0, 456, 306
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "通信协议"
+FONT 9, "宋体"
+BEGIN
+    DEFPUSHBUTTON   "确定(&O)",IDOK,334,285,50,14
+    PUSHBUTTON      "取消(&C)",IDCANCEL,393,285,50,14
+    EDITTEXT        IDC_EDIT,13,13,430,265,ES_MULTILINE | ES_AUTOHSCROLL | 
+                    WS_VSCROLL | WS_HSCROLL
+END
+
 
 #ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
@@ -468,6 +482,14 @@ BEGIN
         RIGHTMARGIN, 203
         TOPMARGIN, 6
         BOTTOMMARGIN, 175
+    END
+
+    IDD_DLGPROTOCOL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 449
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 299
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -993,6 +1015,8 @@ END
 STRINGTABLE DISCARDABLE 
 BEGIN
     ID_EDIT_COMMAND         "按通信的协议编辑命令指令"
+    IDC_EDITPROTOCOL        "记录通信协议以便随时查看"
+    IDC_EDIT_PROTOCOL       "编辑通信协议便于随时查看"
 END
 
 #endif    // Chinese (P.R.C.) resources

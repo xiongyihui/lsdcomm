@@ -24,6 +24,10 @@ BEGIN_MESSAGE_MAP(CMyCommView, CFormView)
 	ON_BN_CLICKED(IDC_BTADVANCED, OnBtadvanced)
 	ON_BN_CLICKED(IDC_CHREVHEX, OnChrevhex)
 	ON_BN_CLICKED(IDC_CHSENDHEX, OnChsendhex)
+	ON_BN_CLICKED(IDC_BTSEND, OnBtSend)
+	ON_BN_CLICKED(IDC_EDIT_PROTOCOL, OnChviewprotocol)
+	ON_BN_CLICKED(IDC_BTVIEWPROTOCOL, OnBtviewprotocol)
+	ON_BN_CLICKED(IDC_BTCLEARRECEIVEDATA, OnBtclearreceivedata)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -34,6 +38,7 @@ CMyCommView::CMyCommView()
 	: CFormView(CMyCommView::IDD)
 {
 	//{{AFX_DATA_INIT(CMyCommView)
+	m_strSendData = _T("");
 	//}}AFX_DATA_INIT
 	// TODO: add construction code here
 
@@ -56,6 +61,7 @@ void CMyCommView::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CHSENDHEX, m_ctrlSendHex);
 	DDX_Control(pDX, IDC_CHREVHEX, m_ctrlReceiveHex);
 	DDX_Control(pDX, IDC_BMPCOM, m_ctrlComImg);
+	DDX_Text(pDX, IDC_EDSENDDATA, m_strSendData);
 	//}}AFX_DATA_MAP
 }
 
@@ -106,7 +112,7 @@ void CMyCommView::OnInitialUpdate()
 	m_ctrlStopBits.SetCurSel(GetDocument()->m_intStopBits); 
 			
 
-		
+	DoRefreshControl(FALSE);	
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -346,3 +352,65 @@ BOOL CMyCommView::DoIsNumeric(const CString &strText)
 	return   bRet;  
 }
 
+LONG CMyCommView::OnComm(WPARAM ch,LPARAM port)
+{
+	if (m_ctrlReceiveHex.GetCheck())
+	{
+		CString str;
+		str.Format("%X",ch);
+		m_ctrlRecEdit.ReplaceSel(str);
+		
+	}
+	else{
+	//	m_ctrlRecEdit.ReplaceSel(ch);
+	}
+	
+	UpdateData(FALSE);
+	return 0;
+}
+
+void CMyCommView::OnBtSend() 
+{
+	// TODO: Add your control notification handler code here
+	UpdateData(TRUE);
+	
+	if(m_ctrlSendHex.GetCheck())
+	{
+		char data[512];
+		int len=DoStr2Hex(m_strSendData,data);
+		GetDocument()->m_Comm.WriteToPort(data,len);
+		GetDocument()->TX_count+=(long)((m_strSendData.GetLength()+1)/3);
+	}
+	else 
+	{
+		GetDocument()->m_Comm.WriteToPort((LPCTSTR)m_strSendData);	//发送数据
+		GetDocument()->TX_count+=m_strSendData.GetLength();
+	}
+	
+}
+
+void CMyCommView::OnChviewprotocol() 
+{
+	// TODO: Add your control notification handler code here
+	
+}
+
+void CMyCommView::OnBtviewprotocol() 
+{
+	// TODO: Add your control notification handler code here
+	if (!GetDocument()->m_strProtocol.IsEmpty())
+	{
+		m_ctrlRecEdit.ReplaceSel(GetDocument()->m_strProtocol);	
+	}
+	else{
+		m_ctrlRecEdit.ReplaceSel("无协议内容\n\r");
+	}
+	
+}
+
+void CMyCommView::OnBtclearreceivedata() 
+{
+	// TODO: Add your control notification handler code here
+	m_ctrlRecEdit.Clear();
+	
+}

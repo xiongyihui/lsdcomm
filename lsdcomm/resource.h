@@ -10,6 +10,7 @@
 #define IDB_BITMAPOPENCOM               132
 #define IDD_DLGCOMMAND                  134
 #define IDD_DLGADVANCED                 136
+#define IDD_DLGPROTOCOL                 137
 #define IDC_EDRECDATA                   1000
 #define IDC_EDSENDDATA                  1001
 #define IDC_BTCOMMAND_A                 1002
@@ -49,9 +50,12 @@
 #define IDC_CHHEX_3                     1031
 #define IDC_CHSENDHEX                   1031
 #define IDC_EDNAME_4                    1032
+#define IDC_EDIT                        1032
 #define IDC_EDCOMMAND_4                 1033
 #define IDC_CBSHUT_4                    1034
+#define IDC_BTVIEWPROTOCOL              1034
 #define IDC_EDNAME_5                    1035
+#define IDC_BTCLEARRECEIVEDATA          1035
 #define IDC_EDCOMMAND_5                 1036
 #define IDC_CBSHUT_5                    1037
 #define IDC_EDNAME_6                    1038
@@ -117,15 +121,17 @@
 #define IDC_CHHEX_19                    1098
 #define IDC_CHHEX_20                    1099
 #define ID_EDIT_COMMAND                 32771
+#define IDC_EDITPROTOCOL                32772
+#define IDC_EDIT_PROTOCOL               32774
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        137
-#define _APS_NEXT_COMMAND_VALUE         32772
-#define _APS_NEXT_CONTROL_VALUE         1032
+#define _APS_NEXT_RESOURCE_VALUE        138
+#define _APS_NEXT_COMMAND_VALUE         32775
+#define _APS_NEXT_CONTROL_VALUE         1036
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

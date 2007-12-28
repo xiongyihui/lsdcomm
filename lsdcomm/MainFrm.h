@@ -11,6 +11,7 @@
 
 #include "CommandDlg.h"
 #include "MyCommDoc.h"
+#include "ProtocolEditDlg.h"
 
 class CMainFrame : public CFrameWnd
 {
@@ -51,6 +52,7 @@ protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnClose();
 	afx_msg void OnEditCommand();
+	afx_msg void OnEditProtocol();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

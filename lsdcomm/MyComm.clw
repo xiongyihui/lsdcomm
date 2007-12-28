@@ -2,27 +2,29 @@
 
 [General Info]
 Version=1
-LastClass=CMyCommView
+LastClass=CMainFrame
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "MyComm.h"
 LastPage=0
 
-ClassCount=7
+ClassCount=8
 Class1=CMyCommApp
 Class2=CMyCommDoc
 Class3=CMyCommView
 Class4=CMainFrame
 
-ResourceCount=5
+ResourceCount=6
 Resource1=IDD_DLGCOMMAND
-Resource2=IDD_ABOUTBOX
+Resource2=IDR_MAINFRAME
 Class5=CAboutDlg
 Resource3=IDD_MYCOMM_FORM
 Class6=CCommandDlg
-Resource4=IDR_MAINFRAME
+Resource4=IDD_ABOUTBOX
 Class7=CCommAdvancedDlg
 Resource5=IDD_DLGADVANCED
+Class8=CProtocolEditDlg
+Resource6=IDD_DLGPROTOCOL
 
 [CLS:CMyCommApp]
 Type=0
@@ -54,7 +56,7 @@ ImplementationFile=MainFrm.cpp
 Filter=T
 BaseClass=CFrameWnd
 VirtualFilter=fWC
-LastObject=ID_EDIT_COMMAND
+LastObject=IDC_EDIT_PROTOCOL
 
 
 
@@ -89,9 +91,10 @@ Command8=ID_EDIT_CUT
 Command9=ID_EDIT_COPY
 Command10=ID_EDIT_PASTE
 Command11=ID_EDIT_COMMAND
-Command12=ID_VIEW_STATUS_BAR
-Command13=ID_APP_ABOUT
-CommandCount=13
+Command12=IDC_EDIT_PROTOCOL
+Command13=ID_VIEW_STATUS_BAR
+Command14=ID_APP_ABOUT
+CommandCount=14
 
 [ACL:IDR_MAINFRAME]
 Type=1
@@ -114,7 +117,7 @@ CommandCount=13
 [DLG:IDD_MYCOMM_FORM]
 Type=1
 Class=CMyCommView
-ControlCount=29
+ControlCount=31
 Control1=IDC_STATIC,button,1342177287
 Control2=IDC_STATIC,button,1342177287
 Control3=IDC_STATIC,button,1342177287
@@ -144,6 +147,8 @@ Control26=IDC_BMPCOM,static,1342177550
 Control27=IDC_BTADVANCED,button,1342242816
 Control28=IDC_CHREVHEX,button,1342242819
 Control29=IDC_CHSENDHEX,button,1342242819
+Control30=IDC_BTVIEWPROTOCOL,button,1342242816
+Control31=IDC_BTCLEARRECEIVEDATA,button,1342242816
 
 [DLG:IDD_DLGCOMMAND]
 Type=1
@@ -294,5 +299,21 @@ ImplementationFile=CommAdvancedDlg.cpp
 BaseClass=CDialog
 Filter=D
 LastObject=IDC_EDREADINTER
+VirtualFilter=dWC
+
+[DLG:IDD_DLGPROTOCOL]
+Type=1
+Class=CProtocolEditDlg
+ControlCount=3
+Control1=IDOK,button,1342242817
+Control2=IDCANCEL,button,1342242816
+Control3=IDC_EDIT,edit,1353777284
+
+[CLS:CProtocolEditDlg]
+Type=0
+HeaderFile=ProtocolEditDlg.h
+ImplementationFile=ProtocolEditDlg.cpp
+BaseClass=CDialog
+Filter=D
 VirtualFilter=dWC
 

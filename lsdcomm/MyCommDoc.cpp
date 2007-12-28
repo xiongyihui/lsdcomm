@@ -38,13 +38,16 @@ CMyCommDoc::CMyCommDoc()
 	m_cParity     ='N';
 	m_intStopBits = 0;
 
-	m_IsReceiveHex = FALSE;
-	m_IsSendHex = FALSE;
+	m_IsReceiveHex = TRUE;
+	m_IsSendHex = TRUE;
 	m_CommTimeout.ReadIntervalTimeout = 1000;
 	m_CommTimeout.ReadTotalTimeoutMultiplier = 1000;
 	m_CommTimeout.ReadTotalTimeoutConstant = 1000;
 	m_CommTimeout.WriteTotalTimeoutMultiplier = 1000;
 	m_CommTimeout.WriteTotalTimeoutConstant = 1000;
+
+	TX_count = 0;
+	RX_count = 0;
 }
 
 CMyCommDoc::~CMyCommDoc()
@@ -103,6 +106,7 @@ void CMyCommDoc::Serialize(CArchive& ar)
 
 		ar<<m_IsReceiveHex;
 		ar<<m_IsSendHex;
+		ar<<m_strProtocol;
 
 				
 	}
@@ -134,6 +138,7 @@ void CMyCommDoc::Serialize(CArchive& ar)
 
 		ar>>m_IsReceiveHex;
 		ar>>m_IsSendHex;
+		ar>>m_strProtocol;
 
 	};
 }

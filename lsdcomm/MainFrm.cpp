@@ -22,6 +22,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_WM_CLOSE()
 	ON_COMMAND(ID_EDIT_COMMAND, OnEditCommand)
+	ON_COMMAND(IDC_EDIT_PROTOCOL, OnEditProtocol)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -401,4 +402,29 @@ void CMainFrame::OnEditCommand()
 
 		
 	}
+}
+
+// TODO: Add your command handler code here
+//
+
+// TODO: Add your command handler code here
+//
+//CMyCommDoc   *Doc   =  (CMyCommDoc   *)GetActiveDocument();
+//CProtocolEditDlg dlg;
+//dlg.m_Edit = Doc->m_strProtocol;
+//if(dlg.DoModal()==IDOK)
+//{
+//	Doc->m_strProtocol = dlg.m_Edit;/
+	//}		
+
+
+void CMainFrame::OnEditProtocol() 
+{
+	CMyCommDoc   *Doc   =  (CMyCommDoc   *)GetActiveDocument();
+	CProtocolEditDlg dlg;
+	dlg.m_Edit = Doc->m_strProtocol;
+	if(dlg.DoModal()==IDOK)
+	{
+		Doc->m_strProtocol = dlg.m_Edit;
+	}	
 }

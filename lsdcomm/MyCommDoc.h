@@ -48,6 +48,9 @@ public:
 
 	CString m_strReceiveData;
 	CString m_strSendData;
+	CString m_strProtocol;
+	LONG  TX_count;
+	LONG  RX_count;
 
 // Operations
 public:

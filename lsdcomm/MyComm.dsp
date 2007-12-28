@@ -122,6 +122,10 @@ SOURCE=.\MyCommView.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\ProtocolEditDlg.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SerialPort.cpp
 # End Source File
 # Begin Source File
@@ -160,6 +164,10 @@ SOURCE=.\MyCommDoc.h
 # Begin Source File
 
 SOURCE=.\MyCommView.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\ProtocolEditDlg.h
 # End Source File
 # Begin Source File
 
