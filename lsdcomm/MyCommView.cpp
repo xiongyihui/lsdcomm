@@ -47,6 +47,11 @@ void CMyCommView::DoDataExchange(CDataExchange* pDX)
 {
 	CFormView::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CMyCommView)
+	DDX_Control(pDX, IDC_CBSTOPBITS, m_ctrlStopBits);
+	DDX_Control(pDX, IDC_CBPARITY, m_ctrlParity);
+	DDX_Control(pDX, IDC_CBDATABITS, m_ctrlDataBits);
+	DDX_Control(pDX, IDC_CBCOM, m_ctrlCOM);
+	DDX_Control(pDX, IDC_CBBANDRATE, m_ctrlBaudRate);
 	DDX_Control(pDX, IDC_EDRECDATA, m_ctrlRecEdit);
 	DDX_Control(pDX, IDC_CHSENDHEX, m_ctrlSendHex);
 	DDX_Control(pDX, IDC_CHREVHEX, m_ctrlReceiveHex);
@@ -64,12 +69,43 @@ BOOL CMyCommView::PreCreateWindow(CREATESTRUCT& cs)
 
 void CMyCommView::OnInitialUpdate()
 {
+	ModifyStyleEx(0,  WS_EX_STATICEDGE);
+    ModifyStyleEx(WS_EX_CLIENTEDGE,0 );
 	CFormView::OnInitialUpdate();
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
 
 	m_ctrlReceiveHex.SetCheck(GetDocument()->m_IsReceiveHex);
 	m_ctrlSendHex.SetCheck(GetDocument()->m_IsSendHex);
+	CString mystr;
+	m_ctrlCOM.SetCurSel(GetDocument()->m_intPort-1);
+	mystr.Format("%d",GetDocument()->m_intBaudRate); 
+	m_ctrlBaudRate.SetCurSel(m_ctrlBaudRate.FindString(0,mystr));
+	mystr.Format("%d",GetDocument()->m_intDataBits);
+	m_ctrlDataBits.SetCurSel(m_ctrlDataBits.FindString(0,mystr));
+
+	switch(GetDocument()->m_cParity)
+	{
+		case 'N':
+			m_ctrlParity.SetCurSel(0);
+			break;
+		case 'O':
+			m_ctrlParity.SetCurSel(1);
+			break;
+		case 'E':
+			m_ctrlParity.SetCurSel(2);
+			break;
+		case 'M':
+			m_ctrlParity.SetCurSel(3);
+			break;
+		case 'S':
+			m_ctrlParity.SetCurSel(4);
+			break;
+
+	}
+	m_ctrlStopBits.SetCurSel(GetDocument()->m_intStopBits); 
+			
+
 		
 }
 
@@ -93,10 +129,10 @@ CMyCommDoc* CMyCommView::GetDocument() // non-debug version is inline
 	return (CMyCommDoc*)m_pDocument;
 }
 
-void CMyCommView::DoRefreshControl(void)
+void CMyCommView::DoRefreshControl(BOOL bValue)
 {
 	// send botton
-	BOOL myAction = GetDocument()->m_ComAction;
+	BOOL myAction = bValue;
 	GetDlgItem(IDC_BTSEND)->EnableWindow(myAction);
 	GetDlgItem(IDC_BTCOMMAND_A)->EnableWindow(myAction);
 	GetDlgItem(IDC_BTCOMMAND_B)->EnableWindow(myAction);
@@ -128,7 +164,7 @@ void CMyCommView::OnBtopencomm()
 	// TODO: Add your control notification handler code here
 	if (GetDocument()->m_ComAction) 
 	{
-		GetDocument()->m_Comm.ClosePort();
+		GetDocument()->CloseComm();
 
 		CBitmap myBitmap;
 		myBitmap.LoadBitmap(IDB_BITMAPCLOSECOM);
@@ -136,18 +172,75 @@ void CMyCommView::OnBtopencomm()
 		CButton * myb = ((CButton *)this->GetDlgItem(IDC_BTOPENCOMM));
 		myb->SetWindowText(_T("打开串口"));
 		GetDocument()->m_ComAction = FALSE;
+		DoRefreshControl(FALSE);
 	}
 	else{
-		GetDocument()->m_Comm.InitPort(this);
+		
+		CString mystr;
+		char myc;		
 
-		CBitmap myBitmap;
-		myBitmap.LoadBitmap(IDB_BITMAPOPENCOM);
-		m_ctrlComImg.SetBitmap(myBitmap);
-		CButton * myb = ((CButton *)this->GetDlgItem(IDC_BTOPENCOMM));
-		myb->SetWindowText(_T("关闭串口"));
-		GetDocument()->m_ComAction = TRUE;
+		if (m_ctrlCOM.GetCurSel()<0) 
+		{
+			AfxMessageBox("请选择串口");
+			return ;
+		}	
+		GetDocument()->m_intPort = m_ctrlCOM.GetCurSel()+1;
+		m_ctrlBaudRate.GetWindowText(mystr);
+		if (!DoIsNumeric(mystr)) 
+		{	
+			AfxMessageBox("请选择波特率");
+			return;
+		}	
+		GetDocument()->m_intBaudRate = atoi(mystr);
+		m_ctrlDataBits.GetWindowText(mystr);
+		if (!DoIsNumeric(mystr)) 
+		{
+			AfxMessageBox("请选择数据位");
+			return;
+		}	
+		GetDocument()->m_intDataBits = atoi(mystr);
+		
+		myc = 'N';
+		int i=m_ctrlParity.GetCurSel();
+		switch(i)
+		{
+		case 0:
+			myc='N';
+			break;
+		case 1:
+			myc='O';
+			break;
+		case 2:
+			myc='E';
+			break;
+		case 3:
+			myc='M';
+			break;
+		case 4:
+			myc='S';
+			break;
+		}
+		GetDocument()->m_cParity=myc;
+		
+		if (m_ctrlStopBits.GetCurSel()<0) 
+		{
+			AfxMessageBox("请选择停止位");
+			return;
+		}	
+		GetDocument()->m_intStopBits = m_ctrlStopBits.GetCurSel();  //index 表示
+		
+		if (GetDocument()->OpenComm(this))
+		{	
+			CBitmap myBitmap;
+			myBitmap.LoadBitmap(IDB_BITMAPOPENCOM);
+			m_ctrlComImg.SetBitmap(myBitmap);
+			CButton * myb = ((CButton *)this->GetDlgItem(IDC_BTOPENCOMM));
+			myb->SetWindowText(_T("关闭串口"));
+			GetDocument()->m_ComAction = TRUE;
+			DoRefreshControl(TRUE);
+		}
 	}
-	DoRefreshControl();
+	
 }
 
 int CMyCommView::DoStr2Hex(CString str,char* data)
@@ -174,6 +267,7 @@ int CMyCommView::DoStr2Hex(CString str,char* data)
 		rlen++;
 	}
 	return rlen;
+	
 }
 
 char CMyCommView::DoHexChar(char c)
@@ -226,3 +320,29 @@ void CMyCommView::OnChsendhex()
 	else
 		GetDocument()->m_IsSendHex = FALSE;			
 }
+
+void CMyCommView::OnDraw(CDC* pDC) 
+{
+	// TODO: Add your specialized code here and/or call the base class
+	
+}
+
+
+BOOL CMyCommView::DoIsNumeric(const CString &strText)
+{
+	BOOL  bRet=TRUE;  
+	int   nLen=strText.GetLength();  
+	if(strText.IsEmpty())  
+	{  
+		bRet =  FALSE;
+	} 
+	
+	for(int i=0;i<nLen;i++)  
+	{  
+		bRet=(_istdigit(strText.GetAt(i)) != 0);  
+		if(!bRet)  
+			break;  
+	}  
+	return   bRet;  
+}
+

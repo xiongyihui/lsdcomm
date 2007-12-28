@@ -31,6 +31,13 @@ CMyCommDoc::CMyCommDoc()
 {
 	// TODO: add one-time construction code here
 	m_ComAction = FALSE;
+
+	m_intPort     = 1;
+	m_intBaudRate = 9600;
+	m_intDataBits = 8;
+	m_cParity     ='N';
+	m_intStopBits = 0;
+
 	m_IsReceiveHex = FALSE;
 	m_IsSendHex = FALSE;
 	m_CommTimeout.ReadIntervalTimeout = 1000;
@@ -74,7 +81,8 @@ void CMyCommDoc::Serialize(CArchive& ar)
 		ar<<m_intBaudRate;
 		ar<<m_intStopBits;
 		ar<<m_intStopBits;
-		ar<<m_intParity;
+		ar<<m_cParity;
+		ar<<m_intDataBits;
 		
 		//Timeout
 		ar<<m_CommTimeout.ReadIntervalTimeout;
@@ -106,7 +114,8 @@ void CMyCommDoc::Serialize(CArchive& ar)
 		ar>>m_intBaudRate;
 		ar>>m_intStopBits;
 		ar>>m_intStopBits;
-		ar>>m_intParity;
+		ar>>m_cParity;
+		ar>>m_intDataBits;
 
 		//Timeout
 		ar>>m_CommTimeout.ReadIntervalTimeout;
@@ -128,6 +137,20 @@ void CMyCommDoc::Serialize(CArchive& ar)
 
 	};
 }
+
+BOOL CMyCommDoc::OpenComm(CWnd * POwner)
+{
+	if (m_Comm.InitPort(POwner,m_intPort,m_intBaudRate,m_cParity,
+		m_intDataBits,m_intStopBits) )
+		return TRUE;
+	else
+		return FALSE;
+}
+void CMyCommDoc::CloseComm()
+{
+	m_Comm.ClosePort();
+}
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CMyCommDoc diagnostics

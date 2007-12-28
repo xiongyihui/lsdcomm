@@ -37,8 +37,9 @@ public:
 	BOOL m_ComAction;
 	int m_intPort;  
 	int m_intBaudRate;
-	int m_intStopBits;
-	int m_intParity   ;  //校验位 0 ,1,2 
+	int m_intDataBits  ;  //数据位
+	char m_cParity   ;    //校验位 0 ,1,2 
+	int m_intStopBits;    // 0=1 1=1.5 2=2
 	CommTimeout m_CommTimeout;
 	CommCommand m_Command[20];
 
@@ -50,7 +51,8 @@ public:
 
 // Operations
 public:
-
+	BOOL OpenComm(CWnd * POwner);
+	void CloseComm();
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CMyCommDoc)

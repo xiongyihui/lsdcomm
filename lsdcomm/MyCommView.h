@@ -20,6 +20,11 @@ protected: // create from serialization only
 public:
 	//{{AFX_DATA(CMyCommView)
 	enum { IDD = IDD_MYCOMM_FORM };
+	CComboBox	m_ctrlStopBits;
+	CComboBox	m_ctrlParity;
+	CComboBox	m_ctrlDataBits;
+	CComboBox	m_ctrlCOM;
+	CComboBox	m_ctrlBaudRate;
 	CLineNumberEdit	m_ctrlRecEdit;
 	CButton	m_ctrlSendHex;
 	CButton	m_ctrlReceiveHex;
@@ -32,7 +37,7 @@ public:
 
 // Operations
 public:
-	
+	void DoRefreshControl(BOOL bValue);	
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CMyCommView)
@@ -41,6 +46,7 @@ public:
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	virtual void OnInitialUpdate(); // called first time after construct
+	virtual void OnDraw(CDC* pDC);
 	//}}AFX_VIRTUAL
 
 // Implementation
@@ -52,9 +58,10 @@ public:
 #endif
 
 protected:
-	void DoRefreshControl();
+	
 	int DoStr2Hex(CString str,char* data);
 	char DoHexChar(char c);
+	BOOL DoIsNumeric(const CString &strText);
 // Generated message map functions
 protected:
 	

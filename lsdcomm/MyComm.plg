@@ -6,31 +6,6 @@
 --------------------Configuration: MyComm - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\lsy.LSD\LOCALS~1\Temp\RSPF26.tmp" with contents
-[
-/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/MyComm.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"D:\lsdcomm\LineNumberEdit.cpp"
-]
-Creating command line "cl.exe @C:\DOCUME~1\lsy.LSD\LOCALS~1\Temp\RSPF26.tmp" 
-Creating temporary file "C:\DOCUME~1\lsy.LSD\LOCALS~1\Temp\RSPF27.tmp" with contents
-[
-/nologo /subsystem:windows /incremental:yes /pdb:"Debug/MyComm.pdb" /debug /machine:I386 /out:"Debug/MyComm.exe" /pdbtype:sept 
-.\Debug\CommAdvancedDlg.obj
-.\Debug\CommandDlg.obj
-.\Debug\MainFrm.obj
-.\Debug\MyComm.obj
-.\Debug\MyCommDoc.obj
-.\Debug\MyCommView.obj
-.\Debug\SerialPort.obj
-.\Debug\StdAfx.obj
-.\Debug\MyComm.res
-.\Debug\LineNumberEdit.obj
-]
-Creating command line "link.exe @C:\DOCUME~1\lsy.LSD\LOCALS~1\Temp\RSPF27.tmp"
-<h3>Output Window</h3>
-Compiling...
-LineNumberEdit.cpp
-Linking...
 
 
 

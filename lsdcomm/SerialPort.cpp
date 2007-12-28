@@ -132,7 +132,21 @@ BOOL CSerialPort::InitPort(CWnd* pPortOwner,	// the owner (CWnd) of the port (re
 
 	// prepare port strings
 	sprintf(szPort, "COM%d", portnr);
-	sprintf(szBaud, "baud=%d parity=%c data=%d stop=%d", baud, parity, databits, stopbits);
+	// stop is index 0 = 1 1=1.5 2=2
+	int mystop;
+	switch(stopbits)
+	{
+		case 0:
+			mystop = 1;
+			break;
+		case 1:
+			//mystop = 1.5;
+			break;
+		case 2:
+			mystop = 2;
+			break;
+	}
+	sprintf(szBaud, "baud=%d parity=%c data=%d stop=%d", baud, parity, databits, mystop);
 
 	// get a handle to the port
 	m_hComm = CreateFile(szPort,						// communication port string (COMX)

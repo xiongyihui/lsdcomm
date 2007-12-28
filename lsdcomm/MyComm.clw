@@ -18,9 +18,9 @@ ResourceCount=5
 Resource1=IDD_DLGCOMMAND
 Resource2=IDD_ABOUTBOX
 Class5=CAboutDlg
-Resource3=IDR_MAINFRAME
+Resource3=IDD_MYCOMM_FORM
 Class6=CCommandDlg
-Resource4=IDD_MYCOMM_FORM
+Resource4=IDR_MAINFRAME
 Class7=CCommAdvancedDlg
 Resource5=IDD_DLGADVANCED
 
@@ -44,7 +44,7 @@ ImplementationFile=MyCommView.cpp
 Filter=D
 BaseClass=CFormView
 VirtualFilter=VWC
-LastObject=IDC_CHREVHEX
+LastObject=IDC_CBCOM
 
 
 [CLS:CMainFrame]
@@ -134,7 +134,7 @@ Control16=IDC_CBCOM,combobox,1344340034
 Control17=IDC_STATIC,static,1342308352
 Control18=IDC_CBBANDRATE,combobox,1344339970
 Control19=IDC_STATIC,static,1342308352
-Control20=IDC_CBDATABITS,combobox,1344340226
+Control20=IDC_CBDATABITS,combobox,1344339970
 Control21=IDC_STATIC,static,1342308352
 Control22=IDC_STATIC,static,1342308352
 Control23=IDC_CBPARITY,combobox,1344339971
