@@ -2,7 +2,7 @@
 
 [General Info]
 Version=1
-LastClass=CCommandDlg
+LastClass=CMyCommView
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "MyComm.h"
@@ -15,14 +15,14 @@ Class3=CMyCommView
 Class4=CMainFrame
 
 ResourceCount=5
-Resource1=IDD_ABOUTBOX
-Resource2=IDD_DLGADVANCED
+Resource1=IDD_MYCOMM_FORM
+Resource2=IDR_MAINFRAME
 Class5=CAboutDlg
 Resource3=IDD_DLGCOMMAND
 Class6=CCommandDlg
-Resource4=IDR_MAINFRAME
+Resource4=IDD_ABOUTBOX
 Class7=CCommAdvancedDlg
-Resource5=IDD_MYCOMM_FORM
+Resource5=IDD_DLGADVANCED
 
 [CLS:CMyCommApp]
 Type=0
@@ -44,7 +44,7 @@ ImplementationFile=MyCommView.cpp
 Filter=D
 BaseClass=CFormView
 VirtualFilter=VWC
-LastObject=CMyCommView
+LastObject=IDC_CHREVHEX
 
 
 [CLS:CMainFrame]
@@ -261,7 +261,7 @@ HeaderFile=CommandDlg.h
 ImplementationFile=CommandDlg.cpp
 BaseClass=CDialog
 Filter=D
-LastObject=IDC_CBSHUT_1
+LastObject=CCommandDlg
 VirtualFilter=dWC
 
 [DLG:IDD_DLGADVANCED]

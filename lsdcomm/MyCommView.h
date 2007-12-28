@@ -19,6 +19,8 @@ protected: // create from serialization only
 public:
 	//{{AFX_DATA(CMyCommView)
 	enum { IDD = IDD_MYCOMM_FORM };
+	CButton	m_ctrlSendHex;
+	CButton	m_ctrlReceiveHex;
 	CStatic	m_ctrlComImg;
 	//}}AFX_DATA
 
@@ -57,6 +59,8 @@ protected:
 	//{{AFX_MSG(CMyCommView)
 	afx_msg void OnBtopencomm();
 	afx_msg void OnBtadvanced();
+	afx_msg void OnChrevhex();
+	afx_msg void OnChsendhex();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

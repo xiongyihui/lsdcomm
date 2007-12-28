@@ -22,6 +22,8 @@ BEGIN_MESSAGE_MAP(CMyCommView, CFormView)
 	//{{AFX_MSG_MAP(CMyCommView)
 	ON_BN_CLICKED(IDC_BTOPENCOMM, OnBtopencomm)
 	ON_BN_CLICKED(IDC_BTADVANCED, OnBtadvanced)
+	ON_BN_CLICKED(IDC_CHREVHEX, OnChrevhex)
+	ON_BN_CLICKED(IDC_CHSENDHEX, OnChsendhex)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -32,7 +34,6 @@ CMyCommView::CMyCommView()
 	: CFormView(CMyCommView::IDD)
 {
 	//{{AFX_DATA_INIT(CMyCommView)
-		// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
 	// TODO: add construction code here
 
@@ -46,6 +47,8 @@ void CMyCommView::DoDataExchange(CDataExchange* pDX)
 {
 	CFormView::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CMyCommView)
+	DDX_Control(pDX, IDC_CHSENDHEX, m_ctrlSendHex);
+	DDX_Control(pDX, IDC_CHREVHEX, m_ctrlReceiveHex);
 	DDX_Control(pDX, IDC_BMPCOM, m_ctrlComImg);
 	//}}AFX_DATA_MAP
 }
@@ -64,6 +67,9 @@ void CMyCommView::OnInitialUpdate()
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
 
+	m_ctrlReceiveHex.SetCheck(GetDocument()->m_IsReceiveHex);
+	m_ctrlSendHex.SetCheck(GetDocument()->m_IsSendHex);
+		
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -200,4 +206,22 @@ void CMyCommView::OnBtadvanced()
 		GetDocument()->m_CommTimeout.WriteTotalTimeoutConstant = dlg.m_dwoWriteTotalConst;
 	}
 
+}
+
+void CMyCommView::OnChrevhex() 
+{
+	// TODO: Add your control notification handler code here
+	if (m_ctrlReceiveHex.GetCheck())
+		GetDocument()->m_IsReceiveHex = TRUE;
+	else
+		GetDocument()->m_IsReceiveHex = FALSE;	
+}
+
+void CMyCommView::OnChsendhex() 
+{
+	// TODO: Add your control notification handler code here
+	if (m_ctrlSendHex.GetCheck())
+		GetDocument()->m_IsSendHex = TRUE;
+	else
+		GetDocument()->m_IsSendHex = FALSE;			
 }
