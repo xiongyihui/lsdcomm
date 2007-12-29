@@ -57,9 +57,13 @@
 #define IDC_EDNAME_5                    1035
 #define IDC_BTCLEARRECEIVEDATA          1035
 #define IDC_EDCOMMAND_5                 1036
+#define IDC_BUTTON1                     1036
 #define IDC_CBSHUT_5                    1037
+#define IDC_STATIC1                     1037
 #define IDC_EDNAME_6                    1038
+#define IDC_STATIC2                     1038
 #define IDC_EDCOMMAND_6                 1039
+#define IDC_STATIC3                     1039
 #define IDC_CBSHUT_6                    1040
 #define IDC_EDNAME_7                    1041
 #define IDC_EDCOMMAND_7                 1042
@@ -123,6 +127,7 @@
 #define ID_EDIT_COMMAND                 32771
 #define IDC_EDITPROTOCOL                32772
 #define IDC_EDIT_PROTOCOL               32774
+#define ID_EDIT_PROTOCOL                32775
 
 // Next default values for new objects
 // 
@@ -130,8 +135,8 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        138
-#define _APS_NEXT_COMMAND_VALUE         32775
-#define _APS_NEXT_CONTROL_VALUE         1036
+#define _APS_NEXT_COMMAND_VALUE         32776
+#define _APS_NEXT_CONTROL_VALUE         1040
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

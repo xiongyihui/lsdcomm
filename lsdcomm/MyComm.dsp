@@ -98,6 +98,10 @@ SOURCE=.\CommandDlg.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\ETSLayout.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\LineNumberEdit.cpp
 # End Source File
 # Begin Source File
@@ -144,6 +148,10 @@ SOURCE=.\CommAdvancedDlg.h
 # Begin Source File
 
 SOURCE=.\CommandDlg.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\ETSLayout.h
 # End Source File
 # Begin Source File
 

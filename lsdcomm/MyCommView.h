@@ -10,13 +10,13 @@
 #endif // _MSC_VER > 1000
 #include "CommAdvancedDlg.h"
 #include "LineNumberEdit.h"
+#include "ETSLayout.h"
 
-class CMyCommView : public CFormView
+class CMyCommView : public ETSLayoutFormView
 {
 protected: // create from serialization only
 	CMyCommView();
 	DECLARE_DYNCREATE(CMyCommView)
-
 public:
 	//{{AFX_DATA(CMyCommView)
 	enum { IDD = IDD_MYCOMM_FORM };
@@ -30,6 +30,7 @@ public:
 	CButton	m_ctrlReceiveHex;
 	CStatic	m_ctrlComImg;
 	CString	m_strSendData;
+	CString m_strReceiveData;
 	//}}AFX_DATA
 
 // Attributes
@@ -63,6 +64,7 @@ protected:
 	int DoStr2Hex(CString str,char* data);
 	char DoHexChar(char c);
 	BOOL DoIsNumeric(const CString &strText);
+	void DoAppendToRevEdit(CString str);
 // Generated message map functions
 protected:
 	
@@ -71,11 +73,10 @@ protected:
 	afx_msg void OnBtadvanced();
 	afx_msg void OnChrevhex();
 	afx_msg void OnChsendhex();
-	afx_msg LONG OnComm(WPARAM ch,LPARAM port);
 	afx_msg void OnBtSend();
-	afx_msg void OnChviewprotocol();
 	afx_msg void OnBtviewprotocol();
 	afx_msg void OnBtclearreceivedata();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

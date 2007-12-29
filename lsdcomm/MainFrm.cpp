@@ -22,7 +22,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_WM_CLOSE()
 	ON_COMMAND(ID_EDIT_COMMAND, OnEditCommand)
-	ON_COMMAND(IDC_EDIT_PROTOCOL, OnEditProtocol)
+	ON_COMMAND(ID_EDIT_PROTOCOL, OnEditProtocol)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -237,9 +237,10 @@ void CMainFrame::OnEditCommand()
 	dlg.m_strCommand_20 = Doc->m_Command[19].m_strCommand;
 	dlg.m_chrShut_20    = Doc->m_Command[19].m_ShutChar;
     dlg.m_IsHex_20      = Doc->m_Command[19].m_IsHex;
-
+    UpdateData(FALSE);
 	if (dlg.DoModal()==IDOK)
 	{
+		UpdateData(TRUE);
 		Doc->m_Command[0].m_strName    = dlg.m_strName_1;
 		Doc->m_Command[0].m_strCommand = dlg.m_strCommand_1;
 		if (!dlg.m_chrShut_1.IsEmpty())

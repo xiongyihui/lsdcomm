@@ -25,9 +25,9 @@ BEGIN_MESSAGE_MAP(CMyCommView, CFormView)
 	ON_BN_CLICKED(IDC_CHREVHEX, OnChrevhex)
 	ON_BN_CLICKED(IDC_CHSENDHEX, OnChsendhex)
 	ON_BN_CLICKED(IDC_BTSEND, OnBtSend)
-	ON_BN_CLICKED(IDC_EDIT_PROTOCOL, OnChviewprotocol)
 	ON_BN_CLICKED(IDC_BTVIEWPROTOCOL, OnBtviewprotocol)
 	ON_BN_CLICKED(IDC_BTCLEARRECEIVEDATA, OnBtclearreceivedata)
+	ON_WM_SIZE()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -35,7 +35,7 @@ END_MESSAGE_MAP()
 // CMyCommView construction/destruction
 
 CMyCommView::CMyCommView()
-	: CFormView(CMyCommView::IDD)
+	: ETSLayoutFormView(CMyCommView::IDD)
 {
 	//{{AFX_DATA_INIT(CMyCommView)
 	m_strSendData = _T("");
@@ -50,7 +50,7 @@ CMyCommView::~CMyCommView()
 
 void CMyCommView::DoDataExchange(CDataExchange* pDX)
 {
-	CFormView::DoDataExchange(pDX);
+	ETSLayoutFormView::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CMyCommView)
 	DDX_Control(pDX, IDC_CBSTOPBITS, m_ctrlStopBits);
 	DDX_Control(pDX, IDC_CBPARITY, m_ctrlParity);
@@ -62,6 +62,7 @@ void CMyCommView::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CHREVHEX, m_ctrlReceiveHex);
 	DDX_Control(pDX, IDC_BMPCOM, m_ctrlComImg);
 	DDX_Text(pDX, IDC_EDSENDDATA, m_strSendData);
+	DDX_Text(pDX,IDC_EDRECDATA,m_strReceiveData);
 	//}}AFX_DATA_MAP
 }
 
@@ -70,14 +71,15 @@ BOOL CMyCommView::PreCreateWindow(CREATESTRUCT& cs)
 	// TODO: Modify the Window class or styles here by modifying
 	//  the CREATESTRUCT cs
 
-	return CFormView::PreCreateWindow(cs);
+	return ETSLayoutFormView::PreCreateWindow(cs);
 }
 
 void CMyCommView::OnInitialUpdate()
 {
 	ModifyStyleEx(0,  WS_EX_STATICEDGE);
     ModifyStyleEx(WS_EX_CLIENTEDGE,0 );
-	CFormView::OnInitialUpdate();
+	
+	ETSLayoutFormView::OnInitialUpdate();
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
 
@@ -110,9 +112,41 @@ void CMyCommView::OnInitialUpdate()
 
 	}
 	m_ctrlStopBits.SetCurSel(GetDocument()->m_intStopBits); 
-			
 
 	DoRefreshControl(FALSE);	
+	
+	//layout
+	CreateRoot(VERTICAL)
+		<< 	( pane(HORIZONTAL )
+		<<( pane(VERTICAL,ABSOLUTE_VERT)
+		<< item( IDC_STATIC1, NORESIZE )
+		<< item( IDC_STATIC2, NORESIZE ))
+		<< item(IDC_EDRECDATA,GREEDY)    //revdata edit
+		)	
+		
+		//	<< item ( IDC_ITEM_LIST_STATIC, NORESIZE )
+		//	<< item ( IDC_ITEM_LIST, GREEDY )
+		
+		<<	( pane(HORIZONTAL, ABSOLUTE_VERT )
+		<< item( IDC_STATIC3, NORESIZE)
+		<< ( pane(VERTICAL,ABSOLUTE_VERT)
+		<< item( IDC_EDSENDDATA,RELATIVE_HORZ)
+		<<(pane(HORIZONTAL, ABSOLUTE_VERT)
+		<< item( IDC_BTCOMMAND_A, NORESIZE)
+		<< item( IDC_BTCOMMAND_B, NORESIZE)
+		<< item( IDC_BTCOMMAND_C, NORESIZE)
+		<< item( IDC_BTCOMMAND_D, NORESIZE)
+		<< item( IDC_BTCOMMAND_E, NORESIZE)
+		<< item( IDC_BTCOMMAND_F, NORESIZE)
+		<< item( IDC_BTCOMMAND_G, NORESIZE)
+		<< item( IDC_BTCOMMAND_H, NORESIZE)
+		<< item( IDC_BTSEND, NORESIZE)   // send button					
+				)
+		
+		));
+	
+	UpdateLayout();
+
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -121,12 +155,12 @@ void CMyCommView::OnInitialUpdate()
 #ifdef _DEBUG
 void CMyCommView::AssertValid() const
 {
-	CFormView::AssertValid();
+	ETSLayoutFormView::AssertValid();
 }
 
 void CMyCommView::Dump(CDumpContext& dc) const
 {
-	CFormView::Dump(dc);
+	ETSLayoutFormView::Dump(dc);
 }
 
 CMyCommDoc* CMyCommView::GetDocument() // non-debug version is inline
@@ -352,22 +386,25 @@ BOOL CMyCommView::DoIsNumeric(const CString &strText)
 	return   bRet;  
 }
 
+/*
 LONG CMyCommView::OnComm(WPARAM ch,LPARAM port)
 {
 	if (m_ctrlReceiveHex.GetCheck())
 	{
 		CString str;
 		str.Format("%X",ch);
-		m_ctrlRecEdit.ReplaceSel(str);
-		
+		DoAppendToRevEdit(str);
 	}
 	else{
-	//	m_ctrlRecEdit.ReplaceSel(ch);
+		CString str;
+		str.Format("%c",ch);
+		DoAppendToRevEdit(str);
 	}
 	
 	UpdateData(FALSE);
 	return 0;
 }
+*/
 
 void CMyCommView::OnBtSend() 
 {
@@ -389,28 +426,39 @@ void CMyCommView::OnBtSend()
 	
 }
 
-void CMyCommView::OnChviewprotocol() 
-{
-	// TODO: Add your control notification handler code here
-	
-}
-
 void CMyCommView::OnBtviewprotocol() 
 {
 	// TODO: Add your control notification handler code here
 	if (!GetDocument()->m_strProtocol.IsEmpty())
 	{
-		m_ctrlRecEdit.ReplaceSel(GetDocument()->m_strProtocol);	
+		DoAppendToRevEdit(GetDocument()->m_strProtocol+"\n");	
 	}
 	else{
-		m_ctrlRecEdit.ReplaceSel("无协议内容\n\r");
-	}
+		DoAppendToRevEdit("无串口通信协议内容\n");
+	}	
 	
 }
 
 void CMyCommView::OnBtclearreceivedata() 
 {
 	// TODO: Add your control notification handler code here
-	m_ctrlRecEdit.Clear();
+	m_ctrlRecEdit.SetWindowText("");
+}
+
+void CMyCommView::DoAppendToRevEdit(CString str)
+{
+	int  nLength  =  m_ctrlRecEdit.SendMessage(WM_GETTEXTLENGTH);
+	m_ctrlRecEdit.SetSel(nLength, nLength);
+	m_ctrlRecEdit.ReplaceSel(str);	
+}
+
+
+
+
+void CMyCommView::OnSize(UINT nType, int cx, int cy) 
+{
+	ETSLayoutFormView::OnSize(nType, cx, cy);
+	
+	// TODO: Add your message handler code here
 	
 }

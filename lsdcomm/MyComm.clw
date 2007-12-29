@@ -2,7 +2,7 @@
 
 [General Info]
 Version=1
-LastClass=CMainFrame
+LastClass=CMyCommView
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "MyComm.h"
@@ -15,14 +15,14 @@ Class3=CMyCommView
 Class4=CMainFrame
 
 ResourceCount=6
-Resource1=IDD_DLGCOMMAND
-Resource2=IDR_MAINFRAME
+Resource1=IDD_ABOUTBOX
+Resource2=IDD_DLGADVANCED
 Class5=CAboutDlg
 Resource3=IDD_MYCOMM_FORM
 Class6=CCommandDlg
-Resource4=IDD_ABOUTBOX
+Resource4=IDD_DLGCOMMAND
 Class7=CCommAdvancedDlg
-Resource5=IDD_DLGADVANCED
+Resource5=IDR_MAINFRAME
 Class8=CProtocolEditDlg
 Resource6=IDD_DLGPROTOCOL
 
@@ -46,7 +46,7 @@ ImplementationFile=MyCommView.cpp
 Filter=D
 BaseClass=CFormView
 VirtualFilter=VWC
-LastObject=IDC_CBCOM
+LastObject=CMyCommView
 
 
 [CLS:CMainFrame]
@@ -91,7 +91,7 @@ Command8=ID_EDIT_CUT
 Command9=ID_EDIT_COPY
 Command10=ID_EDIT_PASTE
 Command11=ID_EDIT_COMMAND
-Command12=IDC_EDIT_PROTOCOL
+Command12=ID_EDIT_PROTOCOL
 Command13=ID_VIEW_STATUS_BAR
 Command14=ID_APP_ABOUT
 CommandCount=14
@@ -118,10 +118,10 @@ CommandCount=13
 Type=1
 Class=CMyCommView
 ControlCount=31
-Control1=IDC_STATIC,button,1342177287
-Control2=IDC_STATIC,button,1342177287
-Control3=IDC_STATIC,button,1342177287
-Control4=IDC_EDRECDATA,edit,1352732804
+Control1=IDC_STATIC1,button,1342177287
+Control2=IDC_STATIC2,button,1342177287
+Control3=IDC_STATIC3,button,1342177287
+Control4=IDC_EDRECDATA,edit,1352732676
 Control5=IDC_EDSENDDATA,edit,1352732804
 Control6=IDC_BTCOMMAND_A,button,1342242816
 Control7=IDC_BTCOMMAND_B,button,1342242816
@@ -304,10 +304,12 @@ VirtualFilter=dWC
 [DLG:IDD_DLGPROTOCOL]
 Type=1
 Class=CProtocolEditDlg
-ControlCount=3
-Control1=IDOK,button,1342242817
+ControlCount=5
+Control1=IDOK,button,1342242816
 Control2=IDCANCEL,button,1342242816
 Control3=IDC_EDIT,edit,1353777284
+Control4=IDC_BUTTON1,button,1073807361
+Control5=IDC_STATIC,static,1342308352
 
 [CLS:CProtocolEditDlg]
 Type=0
@@ -316,4 +318,5 @@ ImplementationFile=ProtocolEditDlg.cpp
 BaseClass=CDialog
 Filter=D
 VirtualFilter=dWC
+LastObject=CProtocolEditDlg
 
