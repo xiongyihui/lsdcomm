@@ -117,7 +117,7 @@ void CMyCommView::OnInitialUpdate()
 	
 	//layout
 	CreateRoot(VERTICAL)
-		<< 	( pane(HORIZONTAL )
+		<< 	( pane(HORIZONTAL)
 		<<( pane(VERTICAL,ABSOLUTE_VERT)
 		<< item( IDC_STATIC1, NORESIZE )
 		<< item( IDC_STATIC2, NORESIZE ))
@@ -128,7 +128,15 @@ void CMyCommView::OnInitialUpdate()
 		//	<< item ( IDC_ITEM_LIST, GREEDY )
 		
 		<<	( pane(HORIZONTAL, ABSOLUTE_VERT )
-		<< item( IDC_STATIC3, NORESIZE)
+		//<< (paneCtrl(IDC_STATIC3,VERTICAL,GREEDY, nDefaultBorder, 10, 10)
+		<< (pane(VERTICAL)
+			//<< item( IDC_STATIC3, NORESIZE)
+			//<< itemGrowing(VERTICAL)
+			<< item (IDC_STATIC_SEND,NORESIZE)
+			<< item( IDC_CHSENDHEX,NORESIZE)
+			
+
+			)
 		<< ( pane(VERTICAL,ABSOLUTE_VERT)
 		<< item( IDC_EDSENDDATA,RELATIVE_HORZ)
 		<<(pane(HORIZONTAL, ABSOLUTE_VERT)
@@ -140,8 +148,9 @@ void CMyCommView::OnInitialUpdate()
 		<< item( IDC_BTCOMMAND_F, NORESIZE)
 		<< item( IDC_BTCOMMAND_G, NORESIZE)
 		<< item( IDC_BTCOMMAND_H, NORESIZE)
-		<< item( IDC_BTSEND, NORESIZE)   // send button					
-				)
+		<< itemGrowing (HORIZONTAL)    // bank row 
+		<< item( IDC_BTSEND, NORESIZE)   // send button ALIGN_RIGHT					
+		 )
 		
 		));
 	
@@ -451,9 +460,6 @@ void CMyCommView::DoAppendToRevEdit(CString str)
 	m_ctrlRecEdit.SetSel(nLength, nLength);
 	m_ctrlRecEdit.ReplaceSel(str);	
 }
-
-
-
 
 void CMyCommView::OnSize(UINT nType, int cx, int cy) 
 {

@@ -6,13 +6,15 @@
 #endif // _MSC_VER > 1000
 // ProtocolEditDlg.h : header file
 //
+#include "ETSLayout.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CProtocolEditDlg dialog
 
-class CProtocolEditDlg : public CDialog
+class CProtocolEditDlg : public ETSLayoutDialog
 {
 // Construction
+	DECLARE_LAYOUT();
 public:
 	CProtocolEditDlg(CWnd* pParent = NULL);   // standard constructor
 
