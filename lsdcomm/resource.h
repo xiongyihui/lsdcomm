@@ -69,6 +69,7 @@
 #define IDC_EDCOMMAND_7                 1042
 #define IDC_STATIC_1                    1042
 #define IDC_CBSHUT_7                    1043
+#define IDC_CHVIEWLINE                  1043
 #define IDC_EDNAME_8                    1044
 #define IDC_EDCOMMAND_8                 1045
 #define IDC_CBSHUT_8                    1046
@@ -137,7 +138,7 @@
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        138
 #define _APS_NEXT_COMMAND_VALUE         32776
-#define _APS_NEXT_CONTROL_VALUE         1043
+#define _APS_NEXT_CONTROL_VALUE         1044
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

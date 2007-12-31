@@ -28,6 +28,15 @@ BEGIN_MESSAGE_MAP(CMyCommView, CFormView)
 	ON_BN_CLICKED(IDC_BTVIEWPROTOCOL, OnBtviewprotocol)
 	ON_BN_CLICKED(IDC_BTCLEARRECEIVEDATA, OnBtclearreceivedata)
 	ON_WM_SIZE()
+	ON_BN_CLICKED(IDC_CHVIEWLINE, OnChviewline)
+	ON_BN_CLICKED(IDC_BTCOMMAND_A, OnBtcommandA)
+	ON_BN_CLICKED(IDC_BTCOMMAND_B, OnBtcommandB)
+	ON_BN_CLICKED(IDC_BTCOMMAND_C, OnBtcommandC)
+	ON_BN_CLICKED(IDC_BTCOMMAND_D, OnBtcommandD)
+	ON_BN_CLICKED(IDC_BTCOMMAND_E, OnBtcommandE)
+	ON_BN_CLICKED(IDC_BTCOMMAND_F, OnBtcommandF)
+	ON_BN_CLICKED(IDC_BTCOMMAND_G, OnBtcommandG)
+	ON_BN_CLICKED(IDC_BTCOMMAND_H, OnBtcommandH)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -39,9 +48,10 @@ CMyCommView::CMyCommView()
 {
 	//{{AFX_DATA_INIT(CMyCommView)
 	m_strSendData = _T("");
+	m_IsViewLine = TRUE;
 	//}}AFX_DATA_INIT
 	// TODO: add construction code here
-
+	m_hint.Create(this) ;
 }
 
 CMyCommView::~CMyCommView()
@@ -63,6 +73,7 @@ void CMyCommView::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BMPCOM, m_ctrlComImg);
 	DDX_Text(pDX, IDC_EDSENDDATA, m_strSendData);
 	DDX_Text(pDX,IDC_EDRECDATA,m_strReceiveData);
+	DDX_Check(pDX, IDC_CHVIEWLINE, m_IsViewLine);
 	//}}AFX_DATA_MAP
 }
 
@@ -112,7 +123,6 @@ void CMyCommView::OnInitialUpdate()
 
 	}
 	m_ctrlStopBits.SetCurSel(GetDocument()->m_intStopBits); 
-
 	DoRefreshControl(FALSE);	
 	
 	//layout
@@ -155,6 +165,32 @@ void CMyCommView::OnInitialUpdate()
 		));
 	
 	UpdateLayout();
+
+	//hint
+	EnableToolTips(TRUE);
+	m_hint.Activate(TRUE);
+	for(int i=0;i<20;i++)
+	{
+		if(GetDocument()->m_Command[i].m_ShutChar=='A')
+			m_hint.AddTool(GetDlgItem(IDC_BTCOMMAND_A),GetDocument()->m_Command[i].m_strName);
+		if(GetDocument()->m_Command[i].m_ShutChar=='B')
+			m_hint.AddTool(GetDlgItem(IDC_BTCOMMAND_B),GetDocument()->m_Command[i].m_strName);
+		if(GetDocument()->m_Command[i].m_ShutChar=='C')
+			m_hint.AddTool(GetDlgItem(IDC_BTCOMMAND_C),GetDocument()->m_Command[i].m_strName);
+		if(GetDocument()->m_Command[i].m_ShutChar=='D')
+			m_hint.AddTool(GetDlgItem(IDC_BTCOMMAND_D),GetDocument()->m_Command[i].m_strName);
+		if(GetDocument()->m_Command[i].m_ShutChar=='E')
+			m_hint.AddTool(GetDlgItem(IDC_BTCOMMAND_E),GetDocument()->m_Command[i].m_strName);
+		if(GetDocument()->m_Command[i].m_ShutChar=='F')
+			m_hint.AddTool(GetDlgItem(IDC_BTCOMMAND_F),GetDocument()->m_Command[i].m_strName);
+		if(GetDocument()->m_Command[i].m_ShutChar=='G')
+			m_hint.AddTool(GetDlgItem(IDC_BTCOMMAND_G),GetDocument()->m_Command[i].m_strName);
+		if(GetDocument()->m_Command[i].m_ShutChar=='H')
+			m_hint.AddTool(GetDlgItem(IDC_BTCOMMAND_H),GetDocument()->m_Command[i].m_strName);
+		
+	}
+	m_hint.SetTipTextColor(RGB(0,0,0));  
+	m_hint.SetDelayTime(100);            
 
 }
 
@@ -467,4 +503,88 @@ void CMyCommView::OnSize(UINT nType, int cx, int cy)
 	
 	// TODO: Add your message handler code here
 	
+}
+
+void CMyCommView::OnChviewline() 
+{
+	// TODO: Add your control notification handler code here
+	UpdateData(TRUE);
+	m_ctrlRecEdit.SetVisibleLine(m_IsViewLine);
+}
+
+void CMyCommView::DoRunCommand(const char ch)
+{
+	CString mystr;
+	for(int i=0;i<20;i++)
+	{
+		if (GetDocument()->m_Command[i].m_ShutChar == ch) {
+			mystr = GetDocument()->m_Command[i].m_strCommand;
+			break;
+		}	
+	}
+
+	//run command
+	if(!mystr.IsEmpty())
+	{
+		m_strSendData = mystr;
+		UpdateData(FALSE);
+		OnBtSend();
+	}
+
+	
+}
+
+void CMyCommView::OnBtcommandA() 
+{
+	// TODO: Add your control notification handler code here
+	DoRunCommand('A');
+}
+
+void CMyCommView::OnBtcommandB() 
+{
+	// TODO: Add your control notification handler code here
+	DoRunCommand('B');
+}
+
+void CMyCommView::OnBtcommandC() 
+{
+	// TODO: Add your control notification handler code here
+	DoRunCommand('C');
+}
+
+void CMyCommView::OnBtcommandD() 
+{
+	// TODO: Add your control notification handler code here
+	DoRunCommand('D');
+}
+
+void CMyCommView::OnBtcommandE() 
+{
+	// TODO: Add your control notification handler code here
+	DoRunCommand('E');
+}
+
+void CMyCommView::OnBtcommandF() 
+{
+	// TODO: Add your control notification handler code here
+	DoRunCommand('F');
+}
+
+void CMyCommView::OnBtcommandG() 
+{
+	// TODO: Add your control notification handler code here
+	DoRunCommand('G');
+}
+
+void CMyCommView::OnBtcommandH() 
+{
+	// TODO: Add your control notification handler code here
+	DoRunCommand('H');
+}
+
+BOOL CMyCommView::PreTranslateMessage(MSG* pMsg) 
+{
+	// TODO: Add your specialized code here and/or call the base class
+	m_hint.RelayEvent(pMsg);
+	return CFormView::PreTranslateMessage(pMsg);
 }

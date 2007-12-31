@@ -58,6 +58,18 @@ CSerialPort::~CSerialPort()
 //
 // Initialize the port. This can be port 1 to 4.
 //
+//
+//parity:
+//  n=none
+//  e=even
+//  o=odd
+//  m=mark
+//  s=space
+//data:
+//  5,6,7,8
+//stop:
+//  1,1.5,2 
+//
 BOOL CSerialPort::InitPort(CWnd* pPortOwner,	// the owner (CWnd) of the port (receives message)
 						   UINT  portnr,		// portnumber (1..4)
 						   UINT  baud,			// baudrate
@@ -65,7 +77,13 @@ BOOL CSerialPort::InitPort(CWnd* pPortOwner,	// the owner (CWnd) of the port (re
 						   UINT  databits,		// databits 
 						   UINT  stopbits,		// stopbits 
 						   DWORD dwCommEvents,	// EV_RXCHAR, EV_CTS etc
-						   UINT  writebuffersize)	// size to the writebuffer
+						   UINT  writebuffersize,// size to the writebuffer
+						   int   ReadIntervalTimeout,
+						   int   ReadTotalTimeoutMultiplier,
+						   int   ReadTotalTimeoutConstant,
+						   int   WriteTotalTimeoutMultiplier,
+						   int   WriteTotalTimeoutConstant )	
+
 {
 	assert(portnr > 0 && portnr < 5);
 	assert(pPortOwner != NULL);
@@ -133,20 +151,20 @@ BOOL CSerialPort::InitPort(CWnd* pPortOwner,	// the owner (CWnd) of the port (re
 	// prepare port strings
 	sprintf(szPort, "COM%d", portnr);
 	// stop is index 0 = 1 1=1.5 2=2
-	int mystop;
+	float mystop;
 	switch(stopbits)
 	{
 		case 0:
 			mystop = 1;
 			break;
 		case 1:
-			//mystop = 1.5;
+			mystop = 1.5;
 			break;
 		case 2:
 			mystop = 2;
 			break;
 	}
-	sprintf(szBaud, "baud=%d parity=%c data=%d stop=%d", baud, parity, databits, mystop);
+	sprintf(szBaud, "baud=%d parity=%c data=%d stop=%f", baud, parity, databits, mystop);
 
 	// get a handle to the port
 	m_hComm = CreateFile(szPort,						// communication port string (COMX)
@@ -167,11 +185,11 @@ BOOL CSerialPort::InitPort(CWnd* pPortOwner,	// the owner (CWnd) of the port (re
 	}
 
 	// set the timeout values
-	m_CommTimeouts.ReadIntervalTimeout = 1000;
-	m_CommTimeouts.ReadTotalTimeoutMultiplier = 1000;
-	m_CommTimeouts.ReadTotalTimeoutConstant = 1000;
-	m_CommTimeouts.WriteTotalTimeoutMultiplier = 1000;
-	m_CommTimeouts.WriteTotalTimeoutConstant = 1000;
+	m_CommTimeouts.ReadIntervalTimeout         = ReadIntervalTimeout;
+	m_CommTimeouts.ReadTotalTimeoutMultiplier  = ReadTotalTimeoutMultiplier;
+	m_CommTimeouts.ReadTotalTimeoutConstant    = ReadTotalTimeoutConstant;
+	m_CommTimeouts.WriteTotalTimeoutMultiplier = WriteTotalTimeoutMultiplier;
+	m_CommTimeouts.WriteTotalTimeoutConstant   = WriteTotalTimeoutConstant;
 
 	// configure
 	if (SetCommTimeouts(m_hComm, &m_CommTimeouts))

@@ -31,6 +31,7 @@ public:
 	CStatic	m_ctrlComImg;
 	CString	m_strSendData;
 	CString m_strReceiveData;
+	BOOL	m_IsViewLine;
 	//}}AFX_DATA
 
 // Attributes
@@ -45,6 +46,7 @@ public:
 	//{{AFX_VIRTUAL(CMyCommView)
 	public:
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	virtual void OnInitialUpdate(); // called first time after construct
@@ -60,11 +62,13 @@ public:
 #endif
 
 protected:
-	
+	CToolTipCtrl m_hint;
+
 	int DoStr2Hex(CString str,char* data);
 	char DoHexChar(char c);
 	BOOL DoIsNumeric(const CString &strText);
 	void DoAppendToRevEdit(CString str);
+	void DoRunCommand(const char ch);
 // Generated message map functions
 protected:
 	
@@ -77,6 +81,15 @@ protected:
 	afx_msg void OnBtviewprotocol();
 	afx_msg void OnBtclearreceivedata();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnChviewline();
+	afx_msg void OnBtcommandA();
+	afx_msg void OnBtcommandB();
+	afx_msg void OnBtcommandC();
+	afx_msg void OnBtcommandD();
+	afx_msg void OnBtcommandE();
+	afx_msg void OnBtcommandF();
+	afx_msg void OnBtcommandG();
+	afx_msg void OnBtcommandH();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

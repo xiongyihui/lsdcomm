@@ -146,7 +146,12 @@ void CMyCommDoc::Serialize(CArchive& ar)
 BOOL CMyCommDoc::OpenComm(CWnd * POwner)
 {
 	if (m_Comm.InitPort(POwner,m_intPort,m_intBaudRate,m_cParity,
-		m_intDataBits,m_intStopBits) )
+		m_intDataBits,m_intStopBits,
+		m_CommTimeout.ReadIntervalTimeout,
+		m_CommTimeout.ReadTotalTimeoutConstant,
+		m_CommTimeout.ReadTotalTimeoutMultiplier,
+		m_CommTimeout.WriteTotalTimeoutMultiplier,
+		m_CommTimeout.WriteTotalTimeoutConstant))
 		return TRUE;
 	else
 		return FALSE;
