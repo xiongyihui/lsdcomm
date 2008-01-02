@@ -151,17 +151,37 @@ BOOL CSerialPort::InitPort(CWnd* pPortOwner,	// the owner (CWnd) of the port (re
 	// prepare port strings
 	sprintf(szPort, "COM%d", portnr);
 	// stop is index 0 = 1 1=1.5 2=2
-	float mystop;
+	int mystop;
+	int myparity;
 	switch(stopbits)
 	{
 		case 0:
-			mystop = 1;
+			mystop = 0;
 			break;
 		case 1:
-			mystop = 1.5;
+			mystop = 1;
 			break;
 		case 2:
 			mystop = 2;
+			break;
+	}
+	myparity = 0;
+	switch(parity)
+	{
+		case 'N':
+			myparity = 0;
+			break;
+		case 'E':
+			myparity = 1;
+			break;
+		case 'O':
+			myparity = 2;
+			break;
+		case 'M':
+			myparity = 3;
+			break;
+		case 'S':
+			myparity = 4;
 			break;
 	}
 	sprintf(szBaud, "baud=%d parity=%c data=%d stop=%f", baud, parity, databits, mystop);
@@ -199,15 +219,20 @@ BOOL CSerialPort::InitPort(CWnd* pPortOwner,	// the owner (CWnd) of the port (re
 			if (GetCommState(m_hComm, &m_dcb))
 			{
 				m_dcb.fRtsControl = RTS_CONTROL_ENABLE;		// set RTS bit high!
-				if (BuildCommDCB(szBaud, &m_dcb))
-				{
+				m_dcb.BaudRate = baud;  // add by mrlong
+				m_dcb.Parity   = myparity;
+				m_dcb.ByteSize = databits;
+				m_dcb.StopBits = mystop;
+				
+				//if (BuildCommDCB(szBaud, &m_dcb))
+				//{
 					if (SetCommState(m_hComm, &m_dcb))
 						; // normal operation... continue
 					else
 						ProcessErrorMessage("SetCommState()");
-				}
-				else
-					ProcessErrorMessage("BuildCommDCB()");
+				//}
+				//else
+				//	ProcessErrorMessage("BuildCommDCB()");
 			}
 			else
 				ProcessErrorMessage("GetCommState()");
