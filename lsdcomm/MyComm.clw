@@ -15,16 +15,29 @@ Class3=CMyCommView
 Class4=CMainFrame
 
 ResourceCount=6
+<<<<<<< .mine
 Resource1=IDR_MAINFRAME
-Resource2=IDD_ABOUTBOX
+Resource2=IDD_DLGCOMMAND
+=======
+Resource1=IDR_MAINFRAME
+Resource2=IDD_DLGCOMMAND
+>>>>>>> .r13
 Class5=CAboutDlg
 Resource3=IDD_MYCOMM_FORM
 Class6=CCommandDlg
+<<<<<<< .mine
 Resource4=IDD_DLGADVANCED
+=======
+Resource4=IDD_DLGADVANCED
+>>>>>>> .r13
 Class7=CCommAdvancedDlg
-Resource5=IDD_DLGPROTOCOL
+<<<<<<< .mine
+Resource5=IDD_ABOUTBOX
+=======
+Resource5=IDD_ABOUTBOX
+>>>>>>> .r13
 Class8=CProtocolEditDlg
-Resource6=IDD_DLGCOMMAND
+Resource6=IDD_DLGPROTOCOL
 
 [CLS:CMyCommApp]
 Type=0
@@ -117,7 +130,7 @@ CommandCount=13
 [DLG:IDD_MYCOMM_FORM]
 Type=1
 Class=CMyCommView
-ControlCount=32
+ControlCount=35
 Control1=IDC_STATIC1,button,1342177287
 Control2=IDC_STATIC2,button,1342177543
 Control3=IDC_EDRECDATA,edit,1352732676
@@ -150,6 +163,9 @@ Control29=IDC_BTCLEARRECEIVEDATA,button,1342242816
 Control30=IDC_CHSENDHEX,button,1342242819
 Control31=IDC_STATIC_SEND,static,1342312448
 Control32=IDC_CHVIEWLINE,button,1342242819
+Control33=IDC_EDAUTOSENDTIME,edit,1350639744
+Control34=IDC_STAUTOSENDUNIT_1,static,1342308352
+Control35=IDC_CHAUTOSEND,button,1342242819
 
 [DLG:IDD_DLGCOMMAND]
 Type=1

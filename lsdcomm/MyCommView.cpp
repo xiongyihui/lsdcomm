@@ -37,6 +37,12 @@ BEGIN_MESSAGE_MAP(CMyCommView, CFormView)
 	ON_BN_CLICKED(IDC_BTCOMMAND_F, OnBtcommandF)
 	ON_BN_CLICKED(IDC_BTCOMMAND_G, OnBtcommandG)
 	ON_BN_CLICKED(IDC_BTCOMMAND_H, OnBtcommandH)
+	ON_BN_CLICKED(IDC_CHAUTOSEND, OnChautosend)
+	ON_WM_TIMER()
+
+	//comm
+	ON_MESSAGE(WM_COMM_RXCHAR, OnCommunication)
+	
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -49,6 +55,7 @@ CMyCommView::CMyCommView()
 	//{{AFX_DATA_INIT(CMyCommView)
 	m_strSendData = _T("");
 	m_IsViewLine = TRUE;
+	m_AutoSendTime = 1000;
 	//}}AFX_DATA_INIT
 	// TODO: add construction code here
 	m_hint.Create(this) ;
@@ -62,6 +69,7 @@ void CMyCommView::DoDataExchange(CDataExchange* pDX)
 {
 	ETSLayoutFormView::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CMyCommView)
+	DDX_Control(pDX, IDC_CHAUTOSEND, m_ctrlAutoSend);
 	DDX_Control(pDX, IDC_CBSTOPBITS, m_ctrlStopBits);
 	DDX_Control(pDX, IDC_CBPARITY, m_ctrlParity);
 	DDX_Control(pDX, IDC_CBDATABITS, m_ctrlDataBits);
@@ -74,6 +82,7 @@ void CMyCommView::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDSENDDATA, m_strSendData);
 	DDX_Text(pDX,IDC_EDRECDATA,m_strReceiveData);
 	DDX_Check(pDX, IDC_CHVIEWLINE, m_IsViewLine);
+	DDX_Text(pDX, IDC_EDAUTOSENDTIME, m_AutoSendTime);
 	//}}AFX_DATA_MAP
 }
 
@@ -139,12 +148,16 @@ void CMyCommView::OnInitialUpdate()
 		
 		<<	( pane(HORIZONTAL, ABSOLUTE_VERT )
 		//<< (paneCtrl(IDC_STATIC3,VERTICAL,GREEDY, nDefaultBorder, 10, 10)
-		<< (pane(VERTICAL)
+		<< (pane(VERTICAL,GREEDY,2,0,0)
 			//<< item( IDC_STATIC3, NORESIZE)
 			//<< itemGrowing(VERTICAL)
 			<< item (IDC_STATIC_SEND,NORESIZE)
 			<< item( IDC_CHSENDHEX,NORESIZE)
-			
+			<< (pane(HORIZONTAL,GREEDY,2,0,0)
+					<< item(IDC_CHAUTOSEND,NORESIZE)
+					<< item(IDC_EDAUTOSENDTIME,NORESIZE)
+					<< item(IDC_STAUTOSENDUNIT_1,NORESIZE)
+				)
 
 			)
 		<< ( pane(VERTICAL,ABSOLUTE_VERT)
@@ -454,6 +467,7 @@ LONG CMyCommView::OnComm(WPARAM ch,LPARAM port)
 void CMyCommView::OnBtSend() 
 {
 	// TODO: Add your control notification handler code here
+	if (!GetDocument()->m_ComAction) return;
 	UpdateData(TRUE);
 	
 	if(m_ctrlSendHex.GetCheck())
@@ -587,4 +601,47 @@ BOOL CMyCommView::PreTranslateMessage(MSG* pMsg)
 	// TODO: Add your specialized code here and/or call the base class
 	m_hint.RelayEvent(pMsg);
 	return CFormView::PreTranslateMessage(pMsg);
+}
+
+
+void CMyCommView::OnChautosend() 
+{
+	// TODO: Add your control notification handler code here
+	if (! GetDocument()->m_ComAction) return;
+	UpdateData(TRUE);
+	if (m_ctrlAutoSend.GetCheck())
+		SetTimer(1,m_AutoSendTime,NULL);
+	else
+		
+		KillTimer(1);
+}
+
+void CMyCommView::OnTimer(UINT nIDEvent) 
+{
+	// TODO: Add your message handler code here and/or call default
+	switch(nIDEvent)
+	{
+		case 1:
+			OnBtSend();
+			break;
+	}
+	CFormView::OnTimer(nIDEvent);
+}
+
+LONG CMyCommView::OnCommunication(WPARAM ch, LPARAM port)
+{
+	if (m_ctrlReceiveHex.GetCheck())
+	{
+		CString str;
+		str.Format("%X",ch);
+		DoAppendToRevEdit(str);
+	}
+	else{
+		CString str;
+		str.Format("%c",ch);
+		DoAppendToRevEdit(str);
+	}
+	
+	UpdateData(FALSE);
+	return 0;
 }

@@ -20,6 +20,7 @@ protected: // create from serialization only
 public:
 	//{{AFX_DATA(CMyCommView)
 	enum { IDD = IDD_MYCOMM_FORM };
+	CButton	m_ctrlAutoSend;
 	CComboBox	m_ctrlStopBits;
 	CComboBox	m_ctrlParity;
 	CComboBox	m_ctrlDataBits;
@@ -32,6 +33,7 @@ public:
 	CString	m_strSendData;
 	CString m_strReceiveData;
 	BOOL	m_IsViewLine;
+	int		m_AutoSendTime;
 	//}}AFX_DATA
 
 // Attributes
@@ -90,6 +92,12 @@ protected:
 	afx_msg void OnBtcommandF();
 	afx_msg void OnBtcommandG();
 	afx_msg void OnBtcommandH();
+	afx_msg void OnChautosend();
+	afx_msg void OnTimer(UINT nIDEvent);
+
+	//comm
+	afx_msg LONG OnCommunication(WPARAM ch, LPARAM port);
+	
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
