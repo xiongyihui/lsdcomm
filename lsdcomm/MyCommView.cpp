@@ -337,6 +337,8 @@ void CMyCommView::OnBtopencomm()
 			GetDocument()->m_ComAction = TRUE;
 			DoRefreshControl(TRUE);
 		}
+		else
+			AfxMessageBox("串口被占用！");
 	}
 	
 }
@@ -443,26 +445,6 @@ BOOL CMyCommView::DoIsNumeric(const CString &strText)
 	}  
 	return   bRet;  
 }
-
-/*
-LONG CMyCommView::OnComm(WPARAM ch,LPARAM port)
-{
-	if (m_ctrlReceiveHex.GetCheck())
-	{
-		CString str;
-		str.Format("%X",ch);
-		DoAppendToRevEdit(str);
-	}
-	else{
-		CString str;
-		str.Format("%c",ch);
-		DoAppendToRevEdit(str);
-	}
-	
-	UpdateData(FALSE);
-	return 0;
-}
-*/
 
 void CMyCommView::OnBtSend() 
 {

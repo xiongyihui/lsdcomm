@@ -16,25 +16,25 @@ Class4=CMainFrame
 
 ResourceCount=6
 <<<<<<< .mine
-Resource1=IDR_MAINFRAME
-Resource2=IDD_DLGCOMMAND
+Resource1=IDD_MYCOMM_FORM
+Resource2=IDD_DLGADVANCED
 =======
-Resource1=IDR_MAINFRAME
-Resource2=IDD_DLGCOMMAND
+Resource1=IDD_MYCOMM_FORM
+Resource2=IDD_DLGADVANCED
 >>>>>>> .r13
 Class5=CAboutDlg
-Resource3=IDD_MYCOMM_FORM
+Resource3=IDR_MAINFRAME
 Class6=CCommandDlg
 <<<<<<< .mine
-Resource4=IDD_DLGADVANCED
+Resource4=IDD_ABOUTBOX
 =======
-Resource4=IDD_DLGADVANCED
+Resource4=IDD_ABOUTBOX
 >>>>>>> .r13
 Class7=CCommAdvancedDlg
 <<<<<<< .mine
-Resource5=IDD_ABOUTBOX
+Resource5=IDD_DLGCOMMAND
 =======
-Resource5=IDD_ABOUTBOX
+Resource5=IDD_DLGCOMMAND
 >>>>>>> .r13
 Class8=CProtocolEditDlg
 Resource6=IDD_DLGPROTOCOL
