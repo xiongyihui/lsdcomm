@@ -2,7 +2,7 @@
 
 [General Info]
 Version=1
-LastClass=CMyCommView
+LastClass=CMainFrame
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "MyComm.h"
@@ -17,27 +17,27 @@ Class4=CMainFrame
 ResourceCount=6
 <<<<<<< .mine
 Resource1=IDD_MYCOMM_FORM
-Resource2=IDD_DLGADVANCED
+Resource2=IDD_DLGCOMMAND
 =======
 Resource1=IDD_MYCOMM_FORM
-Resource2=IDD_DLGADVANCED
+Resource2=IDD_DLGCOMMAND
 >>>>>>> .r13
 Class5=CAboutDlg
-Resource3=IDR_MAINFRAME
+Resource3=IDD_DLGADVANCED
 Class6=CCommandDlg
 <<<<<<< .mine
-Resource4=IDD_ABOUTBOX
+Resource4=IDD_DLGPROTOCOL
 =======
-Resource4=IDD_ABOUTBOX
+Resource4=IDD_DLGPROTOCOL
 >>>>>>> .r13
 Class7=CCommAdvancedDlg
 <<<<<<< .mine
-Resource5=IDD_DLGCOMMAND
+Resource5=IDD_ABOUTBOX
 =======
-Resource5=IDD_DLGCOMMAND
+Resource5=IDD_ABOUTBOX
 >>>>>>> .r13
 Class8=CProtocolEditDlg
-Resource6=IDD_DLGPROTOCOL
+Resource6=IDR_MAINFRAME
 
 [CLS:CMyCommApp]
 Type=0
@@ -69,7 +69,7 @@ ImplementationFile=MainFrm.cpp
 Filter=T
 BaseClass=CFrameWnd
 VirtualFilter=fWC
-LastObject=IDC_EDIT_PROTOCOL
+LastObject=ID_EDIT_UNDO
 
 
 
@@ -99,15 +99,14 @@ Command3=ID_FILE_SAVE
 Command4=ID_FILE_SAVE_AS
 Command5=ID_FILE_MRU_FILE1
 Command6=ID_APP_EXIT
-Command7=ID_EDIT_UNDO
-Command8=ID_EDIT_CUT
-Command9=ID_EDIT_COPY
-Command10=ID_EDIT_PASTE
-Command11=ID_EDIT_COMMAND
-Command12=ID_EDIT_PROTOCOL
-Command13=ID_VIEW_STATUS_BAR
-Command14=ID_APP_ABOUT
-CommandCount=14
+Command7=ID_VIEW_STATUS_BAR
+Command8=ID_EDIT_COMMAND
+Command9=ID_EDIT_PROTOCOL
+Command10=IDC_LANGCHINESE
+Command11=IDC_LANGENGLISH
+Command12=IDC_LANGCHINESE2
+Command13=ID_APP_ABOUT
+CommandCount=13
 
 [ACL:IDR_MAINFRAME]
 Type=1

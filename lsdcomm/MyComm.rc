@@ -87,20 +87,17 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "退出(&X)",                    ID_APP_EXIT
     END
-    POPUP "编辑(&E)"
+    POPUP "设置(&S)"
     BEGIN
-        MENUITEM "撤消(&U)\tCtrl+Z",            ID_EDIT_UNDO
-        MENUITEM SEPARATOR
-        MENUITEM "剪切(&T)\tCtrl+X",            ID_EDIT_CUT
-        MENUITEM "复制(&C)\tCtrl+C",            ID_EDIT_COPY
-        MENUITEM "粘贴(&P)\tCtrl+V",            ID_EDIT_PASTE
-        MENUITEM SEPARATOR
+        MENUITEM "状态栏(&S)",                  ID_VIEW_STATUS_BAR
         MENUITEM "命令行编辑...",               ID_EDIT_COMMAND
         MENUITEM "通信协议内容...",             ID_EDIT_PROTOCOL
     END
-    POPUP "查看(&V)"
+    POPUP "Language(&L)"
     BEGIN
-        MENUITEM "状态栏(&S)",                  ID_VIEW_STATUS_BAR
+        MENUITEM "简体中文",                    IDC_LANGCHINESE
+        MENUITEM "英文",                        IDC_LANGENGLISH
+        MENUITEM "繁体中文",                    IDC_LANGCHINESE2
     END
     POPUP "帮助(&H)"
     BEGIN

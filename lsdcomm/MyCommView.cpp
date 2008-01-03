@@ -279,21 +279,21 @@ void CMyCommView::OnBtopencomm()
 
 		if (m_ctrlCOM.GetCurSel()<0) 
 		{
-			AfxMessageBox("请选择串口");
+			AfxMessageBox(_T("请选择串口"));
 			return ;
 		}	
 		GetDocument()->m_intPort = m_ctrlCOM.GetCurSel()+1;
 		m_ctrlBaudRate.GetWindowText(mystr);
 		if (!DoIsNumeric(mystr)) 
 		{	
-			AfxMessageBox("请选择波特率");
+			AfxMessageBox(_T("请选择波特率"));
 			return;
 		}	
 		GetDocument()->m_intBaudRate = atoi(mystr);
 		m_ctrlDataBits.GetWindowText(mystr);
 		if (!DoIsNumeric(mystr)) 
 		{
-			AfxMessageBox("请选择数据位");
+			AfxMessageBox(_T("请选择数据位"));
 			return;
 		}	
 		GetDocument()->m_intDataBits = atoi(mystr);
@@ -322,7 +322,7 @@ void CMyCommView::OnBtopencomm()
 		
 		if (m_ctrlStopBits.GetCurSel()<0) 
 		{
-			AfxMessageBox("请选择停止位");
+			AfxMessageBox(_T("请选择停止位"));
 			return;
 		}	
 		GetDocument()->m_intStopBits = m_ctrlStopBits.GetCurSel();  //index 表示
@@ -338,7 +338,7 @@ void CMyCommView::OnBtopencomm()
 			DoRefreshControl(TRUE);
 		}
 		else
-			AfxMessageBox("串口被占用！");
+			AfxMessageBox(_T("串口被占用！"));
 	}
 	
 }
@@ -475,7 +475,7 @@ void CMyCommView::OnBtviewprotocol()
 		DoAppendToRevEdit(GetDocument()->m_strProtocol+"\n");	
 	}
 	else{
-		DoAppendToRevEdit("无串口通信协议内容\n");
+		DoAppendToRevEdit(_T("无串口通信协议内容\n"));
 	}	
 	
 }
