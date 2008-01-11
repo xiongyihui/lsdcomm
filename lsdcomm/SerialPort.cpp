@@ -156,13 +156,13 @@ BOOL CSerialPort::InitPort(CWnd* pPortOwner,	// the owner (CWnd) of the port (re
 	switch(stopbits)
 	{
 		case 0:
-			mystop = 0;
+			mystop = ONESTOPBIT;
 			break;
 		case 1:
-			mystop = 1;
+			mystop = ONE5STOPBITS;
 			break;
 		case 2:
-			mystop = 2;
+			mystop = TWOSTOPBITS;
 			break;
 	}
 	myparity = 0;
@@ -184,7 +184,7 @@ BOOL CSerialPort::InitPort(CWnd* pPortOwner,	// the owner (CWnd) of the port (re
 			myparity = 4;
 			break;
 	}
-	sprintf(szBaud, "baud=%d parity=%c data=%d stop=%f", baud, parity, databits, mystop);
+	sprintf(szBaud, "baud=%d parity=%c data=%d stop=%d", baud, parity, databits, mystop);
 
 	// get a handle to the port
 	m_hComm = CreateFile(szPort,						// communication port string (COMX)
@@ -218,12 +218,13 @@ BOOL CSerialPort::InitPort(CWnd* pPortOwner,	// the owner (CWnd) of the port (re
 		{
 			if (GetCommState(m_hComm, &m_dcb))
 			{
+				m_dcb.EvtChar = 'q';
 				m_dcb.fRtsControl = RTS_CONTROL_ENABLE;		// set RTS bit high!
 				m_dcb.BaudRate = baud;  // add by mrlong
 				m_dcb.Parity   = myparity;
 				m_dcb.ByteSize = databits;
 				m_dcb.StopBits = mystop;
-				
+						
 				//if (BuildCommDCB(szBaud, &m_dcb))
 				//{
 					if (SetCommState(m_hComm, &m_dcb))

@@ -12,6 +12,7 @@
 #include "LineNumberEdit.h"
 #include "ETSLayout.h"
 
+
 class CMyCommView : public ETSLayoutFormView
 {
 protected: // create from serialization only
@@ -20,6 +21,7 @@ protected: // create from serialization only
 public:
 	//{{AFX_DATA(CMyCommView)
 	enum { IDD = IDD_MYCOMM_FORM };
+	CComboBox	m_ctrlCommand;
 	CButton	m_ctrlAutoSend;
 	CComboBox	m_ctrlStopBits;
 	CComboBox	m_ctrlParity;
@@ -58,6 +60,7 @@ public:
 // Implementation
 public:
 	virtual ~CMyCommView();
+	
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
@@ -72,6 +75,7 @@ protected:
 	void DoAppendToRevEdit(CString str);
 	void DoRunCommand(const char ch);
 // Generated message map functions
+
 protected:
 	
 	//{{AFX_MSG(CMyCommView)
@@ -94,10 +98,9 @@ protected:
 	afx_msg void OnBtcommandH();
 	afx_msg void OnChautosend();
 	afx_msg void OnTimer(UINT nIDEvent);
-
-	//comm
 	afx_msg LONG OnCommunication(WPARAM ch, LPARAM port);
-	
+	afx_msg void OnSelchangeCbcommand();
+	afx_msg void OnBtsaverecdata();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

@@ -39,10 +39,9 @@ BEGIN_MESSAGE_MAP(CMyCommView, CFormView)
 	ON_BN_CLICKED(IDC_BTCOMMAND_H, OnBtcommandH)
 	ON_BN_CLICKED(IDC_CHAUTOSEND, OnChautosend)
 	ON_WM_TIMER()
-
-	//comm
 	ON_MESSAGE(WM_COMM_RXCHAR, OnCommunication)
-	
+	ON_CBN_SELCHANGE(IDC_CBCOMMAND, OnSelchangeCbcommand)
+	ON_BN_CLICKED(IDC_BTSAVERECDATA, OnBtsaverecdata)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -69,6 +68,7 @@ void CMyCommView::DoDataExchange(CDataExchange* pDX)
 {
 	ETSLayoutFormView::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CMyCommView)
+	DDX_Control(pDX, IDC_CBCOMMAND, m_ctrlCommand);
 	DDX_Control(pDX, IDC_CHAUTOSEND, m_ctrlAutoSend);
 	DDX_Control(pDX, IDC_CBSTOPBITS, m_ctrlStopBits);
 	DDX_Control(pDX, IDC_CBPARITY, m_ctrlParity);
@@ -148,7 +148,7 @@ void CMyCommView::OnInitialUpdate()
 		
 		<<	( pane(HORIZONTAL, ABSOLUTE_VERT )
 		//<< (paneCtrl(IDC_STATIC3,VERTICAL,GREEDY, nDefaultBorder, 10, 10)
-		<< (pane(VERTICAL,GREEDY,2,0,0)
+		<< (pane(VERTICAL,GREEDY,8,0,0)
 			//<< item( IDC_STATIC3, NORESIZE)
 			//<< itemGrowing(VERTICAL)
 			<< item (IDC_STATIC_SEND,NORESIZE)
@@ -157,8 +157,9 @@ void CMyCommView::OnInitialUpdate()
 					<< item(IDC_CHAUTOSEND,NORESIZE)
 					<< item(IDC_EDAUTOSENDTIME,NORESIZE)
 					<< item(IDC_STAUTOSENDUNIT_1,NORESIZE)
+					
 				)
-
+			
 			)
 		<< ( pane(VERTICAL,ABSOLUTE_VERT)
 		<< item( IDC_EDSENDDATA,RELATIVE_HORZ)
@@ -171,6 +172,7 @@ void CMyCommView::OnInitialUpdate()
 		<< item( IDC_BTCOMMAND_F, NORESIZE)
 		<< item( IDC_BTCOMMAND_G, NORESIZE)
 		<< item( IDC_BTCOMMAND_H, NORESIZE)
+		<< item(IDC_CBCOMMAND,NORESIZE)
 		<< itemGrowing (HORIZONTAL)    // bank row 
 		<< item( IDC_BTSEND, NORESIZE)   // send button ALIGN_RIGHT					
 		 )
@@ -202,9 +204,20 @@ void CMyCommView::OnInitialUpdate()
 			m_hint.AddTool(GetDlgItem(IDC_BTCOMMAND_H),GetDocument()->m_Command[i].m_strName);
 		
 	}
+	m_hint.AddTool(GetDlgItem(IDC_CBCOMMAND),_T("选择要发送的命令，并点发送。"));
 	m_hint.SetTipTextColor(RGB(0,0,0));  
-	m_hint.SetDelayTime(100);            
-
+	m_hint.SetDelayTime(100);     
+	
+	for(i=0 ;i<COMMANDCOUNT ;i++)
+	{
+		if (!GetDocument()->m_Command[i].m_strName.IsEmpty())
+		{
+			m_ctrlCommand.AddString(GetDocument()->m_Command[i].m_strName);
+		}
+		
+	}	
+	
+	
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -626,4 +639,38 @@ LONG CMyCommView::OnCommunication(WPARAM ch, LPARAM port)
 	
 	UpdateData(FALSE);
 	return 0;
+}
+
+
+void CMyCommView::OnSelchangeCbcommand() 
+{
+	// TODO: Add your control notification handler code here
+	int myindex;
+	myindex = m_ctrlCommand.GetCurSel();
+	if (myindex>=0 && myindex < COMMANDCOUNT)
+	{
+		m_strSendData = GetDocument()->m_Command[myindex].m_strCommand;
+		UpdateData(FALSE);
+	}
+}
+
+void CMyCommView::OnBtsaverecdata() 
+{
+	// TODO: Add your control notification handler code here
+    CFileDialog dlg(FALSE, NULL, NULL,                       
+		OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT|OFN_NOCHANGEDIR, 
+		"Txt (*.txt)|*.txt|All FIle (*.*)|*.*");
+    if (dlg.DoModal() == IDOK)
+    {
+		CString strCmdLine = dlg.GetPathName();
+		CString   str;  
+		GetDlgItemText(IDC_EDRECDATA,   str);  
+		FILE   *fp;  
+		fp   =   fopen(strCmdLine,   "ab+");  
+		if (fp )
+		{  
+			fwrite((LPCTSTR)str,   1,   str.GetLength(),   fp);  
+			fclose(fp);  
+		}
+    }	
 }

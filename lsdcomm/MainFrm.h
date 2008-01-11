@@ -13,6 +13,8 @@
 #include "MyCommDoc.h"
 #include "ProtocolEditDlg.h"
 
+enum Language { LACHINA = 0, LACHINAS ,LAENGLISH};
+
 class CMainFrame : public CFrameWnd
 {
 	
@@ -22,7 +24,7 @@ protected: // create from serialization only
 
 // Attributes
 public:
-
+	Language m_language;
 // Operations
 public:
 
@@ -53,6 +55,7 @@ protected:
 	afx_msg void OnClose();
 	afx_msg void OnEditCommand();
 	afx_msg void OnEditProtocol();
+	afx_msg void OnLangchinese();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

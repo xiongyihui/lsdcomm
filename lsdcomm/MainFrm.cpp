@@ -23,6 +23,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CLOSE()
 	ON_COMMAND(ID_EDIT_COMMAND, OnEditCommand)
 	ON_COMMAND(ID_EDIT_PROTOCOL, OnEditProtocol)
+	ON_COMMAND(IDC_LANGCHINESE, OnLangchinese)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -41,6 +42,7 @@ CMainFrame::CMainFrame()
 {
 	// TODO: add member initialization code here
 	m_firstShow = FALSE;
+	m_language = LACHINA;
 }
 
 CMainFrame::~CMainFrame()
@@ -428,4 +430,10 @@ void CMainFrame::OnEditProtocol()
 	{
 		Doc->m_strProtocol = dlg.m_Edit;
 	}	
+}
+
+void CMainFrame::OnLangchinese() 
+{
+	// TODO: Add your command handler code here
+	//	
 }

@@ -94,7 +94,7 @@ void CMyCommDoc::Serialize(CArchive& ar)
 		ar<<m_CommTimeout.WriteTotalTimeoutMultiplier;
 		ar<<m_CommTimeout.WriteTotalTimeoutConstant;
 		
-		count = 20;
+		count = COMMANDCOUNT;
 		ar<<count;
 		for(int i=0;i<count-1;i++)
 		{

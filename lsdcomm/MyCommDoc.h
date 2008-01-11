@@ -10,6 +10,8 @@
 #endif // _MSC_VER > 1000
 #include "SerialPort.h"
 
+const COMMANDCOUNT = 20; 
+
 struct CommCommand {
 	CString m_strName;
 	char m_ShutChar;
@@ -41,7 +43,7 @@ public:
 	char m_cParity   ;    //ะฃั้ฮป 0 ,1,2 
 	int m_intStopBits;    // 0=1 1=1.5 2=2
 	CommTimeout m_CommTimeout;
-	CommCommand m_Command[20];
+	CommCommand m_Command[COMMANDCOUNT];
 
 	BOOL m_IsReceiveHex;
 	BOOL m_IsSendHex;
