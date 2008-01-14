@@ -84,6 +84,7 @@
 #define IDC_EDNAME_10                   1050
 #define IDC_BTSAVERECDATA               1050
 #define IDC_EDCOMMAND_10                1051
+#define IDC_STCOMMANDCAPTION            1051
 #define IDC_CBSHUT_10                   1052
 #define IDC_EDNAME_11                   1053
 #define IDC_EDCOMMAND_11                1054
@@ -147,7 +148,7 @@
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        138
 #define _APS_NEXT_COMMAND_VALUE         32779
-#define _APS_NEXT_CONTROL_VALUE         1051
+#define _APS_NEXT_CONTROL_VALUE         1052
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

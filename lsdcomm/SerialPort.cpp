@@ -38,6 +38,7 @@ CSerialPort::CSerialPort()
 	m_szWriteBuffer = NULL;
 
 	m_bThreadAlive = FALSE;
+	m_nWriteSize = 1;
 }
 
 //
@@ -49,6 +50,19 @@ CSerialPort::~CSerialPort()
 	{
 		SetEvent(m_hShutdownEvent);
 	} while (m_bThreadAlive);
+
+	if (m_hComm != NULL)
+	{
+		CloseHandle(m_hComm);
+		m_hComm = NULL;
+	}
+	// Close Handles  
+	if(m_hShutdownEvent!=NULL)
+		CloseHandle( m_hShutdownEvent); 
+	if(m_ov.hEvent!=NULL)
+		CloseHandle( m_ov.hEvent ); 
+	if(m_hWriteEvent!=NULL)
+		CloseHandle( m_hWriteEvent ); 
 
 	TRACE("Thread ended\n");
 
@@ -78,11 +92,12 @@ BOOL CSerialPort::InitPort(CWnd* pPortOwner,	// the owner (CWnd) of the port (re
 						   UINT  stopbits,		// stopbits 
 						   DWORD dwCommEvents,	// EV_RXCHAR, EV_CTS etc
 						   UINT  writebuffersize,// size to the writebuffer
-						   int   ReadIntervalTimeout,
-						   int   ReadTotalTimeoutMultiplier,
-						   int   ReadTotalTimeoutConstant,
-						   int   WriteTotalTimeoutMultiplier,
-						   int   WriteTotalTimeoutConstant )	
+						   
+						   DWORD   ReadIntervalTimeout,
+						   DWORD   ReadTotalTimeoutMultiplier,
+						   DWORD   ReadTotalTimeoutConstant,
+						   DWORD   WriteTotalTimeoutMultiplier,
+						   DWORD   WriteTotalTimeoutConstant )	
 
 {
 	assert(portnr > 0 && portnr < 5);
@@ -387,6 +402,9 @@ UINT CSerialPort::CommThread(LPVOID pParam)
 		case 1:	// read event
 			{
 				GetCommMask(port->m_hComm, &CommEvent);
+				if (CommEvent & EV_RXCHAR) //接收到字符，并置于输入缓冲区中 
+					ReceiveChar(port, comstat);
+				
 				if (CommEvent & EV_CTS) //CTS信号状态发生变化
 					::SendMessage(port->m_pOwner->m_hWnd, WM_COMM_CTS_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
 				if (CommEvent & EV_RXFLAG) //接收到事件字符，并置于输入缓冲区中 
@@ -397,10 +415,6 @@ UINT CSerialPort::CommThread(LPVOID pParam)
 					::SendMessage(port->m_pOwner->m_hWnd, WM_COMM_ERR_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
 				if (CommEvent & EV_RING) //检测到振铃指示
 					::SendMessage(port->m_pOwner->m_hWnd, WM_COMM_RING_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
-				
-				if (CommEvent & EV_RXCHAR) //接收到字符，并置于输入缓冲区中 
-					// Receive character event from port.
-					ReceiveChar(port, comstat);
 					
 				break;
 			}  
@@ -705,7 +719,24 @@ void CSerialPort::ClosePort()
 	{
 		SetEvent(m_hShutdownEvent);
 	} while (m_bThreadAlive);
-	CloseHandle(m_hComm);
+
+	// if the port is still opened: close it 
+	if (m_hComm != NULL)
+	{
+		CloseHandle(m_hComm);
+		m_hComm = NULL;
+	}
+	
+	// Close Handles  
+	if(m_hShutdownEvent!=NULL)
+		ResetEvent(m_hShutdownEvent);
+	if(m_ov.hEvent!=NULL)
+		ResetEvent(m_ov.hEvent);
+	if(m_hWriteEvent!=NULL)
+		ResetEvent(m_hWriteEvent);			
+		
+	//delete [] m_szWriteBuffer;
+	
 }
 
 void CSerialPort::WriteToPort(char* string,int n)

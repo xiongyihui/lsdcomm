@@ -45,11 +45,12 @@ public:
 	BOOL		InitPort(CWnd* pPortOwner, UINT portnr = 1, UINT baud = 19200, 
 				char parity = 'N', UINT databits = 8, UINT stopsbits = 1, 
 				DWORD dwCommEvents = EV_RXCHAR | EV_CTS, UINT nBufferSize = 512,
-				int ReadIntervalTimeout = 1000,
-				int ReadTotalTimeoutMultiplier = 1000,
-				int ReadTotalTimeoutConstant = 1000,
-				int WriteTotalTimeoutMultiplier = 1000,
-				int WriteTotalTimeoutConstant = 1000);
+			
+				DWORD ReadIntervalTimeout = 1000,
+				DWORD ReadTotalTimeoutMultiplier = 1000,
+				DWORD ReadTotalTimeoutConstant = 1000,
+				DWORD WriteTotalTimeoutMultiplier = 1000,
+				DWORD WriteTotalTimeoutConstant = 1000);
 
 	// start/stop comm watching
 	BOOL		StartMonitoring();

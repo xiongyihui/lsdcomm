@@ -41,13 +41,13 @@ CMyCommDoc::CMyCommDoc()
 	m_IsReceiveHex = TRUE;
 	m_IsSendHex = TRUE;
 	m_CommTimeout.ReadIntervalTimeout = 1000;
-	m_CommTimeout.ReadTotalTimeoutMultiplier = 1000;
-	m_CommTimeout.ReadTotalTimeoutConstant = 1000;
-	m_CommTimeout.WriteTotalTimeoutMultiplier = 1000;
-	m_CommTimeout.WriteTotalTimeoutConstant = 1000;
+	m_CommTimeout.ReadTotalTimeoutMultiplier = 0;
+	m_CommTimeout.ReadTotalTimeoutConstant = 0;
+	m_CommTimeout.WriteTotalTimeoutMultiplier = 0;
+	m_CommTimeout.WriteTotalTimeoutConstant = 0;
 
-	TX_count = 0;
-	RX_count = 0;
+	m_TXCount = 0;
+	m_RXCount = 0;
 }
 
 CMyCommDoc::~CMyCommDoc()
@@ -72,13 +72,17 @@ BOOL CMyCommDoc::OnNewDocument()
 
 void CMyCommDoc::Serialize(CArchive& ar)
 {
+	//
+	// 2. È¥µô¿ì½Ý¼ü 2008-1-14
+	//
+	//
 	int ver; 
 	int count;
 	if (ar.IsStoring())
 	{
 		// TODO: add storing code here
 		
-		ver = 1;
+		ver = 2;
 		ar<<ver;  //version
 		ar<<m_intPort;
 		ar<<m_intBaudRate;
@@ -99,7 +103,7 @@ void CMyCommDoc::Serialize(CArchive& ar)
 		for(int i=0;i<count-1;i++)
 		{
 			ar<<m_Command[i].m_strName;
-			ar<<m_Command[i].m_ShutChar;
+			//ar<<m_Command[i].m_ShutChar; ver=2 È¥µô
 			ar<<m_Command[i].m_strCommand;
 					
 		};
@@ -132,7 +136,11 @@ void CMyCommDoc::Serialize(CArchive& ar)
 		for(int i=0;i<count-1;i++)
 		{
 			ar>>m_Command[i].m_strName;
-			ar>>m_Command[i].m_ShutChar;
+			if (ver < 2) 
+			{
+				char myc;
+				ar>>myc;
+			}
 			ar>>m_Command[i].m_strCommand;
 		};
 
@@ -146,19 +154,24 @@ void CMyCommDoc::Serialize(CArchive& ar)
 BOOL CMyCommDoc::OpenComm(CWnd * POwner)
 {
 	if (m_Comm.InitPort(POwner,m_intPort,m_intBaudRate,m_cParity,
-		m_intDataBits,m_intStopBits,
+		m_intDataBits,m_intStopBits
+		/*
 		m_CommTimeout.ReadIntervalTimeout,
 		m_CommTimeout.ReadTotalTimeoutConstant,
 		m_CommTimeout.ReadTotalTimeoutMultiplier,
 		m_CommTimeout.WriteTotalTimeoutMultiplier,
-		m_CommTimeout.WriteTotalTimeoutConstant))
+		m_CommTimeout.WriteTotalTimeoutConstant*/))
+	{
+		m_Comm.StartMonitoring();
 		return TRUE;
+	}
 	else
 		return FALSE;
 }
 void CMyCommDoc::CloseComm()
 {
 	m_Comm.ClosePort();
+	m_Comm.StopMonitoring();
 }
 
 

@@ -9,7 +9,6 @@
 #pragma once
 #endif // _MSC_VER > 1000
 #include "CommAdvancedDlg.h"
-#include "LineNumberEdit.h"
 #include "ETSLayout.h"
 
 
@@ -28,13 +27,11 @@ public:
 	CComboBox	m_ctrlDataBits;
 	CComboBox	m_ctrlCOM;
 	CComboBox	m_ctrlBaudRate;
-	CLineNumberEdit	m_ctrlRecEdit;
 	CButton	m_ctrlSendHex;
 	CButton	m_ctrlReceiveHex;
 	CStatic	m_ctrlComImg;
 	CString	m_strSendData;
 	CString m_strReceiveData;
-	BOOL	m_IsViewLine;
 	int		m_AutoSendTime;
 	//}}AFX_DATA
 
@@ -44,7 +41,7 @@ public:
 
 // Operations
 public:
-	void DoRefreshControl(BOOL bValue);	
+	
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CMyCommView)
@@ -72,8 +69,8 @@ protected:
 	int DoStr2Hex(CString str,char* data);
 	char DoHexChar(char c);
 	BOOL DoIsNumeric(const CString &strText);
-	void DoAppendToRevEdit(CString str);
-	void DoRunCommand(const char ch);
+	void DoRefreshControl2(BOOL bValue);
+	
 // Generated message map functions
 
 protected:
@@ -87,15 +84,6 @@ protected:
 	afx_msg void OnBtviewprotocol();
 	afx_msg void OnBtclearreceivedata();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
-	afx_msg void OnChviewline();
-	afx_msg void OnBtcommandA();
-	afx_msg void OnBtcommandB();
-	afx_msg void OnBtcommandC();
-	afx_msg void OnBtcommandD();
-	afx_msg void OnBtcommandE();
-	afx_msg void OnBtcommandF();
-	afx_msg void OnBtcommandG();
-	afx_msg void OnBtcommandH();
 	afx_msg void OnChautosend();
 	afx_msg void OnTimer(UINT nIDEvent);
 	afx_msg LONG OnCommunication(WPARAM ch, LPARAM port);

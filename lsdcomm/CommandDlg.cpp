@@ -21,7 +21,6 @@ CCommandDlg::CCommandDlg(CWnd* pParent /*=NULL*/)
 	//{{AFX_DATA_INIT(CCommandDlg)
 	m_strCommand_1 = _T("");
 	m_strName_1 = _T("");
-	m_chrShut_1 = _T("");
 	m_strName_10 = _T("");
 	m_strName_11 = _T("");
 	m_strName_12 = _T("");
@@ -60,25 +59,6 @@ CCommandDlg::CCommandDlg(CWnd* pParent /*=NULL*/)
 	m_strCommand_7 = _T("");
 	m_strCommand_8 = _T("");
 	m_strCommand_9 = _T("");
-	m_chrShut_10 = _T("");
-	m_chrShut_11 = _T("");
-	m_chrShut_12 = _T("");
-	m_chrShut_13 = _T("");
-	m_chrShut_14 = _T("");
-	m_chrShut_15 = _T("");
-	m_chrShut_16 = _T("");
-	m_chrShut_17 = _T("");
-	m_chrShut_18 = _T("");
-	m_chrShut_19 = _T("");
-	m_chrShut_2 = _T("");
-	m_chrShut_20 = _T("");
-	m_chrShut_3 = _T("");
-	m_chrShut_4 = _T("");
-	m_chrShut_5 = _T("");
-	m_chrShut_6 = _T("");
-	m_chrShut_7 = _T("");
-	m_chrShut_8 = _T("");
-	m_chrShut_9 = _T("");
 	m_IsHex_1 = FALSE;
 	m_IsHex_10 = FALSE;
 	m_IsHex_11 = FALSE;
@@ -109,7 +89,6 @@ void CCommandDlg::DoDataExchange(CDataExchange* pDX)
 	//{{AFX_DATA_MAP(CCommandDlg)
 	DDX_Text(pDX, IDC_EDCOMMAND_1, m_strCommand_1);
 	DDX_Text(pDX, IDC_EDNAME_1, m_strName_1);
-	DDX_CBString(pDX, IDC_CBSHUT_1, m_chrShut_1);
 	DDX_Text(pDX, IDC_EDNAME_10, m_strName_10);
 	DDX_Text(pDX, IDC_EDNAME_11, m_strName_11);
 	DDX_Text(pDX, IDC_EDNAME_12, m_strName_12);
@@ -148,25 +127,6 @@ void CCommandDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDCOMMAND_7, m_strCommand_7);
 	DDX_Text(pDX, IDC_EDCOMMAND_8, m_strCommand_8);
 	DDX_Text(pDX, IDC_EDCOMMAND_9, m_strCommand_9);
-	DDX_CBString(pDX, IDC_CBSHUT_10, m_chrShut_10);
-	DDX_CBString(pDX, IDC_CBSHUT_11, m_chrShut_11);
-	DDX_CBString(pDX, IDC_CBSHUT_12, m_chrShut_12);
-	DDX_CBString(pDX, IDC_CBSHUT_13, m_chrShut_13);
-	DDX_CBString(pDX, IDC_CBSHUT_14, m_chrShut_14);
-	DDX_CBString(pDX, IDC_CBSHUT_15, m_chrShut_15);
-	DDX_CBString(pDX, IDC_CBSHUT_16, m_chrShut_16);
-	DDX_CBString(pDX, IDC_CBSHUT_17, m_chrShut_17);
-	DDX_CBString(pDX, IDC_CBSHUT_18, m_chrShut_18);
-	DDX_CBString(pDX, IDC_CBSHUT_19, m_chrShut_19);
-	DDX_CBString(pDX, IDC_CBSHUT_2, m_chrShut_2);
-	DDX_CBString(pDX, IDC_CBSHUT_20, m_chrShut_20);
-	DDX_CBString(pDX, IDC_CBSHUT_3, m_chrShut_3);
-	DDX_CBString(pDX, IDC_CBSHUT_4, m_chrShut_4);
-	DDX_CBString(pDX, IDC_CBSHUT_5, m_chrShut_5);
-	DDX_CBString(pDX, IDC_CBSHUT_6, m_chrShut_6);
-	DDX_CBString(pDX, IDC_CBSHUT_7, m_chrShut_7);
-	DDX_CBString(pDX, IDC_CBSHUT_8, m_chrShut_8);
-	DDX_CBString(pDX, IDC_CBSHUT_9, m_chrShut_9);
 	DDX_Check(pDX, IDC_CHHEX_1, m_IsHex_1);
 	DDX_Check(pDX, IDC_CHHEX_10, m_IsHex_10);
 	DDX_Check(pDX, IDC_CHHEX_11, m_IsHex_11);

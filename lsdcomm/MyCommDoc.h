@@ -14,17 +14,16 @@ const COMMANDCOUNT = 20;
 
 struct CommCommand {
 	CString m_strName;
-	char m_ShutChar;
 	CString m_strCommand;
 	BOOL  m_IsHex;  //is Hex
 } ;
 
 struct CommTimeout{
-	DWORD ReadIntervalTimeout;
-	DWORD ReadTotalTimeoutMultiplier;
-	DWORD ReadTotalTimeoutConstant;
-	DWORD WriteTotalTimeoutMultiplier;
-	DWORD WriteTotalTimeoutConstant;
+	WORD ReadIntervalTimeout;
+	WORD ReadTotalTimeoutMultiplier;
+	WORD ReadTotalTimeoutConstant;
+	WORD WriteTotalTimeoutMultiplier;
+	WORD WriteTotalTimeoutConstant;
 };
 
 class CMyCommDoc : public CDocument
@@ -51,8 +50,8 @@ public:
 	CString m_strReceiveData;
 	CString m_strSendData;
 	CString m_strProtocol;
-	LONG  TX_count;
-	LONG  RX_count;
+	LONG  m_TXCount;
+	LONG  m_RXCount;
 
 // Operations
 public:

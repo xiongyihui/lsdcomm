@@ -28,15 +28,6 @@ BEGIN_MESSAGE_MAP(CMyCommView, CFormView)
 	ON_BN_CLICKED(IDC_BTVIEWPROTOCOL, OnBtviewprotocol)
 	ON_BN_CLICKED(IDC_BTCLEARRECEIVEDATA, OnBtclearreceivedata)
 	ON_WM_SIZE()
-	ON_BN_CLICKED(IDC_CHVIEWLINE, OnChviewline)
-	ON_BN_CLICKED(IDC_BTCOMMAND_A, OnBtcommandA)
-	ON_BN_CLICKED(IDC_BTCOMMAND_B, OnBtcommandB)
-	ON_BN_CLICKED(IDC_BTCOMMAND_C, OnBtcommandC)
-	ON_BN_CLICKED(IDC_BTCOMMAND_D, OnBtcommandD)
-	ON_BN_CLICKED(IDC_BTCOMMAND_E, OnBtcommandE)
-	ON_BN_CLICKED(IDC_BTCOMMAND_F, OnBtcommandF)
-	ON_BN_CLICKED(IDC_BTCOMMAND_G, OnBtcommandG)
-	ON_BN_CLICKED(IDC_BTCOMMAND_H, OnBtcommandH)
 	ON_BN_CLICKED(IDC_CHAUTOSEND, OnChautosend)
 	ON_WM_TIMER()
 	ON_MESSAGE(WM_COMM_RXCHAR, OnCommunication)
@@ -53,7 +44,6 @@ CMyCommView::CMyCommView()
 {
 	//{{AFX_DATA_INIT(CMyCommView)
 	m_strSendData = _T("");
-	m_IsViewLine = TRUE;
 	m_AutoSendTime = 1000;
 	//}}AFX_DATA_INIT
 	// TODO: add construction code here
@@ -75,13 +65,11 @@ void CMyCommView::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CBDATABITS, m_ctrlDataBits);
 	DDX_Control(pDX, IDC_CBCOM, m_ctrlCOM);
 	DDX_Control(pDX, IDC_CBBANDRATE, m_ctrlBaudRate);
-	DDX_Control(pDX, IDC_EDRECDATA, m_ctrlRecEdit);
 	DDX_Control(pDX, IDC_CHSENDHEX, m_ctrlSendHex);
 	DDX_Control(pDX, IDC_CHREVHEX, m_ctrlReceiveHex);
 	DDX_Control(pDX, IDC_BMPCOM, m_ctrlComImg);
 	DDX_Text(pDX, IDC_EDSENDDATA, m_strSendData);
 	DDX_Text(pDX,IDC_EDRECDATA,m_strReceiveData);
-	DDX_Check(pDX, IDC_CHVIEWLINE, m_IsViewLine);
 	DDX_Text(pDX, IDC_EDAUTOSENDTIME, m_AutoSendTime);
 	//}}AFX_DATA_MAP
 }
@@ -132,7 +120,8 @@ void CMyCommView::OnInitialUpdate()
 
 	}
 	m_ctrlStopBits.SetCurSel(GetDocument()->m_intStopBits); 
-	DoRefreshControl(FALSE);	
+	BOOL myb = FALSE;
+	DoRefreshControl2(myb);	
 	
 	//layout
 	CreateRoot(VERTICAL)
@@ -164,14 +153,7 @@ void CMyCommView::OnInitialUpdate()
 		<< ( pane(VERTICAL,ABSOLUTE_VERT)
 		<< item( IDC_EDSENDDATA,RELATIVE_HORZ)
 		<<(pane(HORIZONTAL, ABSOLUTE_VERT)
-		<< item( IDC_BTCOMMAND_A, NORESIZE)
-		<< item( IDC_BTCOMMAND_B, NORESIZE)
-		<< item( IDC_BTCOMMAND_C, NORESIZE)
-		<< item( IDC_BTCOMMAND_D, NORESIZE)
-		<< item( IDC_BTCOMMAND_E, NORESIZE)
-		<< item( IDC_BTCOMMAND_F, NORESIZE)
-		<< item( IDC_BTCOMMAND_G, NORESIZE)
-		<< item( IDC_BTCOMMAND_H, NORESIZE)
+		<< item(IDC_STCOMMANDCAPTION,NORESIZE)
 		<< item(IDC_CBCOMMAND,NORESIZE)
 		<< itemGrowing (HORIZONTAL)    // bank row 
 		<< item( IDC_BTSEND, NORESIZE)   // send button ALIGN_RIGHT					
@@ -184,31 +166,11 @@ void CMyCommView::OnInitialUpdate()
 	//hint
 	EnableToolTips(TRUE);
 	m_hint.Activate(TRUE);
-	for(int i=0;i<20;i++)
-	{
-		if(GetDocument()->m_Command[i].m_ShutChar=='A')
-			m_hint.AddTool(GetDlgItem(IDC_BTCOMMAND_A),GetDocument()->m_Command[i].m_strName);
-		if(GetDocument()->m_Command[i].m_ShutChar=='B')
-			m_hint.AddTool(GetDlgItem(IDC_BTCOMMAND_B),GetDocument()->m_Command[i].m_strName);
-		if(GetDocument()->m_Command[i].m_ShutChar=='C')
-			m_hint.AddTool(GetDlgItem(IDC_BTCOMMAND_C),GetDocument()->m_Command[i].m_strName);
-		if(GetDocument()->m_Command[i].m_ShutChar=='D')
-			m_hint.AddTool(GetDlgItem(IDC_BTCOMMAND_D),GetDocument()->m_Command[i].m_strName);
-		if(GetDocument()->m_Command[i].m_ShutChar=='E')
-			m_hint.AddTool(GetDlgItem(IDC_BTCOMMAND_E),GetDocument()->m_Command[i].m_strName);
-		if(GetDocument()->m_Command[i].m_ShutChar=='F')
-			m_hint.AddTool(GetDlgItem(IDC_BTCOMMAND_F),GetDocument()->m_Command[i].m_strName);
-		if(GetDocument()->m_Command[i].m_ShutChar=='G')
-			m_hint.AddTool(GetDlgItem(IDC_BTCOMMAND_G),GetDocument()->m_Command[i].m_strName);
-		if(GetDocument()->m_Command[i].m_ShutChar=='H')
-			m_hint.AddTool(GetDlgItem(IDC_BTCOMMAND_H),GetDocument()->m_Command[i].m_strName);
-		
-	}
 	m_hint.AddTool(GetDlgItem(IDC_CBCOMMAND),_T("选择要发送的命令，并点发送。"));
 	m_hint.SetTipTextColor(RGB(0,0,0));  
 	m_hint.SetDelayTime(100);     
 	
-	for(i=0 ;i<COMMANDCOUNT ;i++)
+	for(int i=0 ;i<COMMANDCOUNT ;i++)
 	{
 		if (!GetDocument()->m_Command[i].m_strName.IsEmpty())
 		{
@@ -240,19 +202,12 @@ CMyCommDoc* CMyCommView::GetDocument() // non-debug version is inline
 	return (CMyCommDoc*)m_pDocument;
 }
 
-void CMyCommView::DoRefreshControl(BOOL bValue)
+void CMyCommView::DoRefreshControl2(BOOL  bValue)
 {
+
 	// send botton
 	BOOL myAction = bValue;
 	GetDlgItem(IDC_BTSEND)->EnableWindow(myAction);
-	GetDlgItem(IDC_BTCOMMAND_A)->EnableWindow(myAction);
-	GetDlgItem(IDC_BTCOMMAND_B)->EnableWindow(myAction);
-	GetDlgItem(IDC_BTCOMMAND_C)->EnableWindow(myAction);
-	GetDlgItem(IDC_BTCOMMAND_D)->EnableWindow(myAction);
-	GetDlgItem(IDC_BTCOMMAND_E)->EnableWindow(myAction);
-	GetDlgItem(IDC_BTCOMMAND_F)->EnableWindow(myAction);
-	GetDlgItem(IDC_BTCOMMAND_G)->EnableWindow(myAction);
-	GetDlgItem(IDC_BTCOMMAND_H)->EnableWindow(myAction);
 	
 
 	// com param
@@ -263,6 +218,7 @@ void CMyCommView::DoRefreshControl(BOOL bValue)
 	GetDlgItem(IDC_CBSTOPBITS)->EnableWindow(!myAction);
 	GetDlgItem(IDC_BTADVANCED)->EnableWindow(!myAction);
     //GetDlgItem(IDC_STATICCOMIMG)->VisielbWindow(!m_ComAction);
+	
 }
 
 #endif //_DEBUG
@@ -283,7 +239,7 @@ void CMyCommView::OnBtopencomm()
 		CButton * myb = ((CButton *)this->GetDlgItem(IDC_BTOPENCOMM));
 		myb->SetWindowText(_T("打开串口"));
 		GetDocument()->m_ComAction = FALSE;
-		DoRefreshControl(FALSE);
+		DoRefreshControl2(GetDocument()->m_ComAction);
 	}
 	else{
 		
@@ -348,7 +304,7 @@ void CMyCommView::OnBtopencomm()
 			CButton * myb = ((CButton *)this->GetDlgItem(IDC_BTOPENCOMM));
 			myb->SetWindowText(_T("关闭串口"));
 			GetDocument()->m_ComAction = TRUE;
-			DoRefreshControl(TRUE);
+			DoRefreshControl2(GetDocument()->m_ComAction);
 		}
 		else
 			AfxMessageBox(_T("串口被占用！"));
@@ -373,14 +329,15 @@ int CMyCommView::DoStr2Hex(CString str,char* data)
 		l=str[i];
 		t=DoHexChar(h);
 		t1=DoHexChar(l);
-		if((t==16)||(t1=16)) break;
-		else t=t*16+t1;
+		if((t==16)||(t1==16))
+			break;
+		else 
+			t=t*16+t1;
 		i++;
 		data[rlen]=(char)t;
 		rlen++;
 	}
 	return rlen;
-	
 }
 
 char CMyCommView::DoHexChar(char c)
@@ -407,11 +364,12 @@ void CMyCommView::OnBtadvanced()
 	dlg.m_dwoWriteTotalConst = GetDocument()->m_CommTimeout.WriteTotalTimeoutConstant;
 	if (dlg.DoModal()==IDOK)
 	{
-		GetDocument()->m_CommTimeout.ReadIntervalTimeout = 	dlg.m_dwoReadInter;
-		GetDocument()->m_CommTimeout.ReadTotalTimeoutMultiplier = dlg.m_dwoReadTotalMult;
-		GetDocument()->m_CommTimeout.ReadTotalTimeoutConstant = dlg.m_dwoReadTotalConst;
-		GetDocument()->m_CommTimeout.WriteTotalTimeoutMultiplier = dlg.m_dwoWriteTotalMult;
-		GetDocument()->m_CommTimeout.WriteTotalTimeoutConstant = dlg.m_dwoWriteTotalConst;
+		
+		GetDocument()->m_CommTimeout.ReadIntervalTimeout = 	WORD(dlg.m_dwoReadInter);
+		GetDocument()->m_CommTimeout.ReadTotalTimeoutMultiplier = WORD(dlg.m_dwoReadTotalMult);
+		GetDocument()->m_CommTimeout.ReadTotalTimeoutConstant = WORD(dlg.m_dwoReadTotalConst);
+		GetDocument()->m_CommTimeout.WriteTotalTimeoutMultiplier = WORD(dlg.m_dwoWriteTotalMult);
+		GetDocument()->m_CommTimeout.WriteTotalTimeoutConstant = WORD(dlg.m_dwoWriteTotalConst);
 	}
 
 }
@@ -462,7 +420,11 @@ BOOL CMyCommView::DoIsNumeric(const CString &strText)
 void CMyCommView::OnBtSend() 
 {
 	// TODO: Add your control notification handler code here
-	if (!GetDocument()->m_ComAction) return;
+	if (!GetDocument()->m_ComAction) 
+	{
+		AfxMessageBox(_T("串口没有打开。"));
+		return;
+	}
 	UpdateData(TRUE);
 	
 	if(m_ctrlSendHex.GetCheck())
@@ -470,12 +432,12 @@ void CMyCommView::OnBtSend()
 		char data[512];
 		int len=DoStr2Hex(m_strSendData,data);
 		GetDocument()->m_Comm.WriteToPort(data,len);
-		GetDocument()->TX_count+=(long)((m_strSendData.GetLength()+1)/3);
+		GetDocument()->m_RXCount+=(long)((m_strSendData.GetLength()+1)/3);
 	}
 	else 
 	{
 		GetDocument()->m_Comm.WriteToPort((LPCTSTR)m_strSendData);	//发送数据
-		GetDocument()->TX_count+=m_strSendData.GetLength();
+		GetDocument()->m_RXCount+=m_strSendData.GetLength();
 	}
 	
 }
@@ -485,26 +447,24 @@ void CMyCommView::OnBtviewprotocol()
 	// TODO: Add your control notification handler code here
 	if (!GetDocument()->m_strProtocol.IsEmpty())
 	{
-		DoAppendToRevEdit(GetDocument()->m_strProtocol+"\n");	
+		m_strReceiveData = m_strReceiveData + "\n" + GetDocument()->m_strProtocol;
+		
 	}
 	else{
-		DoAppendToRevEdit(_T("无串口通信协议内容\n"));
+		m_strReceiveData = m_strReceiveData + "\n" + _T("无串口通信协议内容\n");
+		
 	}	
+	UpdateData(FALSE);
 	
 }
 
 void CMyCommView::OnBtclearreceivedata() 
 {
 	// TODO: Add your control notification handler code here
-	m_ctrlRecEdit.SetWindowText("");
+	m_strReceiveData.Empty();
+	UpdateData(FALSE);
 }
 
-void CMyCommView::DoAppendToRevEdit(CString str)
-{
-	int  nLength  =  m_ctrlRecEdit.SendMessage(WM_GETTEXTLENGTH);
-	m_ctrlRecEdit.SetSel(nLength, nLength);
-	m_ctrlRecEdit.ReplaceSel(str);	
-}
 
 void CMyCommView::OnSize(UINT nType, int cx, int cy) 
 {
@@ -514,82 +474,6 @@ void CMyCommView::OnSize(UINT nType, int cx, int cy)
 	
 }
 
-void CMyCommView::OnChviewline() 
-{
-	// TODO: Add your control notification handler code here
-	UpdateData(TRUE);
-	m_ctrlRecEdit.SetVisibleLine(m_IsViewLine);
-}
-
-void CMyCommView::DoRunCommand(const char ch)
-{
-	CString mystr;
-	for(int i=0;i<20;i++)
-	{
-		if (GetDocument()->m_Command[i].m_ShutChar == ch) {
-			mystr = GetDocument()->m_Command[i].m_strCommand;
-			break;
-		}	
-	}
-
-	//run command
-	if(!mystr.IsEmpty())
-	{
-		m_strSendData = mystr;
-		UpdateData(FALSE);
-		OnBtSend();
-	}
-
-	
-}
-
-void CMyCommView::OnBtcommandA() 
-{
-	// TODO: Add your control notification handler code here
-	DoRunCommand('A');
-}
-
-void CMyCommView::OnBtcommandB() 
-{
-	// TODO: Add your control notification handler code here
-	DoRunCommand('B');
-}
-
-void CMyCommView::OnBtcommandC() 
-{
-	// TODO: Add your control notification handler code here
-	DoRunCommand('C');
-}
-
-void CMyCommView::OnBtcommandD() 
-{
-	// TODO: Add your control notification handler code here
-	DoRunCommand('D');
-}
-
-void CMyCommView::OnBtcommandE() 
-{
-	// TODO: Add your control notification handler code here
-	DoRunCommand('E');
-}
-
-void CMyCommView::OnBtcommandF() 
-{
-	// TODO: Add your control notification handler code here
-	DoRunCommand('F');
-}
-
-void CMyCommView::OnBtcommandG() 
-{
-	// TODO: Add your control notification handler code here
-	DoRunCommand('G');
-}
-
-void CMyCommView::OnBtcommandH() 
-{
-	// TODO: Add your control notification handler code here
-	DoRunCommand('H');
-}
 
 BOOL CMyCommView::PreTranslateMessage(MSG* pMsg) 
 {
@@ -625,16 +509,19 @@ void CMyCommView::OnTimer(UINT nIDEvent)
 
 LONG CMyCommView::OnCommunication(WPARAM ch, LPARAM port)
 {
+	GetDocument()->m_RXCount++;
 	if (m_ctrlReceiveHex.GetCheck())
 	{
 		CString str;
-		str.Format("%X",ch);
-		DoAppendToRevEdit(str);
+		str.Format("%02X ",ch);
+		m_strReceiveData = m_strReceiveData + str;
+		
 	}
 	else{
 		CString str;
 		str.Format("%c",ch);
-		DoAppendToRevEdit(str);
+		m_strReceiveData = m_strReceiveData + str;
+		
 	}
 	
 	UpdateData(FALSE);
@@ -657,7 +544,7 @@ void CMyCommView::OnSelchangeCbcommand()
 void CMyCommView::OnBtsaverecdata() 
 {
 	// TODO: Add your control notification handler code here
-    CFileDialog dlg(FALSE, NULL, NULL,                       
+    CFileDialog dlg(FALSE, NULL, ".txt",                       
 		OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT|OFN_NOCHANGEDIR, 
 		"Txt (*.txt)|*.txt|All FIle (*.*)|*.*");
     if (dlg.DoModal() == IDOK)
