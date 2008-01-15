@@ -13,6 +13,8 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+using namespace std;
+
 /////////////////////////////////////////////////////////////////////////////
 // CMyCommView
 
@@ -33,6 +35,7 @@ BEGIN_MESSAGE_MAP(CMyCommView, CFormView)
 	ON_MESSAGE(WM_COMM_RXCHAR, OnCommunication)
 	ON_CBN_SELCHANGE(IDC_CBCOMMAND, OnSelchangeCbcommand)
 	ON_BN_CLICKED(IDC_BTSAVERECDATA, OnBtsaverecdata)
+	ON_BN_CLICKED(IDC_BTVIEWRECDATA, OnBtviewrecdata)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -48,6 +51,7 @@ CMyCommView::CMyCommView()
 	//}}AFX_DATA_INIT
 	// TODO: add construction code here
 	m_hint.Create(this) ;
+	m_IsViewReceiveData = TRUE;
 }
 
 CMyCommView::~CMyCommView()
@@ -58,6 +62,7 @@ void CMyCommView::DoDataExchange(CDataExchange* pDX)
 {
 	ETSLayoutFormView::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CMyCommView)
+	DDX_Control(pDX, IDC_EDRECDATA, m_ctrlReciveData);
 	DDX_Control(pDX, IDC_CBCOMMAND, m_ctrlCommand);
 	DDX_Control(pDX, IDC_CHAUTOSEND, m_ctrlAutoSend);
 	DDX_Control(pDX, IDC_CBSTOPBITS, m_ctrlStopBits);
@@ -69,7 +74,6 @@ void CMyCommView::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CHREVHEX, m_ctrlReceiveHex);
 	DDX_Control(pDX, IDC_BMPCOM, m_ctrlComImg);
 	DDX_Text(pDX, IDC_EDSENDDATA, m_strSendData);
-	DDX_Text(pDX,IDC_EDRECDATA,m_strReceiveData);
 	DDX_Text(pDX, IDC_EDAUTOSENDTIME, m_AutoSendTime);
 	//}}AFX_DATA_MAP
 }
@@ -90,6 +94,8 @@ void CMyCommView::OnInitialUpdate()
 	ETSLayoutFormView::OnInitialUpdate();
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
+
+	m_EditLogger.SetEditCtrl( m_ctrlReciveData.m_hWnd );
 
 	m_ctrlReceiveHex.SetCheck(GetDocument()->m_IsReceiveHex);
 	m_ctrlSendHex.SetCheck(GetDocument()->m_IsSendHex);
@@ -167,19 +173,18 @@ void CMyCommView::OnInitialUpdate()
 	EnableToolTips(TRUE);
 	m_hint.Activate(TRUE);
 	m_hint.AddTool(GetDlgItem(IDC_CBCOMMAND),_T("选择要发送的命令，并点发送。"));
+	m_hint.AddTool(GetDlgItem(IDC_STRECVALUE),_T("接收数据内容右键计算结果值。"));
 	m_hint.SetTipTextColor(RGB(0,0,0));  
 	m_hint.SetDelayTime(100);     
 	
+	//command combox
 	for(int i=0 ;i<COMMANDCOUNT ;i++)
 	{
 		if (!GetDocument()->m_Command[i].m_strName.IsEmpty())
 		{
 			m_ctrlCommand.AddString(GetDocument()->m_Command[i].m_strName);
 		}
-		
 	}	
-	
-	
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -422,7 +427,6 @@ void CMyCommView::OnBtSend()
 	// TODO: Add your control notification handler code here
 	if (!GetDocument()->m_ComAction) 
 	{
-		AfxMessageBox(_T("串口没有打开。"));
 		return;
 	}
 	UpdateData(TRUE);
@@ -447,11 +451,13 @@ void CMyCommView::OnBtviewprotocol()
 	// TODO: Add your control notification handler code here
 	if (!GetDocument()->m_strProtocol.IsEmpty())
 	{
-		m_strReceiveData = m_strReceiveData + "\n" + GetDocument()->m_strProtocol;
+		//m_strReceiveData = m_strReceiveData + "\n" + GetDocument()->m_strProtocol;
+		m_EditLogger.AddText( "\n\r" + GetDocument()->m_strProtocol );
 		
 	}
 	else{
-		m_strReceiveData = m_strReceiveData + "\n" + _T("无串口通信协议内容\n");
+		//m_strReceiveData = m_strReceiveData + "\n" + _T("无串口通信协议内容\n");
+		m_EditLogger.AddText(_T("\n\r无串口通信协议内容\n\r"));
 		
 	}	
 	UpdateData(FALSE);
@@ -461,8 +467,17 @@ void CMyCommView::OnBtviewprotocol()
 void CMyCommView::OnBtclearreceivedata() 
 {
 	// TODO: Add your control notification handler code here
-	m_strReceiveData.Empty();
-	UpdateData(FALSE);
+	//m_strReceiveData.Empty();
+	//UpdateData(FALSE);
+	HWND hEdit = m_ctrlReciveData.m_hWnd;
+	
+	BOOL bReadOnly = ::GetWindowLong( hEdit, GWL_STYLE ) & ES_READONLY;
+	if( bReadOnly )
+		::SendMessage( hEdit, EM_SETREADONLY, FALSE, 0 );
+	::SendMessage( hEdit, EM_SETSEL, 0, -1 );
+	::SendMessage( hEdit, WM_CLEAR, 0, 0 );
+	if( bReadOnly )
+		::SendMessage( hEdit, EM_SETREADONLY, TRUE, 0 );
 }
 
 
@@ -510,21 +525,26 @@ void CMyCommView::OnTimer(UINT nIDEvent)
 LONG CMyCommView::OnCommunication(WPARAM ch, LPARAM port)
 {
 	GetDocument()->m_RXCount++;
-	if (m_ctrlReceiveHex.GetCheck())
+	if (m_IsViewReceiveData)
 	{
-		CString str;
-		str.Format("%02X ",ch);
-		m_strReceiveData = m_strReceiveData + str;
-		
-	}
-	else{
-		CString str;
-		str.Format("%c",ch);
-		m_strReceiveData = m_strReceiveData + str;
-		
+		if (m_ctrlReceiveHex.GetCheck())
+		{
+			CString str;
+			str.Format("%02X ",ch);
+			//m_strReceiveData = m_strReceiveData + str;
+			m_EditLogger.AddText(str);
+			
+		}
+		else{
+			CString str;
+			str.Format("%c",ch);
+			//m_strReceiveData = m_strReceiveData + str;
+			m_EditLogger.AddText(str);
+			
+		}
+		UpdateData(FALSE);
 	}
 	
-	UpdateData(FALSE);
 	return 0;
 }
 
@@ -560,4 +580,30 @@ void CMyCommView::OnBtsaverecdata()
 			fclose(fp);  
 		}
     }	
+}
+
+void CMyCommView::OnBtviewrecdata() 
+{
+	// TODO: Add your control notification handler code here
+	m_IsViewReceiveData = !m_IsViewReceiveData;
+	if (m_IsViewReceiveData)
+	{
+		CButton * myb = (CButton *) GetDlgItem(IDC_BTVIEWRECDATA);
+		myb->SetWindowText(_T("停止显示"));
+		m_EditLogger.AddText(_T("\r\n继续显示\r\n"));
+	}
+	else
+	{
+		CButton * myb = (CButton *) GetDlgItem(IDC_BTVIEWRECDATA);
+		myb->SetWindowText(_T("继续显示"));
+		m_EditLogger.AddText(_T("\r\n停止显示"));
+		
+	}
+}
+
+BOOL CMyCommView::DestroyWindow() 
+{
+	// TODO: Add your specialized code here and/or call the base class
+
+	return CFormView::DestroyWindow();
 }

@@ -38,8 +38,8 @@ public:
 	BOOL m_ComAction;
 	int m_intPort;  
 	int m_intBaudRate;
-	int m_intDataBits  ;  //数据位
-	char m_cParity   ;    //校验位 0 ,1,2 
+	int m_intDataBits  ;  
+	char m_cParity   ;    // 0 ,1,2 
 	int m_intStopBits;    // 0=1 1=1.5 2=2
 	CommTimeout m_CommTimeout;
 	CommCommand m_Command[COMMANDCOUNT];

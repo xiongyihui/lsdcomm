@@ -2,13 +2,13 @@
 
 [General Info]
 Version=1
-LastClass=CCommandDlg
-LastTemplate=CDialog
+LastClass=CMyEditEx
+LastTemplate=CEdit
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "MyComm.h"
 LastPage=0
 
-ClassCount=8
+ClassCount=12
 Class1=CMyCommApp
 Class2=CMyCommDoc
 Class3=CMyCommView
@@ -16,19 +16,19 @@ Class4=CMainFrame
 
 ResourceCount=6
 <<<<<<< .mine
-Resource1=IDD_MYCOMM_FORM
-Resource2=IDR_MAINFRAME
+Resource1=IDD_DLGADVANCED
+Resource2=IDD_ABOUTBOX
 =======
-Resource1=IDD_MYCOMM_FORM
-Resource2=IDR_MAINFRAME
+Resource1=IDD_DLGADVANCED
+Resource2=IDD_ABOUTBOX
 >>>>>>> .r13
 Class5=CAboutDlg
-Resource3=IDD_ABOUTBOX
+Resource3=IDR_MAINFRAME
 Class6=CCommandDlg
 <<<<<<< .mine
-Resource4=IDD_DLGADVANCED
+Resource4=IDD_MYCOMM_FORM
 =======
-Resource4=IDD_DLGADVANCED
+Resource4=IDD_MYCOMM_FORM
 >>>>>>> .r13
 Class7=CCommAdvancedDlg
 <<<<<<< .mine
@@ -37,6 +37,10 @@ Resource5=IDD_DLGCOMMAND
 Resource5=IDD_DLGCOMMAND
 >>>>>>> .r13
 Class8=CProtocolEditDlg
+Class9=MyEdit
+Class10=CMyEdit
+Class11=CMyEdit2
+Class12=CMyEditEx
 Resource6=IDD_DLGPROTOCOL
 
 [CLS:CMyCommApp]
@@ -59,7 +63,7 @@ ImplementationFile=MyCommView.cpp
 Filter=D
 BaseClass=CFormView
 VirtualFilter=VWC
-LastObject=IDC_BTCOMMAND_H
+LastObject=CMyCommView
 
 
 [CLS:CMainFrame]
@@ -129,7 +133,7 @@ CommandCount=13
 [DLG:IDD_MYCOMM_FORM]
 Type=1
 Class=CMyCommView
-ControlCount=29
+ControlCount=31
 Control1=IDC_STATIC1,button,1342177287
 Control2=IDC_STATIC2,button,1342177543
 Control3=IDC_EDRECDATA,edit,1352732676
@@ -159,6 +163,8 @@ Control26=IDC_CHAUTOSEND,button,1342242819
 Control27=IDC_CBCOMMAND,combobox,1344339971
 Control28=IDC_BTSAVERECDATA,button,1342242816
 Control29=IDC_STCOMMANDCAPTION,static,1342308352
+Control30=IDC_STRECVALUE,static,1342308353
+Control31=IDC_BTVIEWRECDATA,button,1342242816
 
 [DLG:IDD_DLGCOMMAND]
 Type=1
@@ -308,4 +314,36 @@ BaseClass=CDialog
 Filter=D
 VirtualFilter=dWC
 LastObject=CProtocolEditDlg
+
+[CLS:MyEdit]
+Type=0
+HeaderFile=MyEdit.h
+ImplementationFile=MyEdit.cpp
+BaseClass=CEdit
+Filter=W
+VirtualFilter=WC
+LastObject=MyEdit
+
+[CLS:CMyEdit]
+Type=0
+HeaderFile=MyEdit.h
+ImplementationFile=MyEdit.cpp
+BaseClass=CEdit
+Filter=W
+
+[CLS:CMyEdit2]
+Type=0
+HeaderFile=MyEdit2.h
+ImplementationFile=MyEdit2.cpp
+BaseClass=CEdit
+Filter=W
+
+[CLS:CMyEditEx]
+Type=0
+HeaderFile=MyEditEx.h
+ImplementationFile=MyEditEx.cpp
+BaseClass=CEdit
+Filter=W
+VirtualFilter=WC
+LastObject=CMyEditEx
 

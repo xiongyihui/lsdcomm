@@ -10,6 +10,8 @@
 #endif // _MSC_VER > 1000
 #include "CommAdvancedDlg.h"
 #include "ETSLayout.h"
+#include "EditLog.h"
+#include "MyEditEx.h"
 
 
 class CMyCommView : public ETSLayoutFormView
@@ -20,6 +22,7 @@ protected: // create from serialization only
 public:
 	//{{AFX_DATA(CMyCommView)
 	enum { IDD = IDD_MYCOMM_FORM };
+	CMyEditEx	m_ctrlReciveData;
 	CComboBox	m_ctrlCommand;
 	CButton	m_ctrlAutoSend;
 	CComboBox	m_ctrlStopBits;
@@ -31,13 +34,14 @@ public:
 	CButton	m_ctrlReceiveHex;
 	CStatic	m_ctrlComImg;
 	CString	m_strSendData;
-	CString m_strReceiveData;
 	int		m_AutoSendTime;
 	//}}AFX_DATA
+	BOOL m_IsViewReceiveData; 
 
 // Attributes
 public:
 	CMyCommDoc* GetDocument();
+	CEditLog  m_EditLogger;  
 
 // Operations
 public:
@@ -48,6 +52,7 @@ public:
 	public:
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	virtual BOOL DestroyWindow();
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	virtual void OnInitialUpdate(); // called first time after construct
@@ -89,6 +94,7 @@ protected:
 	afx_msg LONG OnCommunication(WPARAM ch, LPARAM port);
 	afx_msg void OnSelchangeCbcommand();
 	afx_msg void OnBtsaverecdata();
+	afx_msg void OnBtviewrecdata();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

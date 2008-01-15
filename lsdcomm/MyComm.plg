@@ -6,6 +6,35 @@
 --------------------Configuration: MyComm - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\lsy.LSD\LOCALS~1\Temp\RSP1252.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/MyComm.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\lsdcomm\MyEditEx.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\lsy.LSD\LOCALS~1\Temp\RSP1252.tmp" 
+Creating temporary file "C:\DOCUME~1\lsy.LSD\LOCALS~1\Temp\RSP1253.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/MyComm.pdb" /debug /machine:I386 /out:"Debug/MyComm.exe" /pdbtype:sept 
+.\Debug\CommAdvancedDlg.obj
+.\Debug\CommandDlg.obj
+.\Debug\ETSLayout.obj
+.\Debug\MainFrm.obj
+.\Debug\MyComm.obj
+.\Debug\MyCommDoc.obj
+.\Debug\MyCommView.obj
+.\Debug\ProtocolEditDlg.obj
+.\Debug\SerialPort.obj
+.\Debug\StdAfx.obj
+.\Debug\MyComm.res
+.\Debug\EditLog.obj
+.\Debug\SubclassWnd.obj
+.\Debug\MyEditEx.obj
+]
+Creating command line "link.exe @C:\DOCUME~1\lsy.LSD\LOCALS~1\Temp\RSP1253.tmp"
+<h3>Output Window</h3>
+Compiling...
+MyEditEx.cpp
+Linking...
 
 
 

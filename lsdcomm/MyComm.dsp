@@ -98,6 +98,10 @@ SOURCE=.\CommandDlg.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\EditLog.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\ETSLayout.cpp
 # End Source File
 # Begin Source File
@@ -122,6 +126,10 @@ SOURCE=.\MyCommView.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\MyEditEx.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\ProtocolEditDlg.cpp
 # End Source File
 # Begin Source File
@@ -132,6 +140,10 @@ SOURCE=.\SerialPort.cpp
 
 SOURCE=.\StdAfx.cpp
 # ADD CPP /Yc"stdafx.h"
+# End Source File
+# Begin Source File
+
+SOURCE=.\SubclassWnd.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -144,6 +156,10 @@ SOURCE=.\CommAdvancedDlg.h
 # Begin Source File
 
 SOURCE=.\CommandDlg.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\EditLog.h
 # End Source File
 # Begin Source File
 
@@ -167,6 +183,10 @@ SOURCE=.\MyCommView.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\MyEditEx.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\ProtocolEditDlg.h
 # End Source File
 # Begin Source File
@@ -180,6 +200,10 @@ SOURCE=.\SerialPort.h
 # Begin Source File
 
 SOURCE=.\StdAfx.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SubclassWnd.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"

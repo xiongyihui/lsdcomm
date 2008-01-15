@@ -61,6 +61,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		TRACE0("Failed to create status bar\n");
 		return -1;      // fail to create
 	}
+	
 
 	return 0;
 }
@@ -308,19 +309,6 @@ void CMainFrame::OnEditCommand()
 		
 	}
 }
-
-// TODO: Add your command handler code here
-//
-
-// TODO: Add your command handler code here
-//
-//CMyCommDoc   *Doc   =  (CMyCommDoc   *)GetActiveDocument();
-//CProtocolEditDlg dlg;
-//dlg.m_Edit = Doc->m_strProtocol;
-//if(dlg.DoModal()==IDOK)
-//{
-//	Doc->m_strProtocol = dlg.m_Edit;/
-	//}		
 
 
 void CMainFrame::OnEditProtocol() 
