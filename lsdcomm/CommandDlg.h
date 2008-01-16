@@ -79,6 +79,26 @@ public:
 	BOOL	m_IsHex_7;
 	BOOL	m_IsHex_8;
 	BOOL	m_IsHex_9;
+	BOOL	m_IsScript_1;
+	BOOL	m_IsScript_10;
+	BOOL	m_IsScript_11;
+	BOOL	m_IsScript_12;
+	BOOL	m_IsScript_13;
+	BOOL	m_IsScript_14;
+	BOOL	m_IsScript_15;
+	BOOL	m_IsScript_16;
+	BOOL	m_IsScript_17;
+	BOOL	m_IsScript_18;
+	BOOL	m_IsScript_19;
+	BOOL	m_IsScript_2;
+	BOOL	m_IsScript_20;
+	BOOL	m_IsScript_3;
+	BOOL	m_IsScript_4;
+	BOOL	m_IsScript_5;
+	BOOL	m_IsScript_6;
+	BOOL	m_IsScript_7;
+	BOOL	m_IsScript_8;
+	BOOL	m_IsScript_9;
 	//}}AFX_DATA
 
 
@@ -94,7 +114,7 @@ protected:
 
 	// Generated message map functions
 	//{{AFX_MSG(CCommandDlg)
-		// NOTE: the ClassWizard will add member functions here
+	afx_msg void OnBtscripthelp();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

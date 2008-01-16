@@ -2,7 +2,7 @@
 
 [General Info]
 Version=1
-LastClass=CMyCommView
+LastClass=CCommandDlg
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "MyComm.h"
@@ -16,32 +16,32 @@ Class4=CMainFrame
 
 ResourceCount=7
 <<<<<<< .mine
-Resource1=IDD_MYCOMM_FORM
-Resource2=IDD_DLGPROTOCOL
+Resource1=IDD_DLGADVANCED
+Resource2=IDD_DLGCOMMAND
 =======
-Resource1=IDD_MYCOMM_FORM
-Resource2=IDD_DLGPROTOCOL
+Resource1=IDD_DLGADVANCED
+Resource2=IDD_DLGCOMMAND
 >>>>>>> .r13
 Class5=CAboutDlg
-Resource3=IDD_ABOUTBOX
+Resource3=IDR_MAINFRAME
 Class6=CCommandDlg
 <<<<<<< .mine
-Resource4=IDD_DLGCOMMAND
+Resource4=IDD_DLGPROTOCOL
 =======
-Resource4=IDD_DLGCOMMAND
+Resource4=IDD_DLGPROTOCOL
 >>>>>>> .r13
 Class7=CCommAdvancedDlg
 <<<<<<< .mine
-Resource5=IDR_MAINFRAME
+Resource5=IDD_MYCOMM_FORM
 =======
-Resource5=IDR_MAINFRAME
+Resource5=IDD_MYCOMM_FORM
 >>>>>>> .r13
 Class8=CProtocolEditDlg
 Class9=MyEdit
 Class10=CMyEdit
 Class11=CMyEdit2
 Class12=CMyEditEx
-Resource6=IDD_DLGADVANCED
+Resource6=IDD_ABOUTBOX
 Class13=CScriptHelpDlg
 Resource7=IDD_DLGSCRIPTHELP
 
@@ -173,7 +173,7 @@ Control31=IDC_CHSCRIPT,button,1342242819
 [DLG:IDD_DLGCOMMAND]
 Type=1
 Class=CCommandDlg
-ControlCount=84
+ControlCount=106
 Control1=IDOK,button,1342242817
 Control2=IDCANCEL,button,1342242816
 Control3=IDC_EDNAME_1,edit,1350631552
@@ -258,6 +258,28 @@ Control81=IDC_CHHEX_19,button,1342242819
 Control82=IDC_CHHEX_20,button,1342242819
 Control83=IDC_STATIC,static,1342308352
 Control84=IDC_STATIC,static,1342308352
+Control85=IDC_CHSCRIPT_1,button,1342242819
+Control86=IDC_CHSCRIPT_2,button,1342242819
+Control87=IDC_CHSCRIPT_3,button,1342242819
+Control88=IDC_CHSCRIPT_4,button,1342242819
+Control89=IDC_CHSCRIPT_5,button,1342242819
+Control90=IDC_CHSCRIPT_6,button,1342242819
+Control91=IDC_CHSCRIPT_7,button,1342242819
+Control92=IDC_CHSCRIPT_8,button,1342242819
+Control93=IDC_CHSCRIPT_9,button,1342242819
+Control94=IDC_CHSCRIPT_10,button,1342242819
+Control95=IDC_CHSCRIPT_11,button,1342242819
+Control96=IDC_CHSCRIPT_12,button,1342242819
+Control97=IDC_CHSCRIPT_13,button,1342242819
+Control98=IDC_CHSCRIPT_14,button,1342242819
+Control99=IDC_CHSCRIPT_15,button,1342242819
+Control100=IDC_CHSCRIPT_16,button,1342242819
+Control101=IDC_CHSCRIPT_17,button,1342242819
+Control102=IDC_CHSCRIPT_18,button,1342242819
+Control103=IDC_CHSCRIPT_19,button,1342242819
+Control104=IDC_CHSCRIPT_20,button,1342242819
+Control105=IDC_STATIC,static,1342308352
+Control106=IDC_BTSCRIPTHELP,button,1342242816
 
 [CLS:CCommandDlg]
 Type=0
@@ -265,7 +287,7 @@ HeaderFile=CommandDlg.h
 ImplementationFile=CommandDlg.cpp
 BaseClass=CDialog
 Filter=D
-LastObject=CCommandDlg
+LastObject=IDC_BTSCRIPTHELP
 VirtualFilter=dWC
 
 [DLG:IDD_DLGADVANCED]

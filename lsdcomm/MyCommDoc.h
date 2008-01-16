@@ -16,6 +16,7 @@ struct CommCommand {
 	CString m_strName;
 	CString m_strCommand;
 	BOOL  m_IsHex;  //is Hex
+	BOOL  m_isScript; 
 } ;
 
 struct CommTimeout{

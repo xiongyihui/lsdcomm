@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "MyComm.h"
 #include "CommandDlg.h"
+#include "ScriptHelpDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -79,6 +80,26 @@ CCommandDlg::CCommandDlg(CWnd* pParent /*=NULL*/)
 	m_IsHex_7 = FALSE;
 	m_IsHex_8 = FALSE;
 	m_IsHex_9 = FALSE;
+	m_IsScript_1 = FALSE;
+	m_IsScript_10 = FALSE;
+	m_IsScript_11 = FALSE;
+	m_IsScript_12 = FALSE;
+	m_IsScript_13 = FALSE;
+	m_IsScript_14 = FALSE;
+	m_IsScript_15 = FALSE;
+	m_IsScript_16 = FALSE;
+	m_IsScript_17 = FALSE;
+	m_IsScript_18 = FALSE;
+	m_IsScript_19 = FALSE;
+	m_IsScript_2 = FALSE;
+	m_IsScript_20 = FALSE;
+	m_IsScript_3 = FALSE;
+	m_IsScript_4 = FALSE;
+	m_IsScript_5 = FALSE;
+	m_IsScript_6 = FALSE;
+	m_IsScript_7 = FALSE;
+	m_IsScript_8 = FALSE;
+	m_IsScript_9 = FALSE;
 	//}}AFX_DATA_INIT
 }
 
@@ -147,15 +168,43 @@ void CCommandDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHHEX_7, m_IsHex_7);
 	DDX_Check(pDX, IDC_CHHEX_8, m_IsHex_8);
 	DDX_Check(pDX, IDC_CHHEX_9, m_IsHex_9);
+	DDX_Check(pDX, IDC_CHSCRIPT_1, m_IsScript_1);
+	DDX_Check(pDX, IDC_CHSCRIPT_10, m_IsScript_10);
+	DDX_Check(pDX, IDC_CHSCRIPT_11, m_IsScript_11);
+	DDX_Check(pDX, IDC_CHSCRIPT_12, m_IsScript_12);
+	DDX_Check(pDX, IDC_CHSCRIPT_13, m_IsScript_13);
+	DDX_Check(pDX, IDC_CHSCRIPT_14, m_IsScript_14);
+	DDX_Check(pDX, IDC_CHSCRIPT_15, m_IsScript_15);
+	DDX_Check(pDX, IDC_CHSCRIPT_16, m_IsScript_16);
+	DDX_Check(pDX, IDC_CHSCRIPT_17, m_IsScript_17);
+	DDX_Check(pDX, IDC_CHSCRIPT_18, m_IsScript_18);
+	DDX_Check(pDX, IDC_CHSCRIPT_19, m_IsScript_19);
+	DDX_Check(pDX, IDC_CHSCRIPT_2, m_IsScript_2);
+	DDX_Check(pDX, IDC_CHSCRIPT_20, m_IsScript_20);
+	DDX_Check(pDX, IDC_CHSCRIPT_3, m_IsScript_3);
+	DDX_Check(pDX, IDC_CHSCRIPT_4, m_IsScript_4);
+	DDX_Check(pDX, IDC_CHSCRIPT_5, m_IsScript_5);
+	DDX_Check(pDX, IDC_CHSCRIPT_6, m_IsScript_6);
+	DDX_Check(pDX, IDC_CHSCRIPT_7, m_IsScript_7);
+	DDX_Check(pDX, IDC_CHSCRIPT_8, m_IsScript_8);
+	DDX_Check(pDX, IDC_CHSCRIPT_9, m_IsScript_9);
 	//}}AFX_DATA_MAP
 }
 
 
 BEGIN_MESSAGE_MAP(CCommandDlg, CDialog)
 	//{{AFX_MSG_MAP(CCommandDlg)
-		// NOTE: the ClassWizard will add message map macros here
+	ON_BN_CLICKED(IDC_BTSCRIPTHELP, OnBtscripthelp)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
 // CCommandDlg message handlers
+
+void CCommandDlg::OnBtscripthelp() 
+{
+	// TODO: Add your control notification handler code here
+	CScriptHelpDlg dlg;
+	dlg.DoModal();
+}
+

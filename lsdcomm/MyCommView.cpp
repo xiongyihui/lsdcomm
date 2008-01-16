@@ -593,6 +593,8 @@ void CMyCommView::OnSelchangeCbcommand()
 	if (myindex>=0 && myindex < COMMANDCOUNT)
 	{
 		m_strSendData = GetDocument()->m_Command[myindex].m_strCommand;
+		m_ctrlSendHex.SetCheck(GetDocument()->m_Command[myindex].m_IsHex);
+		m_ctrlSendScript.SetCheck(GetDocument()->m_Command[myindex].m_isScript);	
 		UpdateData(FALSE);
 	}
 }
@@ -647,44 +649,93 @@ BOOL CMyCommView::DestroyWindow()
 void CMyCommView::DoRunScript(const CString str)
 {
 	CString Commandstr;
-	CString Paramsstr;
+	CString Paramsstr,SendStr;
 	char data[512];
-	//split
 	int myindex;
+	int commandindex;
+
+	if (str.GetLength()==0){return;}
+	if (str[0]=='#'){return;}  //注释行不处理。
 	myindex = str.Find('=',0);
 	if (myindex == -1) 
 	{
-		CString ErrorStr;
-		ErrorStr.Format("\n\r语法出错 %s\n\r",str);
-		m_EditLogger.AddText(_T(ErrorStr));
-		return;
+		//有可能是无参数的命令
+		Commandstr = str;
+		Commandstr.MakeUpper();
+		if ((Commandstr=="CLEAR") || (Commandstr=="DATE"))	
+		{
+			Paramsstr.Empty();
+		} 
+		else
+		{
+			CString ErrorStr;
+			ErrorStr.Format("\n\r语法出错 %s\n\r",str);
+			m_EditLogger.AddText(_T(ErrorStr));
+			return;
+		}
+		
 	}	
-
-	Commandstr = str.Left(myindex);
-	Paramsstr  = str.Right(str.GetLength()-myindex-1);
-	Commandstr.MakeUpper();
+	else{
+		Commandstr = str.Left(myindex);
+		Paramsstr  = str.Right(str.GetLength()-myindex-1);
+		Commandstr.MakeUpper();
+	}	
+	
 
 	if (Commandstr=="SEND")
 	{
 		//内容可能有#1的情况
+		if ((Paramsstr.GetLength()>0) && (Paramsstr[0]=='%'))
+		{
+			commandindex = atoi(Paramsstr.Right(Paramsstr.GetLength()-1))-1;
+			if (GetDocument()->m_Command[commandindex].m_isScript)
+			{
+				CString ErrorStr;
+				ErrorStr.Format("\n\r语法出错，脚本不能做SEND的参数。 %s\n\r",str);
+				m_EditLogger.AddText(_T(ErrorStr));
+				return;	
+			}
+			SendStr=GetDocument()->m_Command[commandindex].m_strCommand;	
+		}	
+		else{
+			SendStr = Paramsstr;
+		}
+		
 		if(m_ctrlSendHex.GetCheck())
 		{
-			int len=DoStr2Hex(Paramsstr,data);
+			int len=DoStr2Hex(SendStr,data);
 			GetDocument()->m_Comm.WriteToPort(data,len);
-			GetDocument()->m_RXCount+=(long)((Paramsstr.GetLength()+1)/3);	
+			GetDocument()->m_RXCount+=(long)((SendStr.GetLength()+1)/3);	
 		}
 		else{
-			GetDocument()->m_Comm.WriteToPort((LPCTSTR)Paramsstr);	//发送数据
-			GetDocument()->m_RXCount+=Paramsstr.GetLength();
-				}
+			GetDocument()->m_Comm.WriteToPort((LPCTSTR)SendStr);	//发送数据
+			GetDocument()->m_RXCount+=SendStr.GetLength();
+		}
 	}
 	else if (Commandstr=="SLEEP")
 	{
-
+		Sleep(atoi(Paramsstr));
 	}
 	else if (Commandstr=="OUT")
 	{
-		m_EditLogger.AddText(_T(Paramsstr));
+		//char   re[3]   =   {VK_RETURN,   0x0a};
+		SendStr = Paramsstr;
+		//SendStr.Replace("\n\r","abc");
+		m_EditLogger.AddText(_T(SendStr));
+	}
+	else if (Commandstr =="DATE")
+	{
+		CTime time=CTime::GetCurrentTime(); 
+		CString s;
+		if (Paramsstr.IsEmpty())
+			s = time.Format("%Y-%m-%d %H:%M:%S");
+		else	
+			s = time.Format(Paramsstr);
+		m_EditLogger.AddText(s);
+	}	
+	else if (Commandstr == "CLEAR")
+	{
+		OnBtclearreceivedata();
 	}
 	else{
 		CString ErrorStr;

@@ -48,6 +48,12 @@ CMyCommDoc::CMyCommDoc()
 
 	m_TXCount = 0;
 	m_RXCount = 0;
+	int i;
+	for(i=0;i<COMMANDCOUNT;i++)
+	{
+		m_Command[i].m_IsHex = FALSE;
+		m_Command[i].m_isScript = FALSE;
+	}
 }
 
 CMyCommDoc::~CMyCommDoc()
@@ -74,6 +80,7 @@ void CMyCommDoc::Serialize(CArchive& ar)
 {
 	//
 	// 2. 去掉快捷键 2008-1-14
+	// 3. 增加是否是脚本功能,及16进制 2008-1-15
 	//
 	//
 	int ver; 
@@ -82,7 +89,7 @@ void CMyCommDoc::Serialize(CArchive& ar)
 	{
 		// TODO: add storing code here
 		
-		ver = 2;
+		ver = 3;
 		ar<<ver;  //version
 		ar<<m_intPort;
 		ar<<m_intBaudRate;
@@ -105,6 +112,8 @@ void CMyCommDoc::Serialize(CArchive& ar)
 			ar<<m_Command[i].m_strName;
 			//ar<<m_Command[i].m_ShutChar; ver=2 去掉
 			ar<<m_Command[i].m_strCommand;
+			ar<<m_Command[i].m_IsHex;  //ver=3
+			ar<<m_Command[i].m_isScript; //ver=3
 					
 		};
 
@@ -142,6 +151,11 @@ void CMyCommDoc::Serialize(CArchive& ar)
 				ar>>myc;
 			}
 			ar>>m_Command[i].m_strCommand;
+			if (ver>2)
+			{
+				ar>>m_Command[i].m_IsHex;
+				ar>>m_Command[i].m_isScript;
+			}	
 		};
 
 		ar>>m_IsReceiveHex;
