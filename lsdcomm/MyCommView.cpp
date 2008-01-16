@@ -62,6 +62,7 @@ void CMyCommView::DoDataExchange(CDataExchange* pDX)
 {
 	ETSLayoutFormView::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CMyCommView)
+	DDX_Control(pDX, IDC_CHSCRIPT, m_ctrlSendScript);
 	DDX_Control(pDX, IDC_EDRECDATA, m_ctrlReciveData);
 	DDX_Control(pDX, IDC_CBCOMMAND, m_ctrlCommand);
 	DDX_Control(pDX, IDC_CHAUTOSEND, m_ctrlAutoSend);
@@ -95,6 +96,11 @@ void CMyCommView::OnInitialUpdate()
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
 
+	if (GetDocument()->m_ComAction)
+	{
+		GetDocument()->CloseComm();
+	}
+	
 	m_EditLogger.SetEditCtrl( m_ctrlReciveData.m_hWnd );
 
 	m_ctrlReceiveHex.SetCheck(GetDocument()->m_IsReceiveHex);
@@ -130,12 +136,13 @@ void CMyCommView::OnInitialUpdate()
 	DoRefreshControl2(myb);	
 	
 	//layout
-	CreateRoot(VERTICAL)
+	CreateRoot(VERTICAL);
+	m_RootPane	
 		<< 	( pane(HORIZONTAL)
 		<<( pane(VERTICAL,ABSOLUTE_VERT)
 		<< item( IDC_STATIC1, NORESIZE )
 		<< item( IDC_STATIC2, NORESIZE ))
-		<< item(IDC_EDRECDATA,GREEDY)    //revdata edit
+		<< item(IDC_EDRECDATA,GREEDY,0,0,0,0)    //revdata edit
 		)	
 		
 		//	<< item ( IDC_ITEM_LIST_STATIC, NORESIZE )
@@ -147,17 +154,19 @@ void CMyCommView::OnInitialUpdate()
 			//<< item( IDC_STATIC3, NORESIZE)
 			//<< itemGrowing(VERTICAL)
 			<< item (IDC_STATIC_SEND,NORESIZE)
-			<< item( IDC_CHSENDHEX,NORESIZE)
+			<< (pane(HORIZONTAL,GREEDY)
+				<< item( IDC_CHSENDHEX,NORESIZE)
+				<< item( IDC_CHSCRIPT,NORESIZE)
+				)
 			<< (pane(HORIZONTAL,GREEDY,2,0,0)
 					<< item(IDC_CHAUTOSEND,NORESIZE)
 					<< item(IDC_EDAUTOSENDTIME,NORESIZE)
-					<< item(IDC_STAUTOSENDUNIT_1,NORESIZE)
-					
+	
 				)
 			
 			)
 		<< ( pane(VERTICAL,ABSOLUTE_VERT)
-		<< item( IDC_EDSENDDATA,RELATIVE_HORZ)
+		<< item( IDC_EDSENDDATA,RELATIVE_HORZ,0,0,0,0)
 		<<(pane(HORIZONTAL, ABSOLUTE_VERT)
 		<< item(IDC_STCOMMANDCAPTION,NORESIZE)
 		<< item(IDC_CBCOMMAND,NORESIZE)
@@ -178,11 +187,13 @@ void CMyCommView::OnInitialUpdate()
 	m_hint.SetDelayTime(100);     
 	
 	//command combox
+	CString myCommandStr;
 	for(int i=0 ;i<COMMANDCOUNT ;i++)
 	{
 		if (!GetDocument()->m_Command[i].m_strName.IsEmpty())
 		{
-			m_ctrlCommand.AddString(GetDocument()->m_Command[i].m_strName);
+			myCommandStr.Format("%d %s",i+1,GetDocument()->m_Command[i].m_strName);
+			m_ctrlCommand.AddString(myCommandStr);
 		}
 	}	
 }
@@ -431,7 +442,32 @@ void CMyCommView::OnBtSend()
 	}
 	UpdateData(TRUE);
 	
-	if(m_ctrlSendHex.GetCheck())
+	int i;
+
+	
+	if(m_ctrlSendScript.GetCheck())
+	{
+		CString mycommand;
+		CString myscript;
+		char myc;
+		mycommand.Empty();
+		myscript = this->m_strSendData;
+		for(i=0;i<myscript.GetLength();i++)
+		{
+			myc = myscript[i];
+			if (myc==';')
+			{
+				DoRunScript(mycommand);
+				mycommand.Empty();
+			}	
+			else{
+				if ((myc != '\n') && (myc != '\r')) {mycommand += myc;}
+			}
+			
+		}
+			 
+	}
+	else if(m_ctrlSendHex.GetCheck())
 	{
 		char data[512];
 		int len=DoStr2Hex(m_strSendData,data);
@@ -606,4 +642,54 @@ BOOL CMyCommView::DestroyWindow()
 	// TODO: Add your specialized code here and/or call the base class
 
 	return CFormView::DestroyWindow();
+}
+
+void CMyCommView::DoRunScript(const CString str)
+{
+	CString Commandstr;
+	CString Paramsstr;
+	char data[512];
+	//split
+	int myindex;
+	myindex = str.Find('=',0);
+	if (myindex == -1) 
+	{
+		CString ErrorStr;
+		ErrorStr.Format("\n\r语法出错 %s\n\r",str);
+		m_EditLogger.AddText(_T(ErrorStr));
+		return;
+	}	
+
+	Commandstr = str.Left(myindex);
+	Paramsstr  = str.Right(str.GetLength()-myindex-1);
+	Commandstr.MakeUpper();
+
+	if (Commandstr=="SEND")
+	{
+		//内容可能有#1的情况
+		if(m_ctrlSendHex.GetCheck())
+		{
+			int len=DoStr2Hex(Paramsstr,data);
+			GetDocument()->m_Comm.WriteToPort(data,len);
+			GetDocument()->m_RXCount+=(long)((Paramsstr.GetLength()+1)/3);	
+		}
+		else{
+			GetDocument()->m_Comm.WriteToPort((LPCTSTR)Paramsstr);	//发送数据
+			GetDocument()->m_RXCount+=Paramsstr.GetLength();
+				}
+	}
+	else if (Commandstr=="SLEEP")
+	{
+
+	}
+	else if (Commandstr=="OUT")
+	{
+		m_EditLogger.AddText(_T(Paramsstr));
+	}
+	else{
+		CString ErrorStr;
+		ErrorStr.Format("\n\r语法出错 %s\n\r",str);
+		m_EditLogger.AddText(_T(ErrorStr));
+	}
+		
 }

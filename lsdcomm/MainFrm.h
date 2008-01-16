@@ -56,6 +56,7 @@ protected:
 	afx_msg void OnEditCommand();
 	afx_msg void OnEditProtocol();
 	afx_msg void OnLangchinese();
+	afx_msg void OnHelpScript();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

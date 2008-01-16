@@ -101,6 +101,7 @@ BEGIN
     END
     POPUP "帮助(&H)"
     BEGIN
+        MENUITEM "脚本说明...",                 ID_HELP_SCRIPT
         MENUITEM "关于 LSDComm(&A)...",         ID_APP_ABOUT
     END
 END
@@ -136,13 +137,14 @@ END
 
 IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "关于 MyComm"
+CAPTION "关于 LSDComm"
 FONT 9, "宋体"
 BEGIN
-    ICON            IDR_MAINFRAME,IDC_STATIC,10,10,21,21
+    ICON            IDR_MAINFRAME,IDC_STATIC,10,10,20,20
     LTEXT           "LSDComm 1.0 版",IDC_STATIC,40,10,119,8,SS_NOPREFIX
-    LTEXT           "版权所有 (C) 2007",IDC_STATIC,40,25,119,8
+    LTEXT           "版权所有 (C) 2008",IDC_STATIC,40,25,119,8
     DEFPUSHBUTTON   "确定",IDOK,178,7,50,14,WS_GROUP
+    LTEXT           "http://lsdcomm.googlecode.com",IDC_STATIC,40,39,117,8
 END
 
 IDD_MYCOMM_FORM DIALOGEX 0, 0, 385, 300
@@ -181,17 +183,18 @@ BEGIN
     CONTROL         "16进制",IDC_CHSENDHEX,"Button",BS_AUTOCHECKBOX | 
                     WS_TABSTOP,5,241,40,10
     LTEXT           "发送区",IDC_STATIC_SEND,3,228,94,9,SS_SUNKEN
-    EDITTEXT        IDC_EDAUTOSENDTIME,53,250,32,14,ES_AUTOHSCROLL | 
+    EDITTEXT        IDC_EDAUTOSENDTIME,66,254,30,14,ES_AUTOHSCROLL | 
                     ES_NUMBER
-    LTEXT           "MS",IDC_STAUTOSENDUNIT_1,89,253,9,9
-    CONTROL         "周期发送",IDC_CHAUTOSEND,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,5,250,48,14
+    CONTROL         "周期发送(ms)",IDC_CHAUTOSEND,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,5,254,59,14
     COMBOBOX        IDC_CBCOMMAND,126,280,128,161,CBS_DROPDOWNLIST | 
                     WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "保存数据",IDC_BTSAVERECDATA,6,180,43,14
     LTEXT           "指令：",IDC_STCOMMANDCAPTION,104,284,24,8
     CTEXT           "结果值",IDC_STRECVALUE,50,139,36,12,0,WS_EX_STATICEDGE
     PUSHBUTTON      "停止显示",IDC_BTVIEWRECDATA,50,196,43,14
+    CONTROL         "脚本",IDC_CHSCRIPT,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,46,241,32,10
 END
 
 IDD_DLGCOMMAND DIALOG DISCARDABLE  0, 0, 294, 375
@@ -343,6 +346,17 @@ BEGIN
     LTEXT           "回车=Ctrl+回车",IDC_STATIC_1,7,260,57,8
 END
 
+IDD_DLGSCRIPTHELP DIALOG DISCARDABLE  0, 0, 268, 251
+STYLE WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "脚本说明"
+FONT 9, "宋体"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,154,230,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,211,230,50,14
+    EDITTEXT        IDC_EDIT1,11,10,244,210,ES_MULTILINE | ES_AUTOHSCROLL | 
+                    ES_READONLY | ES_WANTRETURN
+END
+
 
 #ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
@@ -436,6 +450,14 @@ BEGIN
         RIGHTMARGIN, 308
         TOPMARGIN, 7
         BOTTOMMARGIN, 268
+    END
+
+    IDD_DLGSCRIPTHELP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 261
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 244
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -632,6 +654,7 @@ BEGIN
     ID_EDIT_COMMAND         "按通信的协议编辑命令指令"
     IDC_EDITPROTOCOL        "记录通信协议以便随时查看"
     IDC_EDIT_PROTOCOL       "编辑通信协议便于随时查看"
+    ID_HELP_SCRIPT          "说明脚本的语法。"
 END
 
 #endif    // Chinese (P.R.C.) resources

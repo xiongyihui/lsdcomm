@@ -22,6 +22,7 @@ protected: // create from serialization only
 public:
 	//{{AFX_DATA(CMyCommView)
 	enum { IDD = IDD_MYCOMM_FORM };
+	CButton	m_ctrlSendScript;
 	CMyEditEx	m_ctrlReciveData;
 	CComboBox	m_ctrlCommand;
 	CButton	m_ctrlAutoSend;
@@ -75,6 +76,7 @@ protected:
 	char DoHexChar(char c);
 	BOOL DoIsNumeric(const CString &strText);
 	void DoRefreshControl2(BOOL bValue);
+	void DoRunScript(const CString str);
 	
 // Generated message map functions
 

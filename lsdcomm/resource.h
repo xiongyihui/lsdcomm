@@ -11,6 +11,7 @@
 #define IDD_DLGCOMMAND                  134
 #define IDD_DLGADVANCED                 136
 #define IDD_DLGPROTOCOL                 137
+#define IDD_DLGSCRIPTHELP               138
 #define IDC_EDRECDATA                   1000
 #define IDC_EDSENDDATA                  1001
 #define IDC_BTCOMMAND_A                 1002
@@ -91,7 +92,9 @@
 #define IDC_EDCOMMAND_11                1054
 #define IDC_BTVIEWRECDATA               1054
 #define IDC_CBSHUT_11                   1055
+#define IDC_CHSCRIPT                    1055
 #define IDC_EDNAME_12                   1056
+#define IDC_EDIT1                       1056
 #define IDC_EDCOMMAND_12                1057
 #define IDC_CBSHUT_12                   1058
 #define IDC_EDNAME_13                   1059
@@ -142,15 +145,16 @@
 #define IDC_LANGCHINESE                 32776
 #define IDC_LANGENGLISH                 32777
 #define IDC_LANGCHINESE2                32778
+#define ID_HELP_SCRIPT                  32779
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        138
-#define _APS_NEXT_COMMAND_VALUE         32779
-#define _APS_NEXT_CONTROL_VALUE         1055
+#define _APS_NEXT_RESOURCE_VALUE        139
+#define _APS_NEXT_COMMAND_VALUE         32780
+#define _APS_NEXT_CONTROL_VALUE         1057
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

@@ -74,7 +74,7 @@ void CMyEditEx::OnContextMenu(CWnd* pWnd, CPoint point)
 	menu.InsertMenu(4, MF_BYPOSITION | flags, WM_PASTE,
 		MES_PASTE);
 	
-	menu.InsertMenu(6, MF_BYPOSITION | MF_SEPARATOR);
+	//menu.InsertMenu(6, MF_BYPOSITION | MF_SEPARATOR);
 	
 	int len = GetWindowTextLength();
 	flags = (!len || (LOWORD(sel) == 0 && HIWORD(sel) ==
@@ -103,10 +103,10 @@ BOOL CMyEditEx::OnCommand(WPARAM wParam, LPARAM lParam)
 		return SendMessage(LOWORD(wParam));
 	case ME_SELECTALL:
 		return SendMessage (EM_SETSEL, 0, -1);
-		/*
-			
-			
-			this->GetSel(a,b);
+	case ME_CHECKSUM:
+		{
+			int a,b;
+			GetSel(a,b);
 			CString mystr;
 			mystr.Format("%d %d",a,b);
 			AfxMessageBox(mystr);
@@ -115,7 +115,7 @@ BOOL CMyEditEx::OnCommand(WPARAM wParam, LPARAM lParam)
 			GetWindowText(myv);
 			myv = myv.Mid(a,b-a);
 			AfxMessageBox(myv);
-		*/
+		}
 	default:
 		return CEdit::OnCommand(wParam, lParam);
 	}

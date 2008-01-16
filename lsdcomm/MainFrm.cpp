@@ -3,8 +3,8 @@
 
 #include "stdafx.h"
 #include "MyComm.h"
-
 #include "MainFrm.h"
+#include "ScriptHelpDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -24,6 +24,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_COMMAND(ID_EDIT_COMMAND, OnEditCommand)
 	ON_COMMAND(ID_EDIT_PROTOCOL, OnEditProtocol)
 	ON_COMMAND(IDC_LANGCHINESE, OnLangchinese)
+	ON_COMMAND(ID_HELP_SCRIPT, OnHelpScript)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -328,3 +329,10 @@ void CMainFrame::OnLangchinese()
 	//	
 }
 
+
+void CMainFrame::OnHelpScript() 
+{
+	// TODO: Add your command handler code here
+	CScriptHelpDlg dlg;
+	dlg.DoModal();
+}

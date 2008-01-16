@@ -2,46 +2,48 @@
 
 [General Info]
 Version=1
-LastClass=CMyEditEx
-LastTemplate=CEdit
+LastClass=CMyCommView
+LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "MyComm.h"
 LastPage=0
 
-ClassCount=12
+ClassCount=13
 Class1=CMyCommApp
 Class2=CMyCommDoc
 Class3=CMyCommView
 Class4=CMainFrame
 
-ResourceCount=6
+ResourceCount=7
 <<<<<<< .mine
-Resource1=IDD_DLGADVANCED
-Resource2=IDD_ABOUTBOX
+Resource1=IDD_MYCOMM_FORM
+Resource2=IDD_DLGPROTOCOL
 =======
-Resource1=IDD_DLGADVANCED
-Resource2=IDD_ABOUTBOX
+Resource1=IDD_MYCOMM_FORM
+Resource2=IDD_DLGPROTOCOL
 >>>>>>> .r13
 Class5=CAboutDlg
-Resource3=IDR_MAINFRAME
+Resource3=IDD_ABOUTBOX
 Class6=CCommandDlg
 <<<<<<< .mine
-Resource4=IDD_MYCOMM_FORM
+Resource4=IDD_DLGCOMMAND
 =======
-Resource4=IDD_MYCOMM_FORM
+Resource4=IDD_DLGCOMMAND
 >>>>>>> .r13
 Class7=CCommAdvancedDlg
 <<<<<<< .mine
-Resource5=IDD_DLGCOMMAND
+Resource5=IDR_MAINFRAME
 =======
-Resource5=IDD_DLGCOMMAND
+Resource5=IDR_MAINFRAME
 >>>>>>> .r13
 Class8=CProtocolEditDlg
 Class9=MyEdit
 Class10=CMyEdit
 Class11=CMyEdit2
 Class12=CMyEditEx
-Resource6=IDD_DLGPROTOCOL
+Resource6=IDD_DLGADVANCED
+Class13=CScriptHelpDlg
+Resource7=IDD_DLGSCRIPTHELP
 
 [CLS:CMyCommApp]
 Type=0
@@ -63,7 +65,7 @@ ImplementationFile=MyCommView.cpp
 Filter=D
 BaseClass=CFormView
 VirtualFilter=VWC
-LastObject=CMyCommView
+LastObject=IDC_CHSCRIPT
 
 
 [CLS:CMainFrame]
@@ -73,7 +75,7 @@ ImplementationFile=MainFrm.cpp
 Filter=T
 BaseClass=CFrameWnd
 VirtualFilter=fWC
-LastObject=ID_EDIT_COMMAND
+LastObject=CMainFrame
 
 
 
@@ -88,11 +90,12 @@ LastObject=CAboutDlg
 [DLG:IDD_ABOUTBOX]
 Type=1
 Class=CAboutDlg
-ControlCount=4
+ControlCount=5
 Control1=IDC_STATIC,static,1342177283
 Control2=IDC_STATIC,static,1342308480
 Control3=IDC_STATIC,static,1342308352
 Control4=IDOK,button,1342373889
+Control5=IDC_STATIC,static,1342308352
 
 [MNU:IDR_MAINFRAME]
 Type=1
@@ -109,8 +112,9 @@ Command9=ID_EDIT_PROTOCOL
 Command10=IDC_LANGCHINESE
 Command11=IDC_LANGCHINESE2
 Command12=IDC_LANGENGLISH
-Command13=ID_APP_ABOUT
-CommandCount=13
+Command13=ID_HELP_SCRIPT
+Command14=ID_APP_ABOUT
+CommandCount=14
 
 [ACL:IDR_MAINFRAME]
 Type=1
@@ -158,13 +162,13 @@ Control21=IDC_BTCLEARRECEIVEDATA,button,1342242816
 Control22=IDC_CHSENDHEX,button,1342242819
 Control23=IDC_STATIC_SEND,static,1342312448
 Control24=IDC_EDAUTOSENDTIME,edit,1350639744
-Control25=IDC_STAUTOSENDUNIT_1,static,1342308352
-Control26=IDC_CHAUTOSEND,button,1342242819
-Control27=IDC_CBCOMMAND,combobox,1344339971
-Control28=IDC_BTSAVERECDATA,button,1342242816
-Control29=IDC_STCOMMANDCAPTION,static,1342308352
-Control30=IDC_STRECVALUE,static,1342308353
-Control31=IDC_BTVIEWRECDATA,button,1342242816
+Control25=IDC_CHAUTOSEND,button,1342242819
+Control26=IDC_CBCOMMAND,combobox,1344339971
+Control27=IDC_BTSAVERECDATA,button,1342242816
+Control28=IDC_STCOMMANDCAPTION,static,1342308352
+Control29=IDC_STRECVALUE,static,1342308353
+Control30=IDC_BTVIEWRECDATA,button,1342242816
+Control31=IDC_CHSCRIPT,button,1342242819
 
 [DLG:IDD_DLGCOMMAND]
 Type=1
@@ -346,4 +350,21 @@ BaseClass=CEdit
 Filter=W
 VirtualFilter=WC
 LastObject=CMyEditEx
+
+[DLG:IDD_DLGSCRIPTHELP]
+Type=1
+Class=CScriptHelpDlg
+ControlCount=3
+Control1=IDOK,button,1342242817
+Control2=IDCANCEL,button,1342242816
+Control3=IDC_EDIT1,edit,1350637700
+
+[CLS:CScriptHelpDlg]
+Type=0
+HeaderFile=ScriptHelpDlg.h
+ImplementationFile=ScriptHelpDlg.cpp
+BaseClass=CDialog
+Filter=D
+VirtualFilter=dWC
+LastObject=CScriptHelpDlg
 

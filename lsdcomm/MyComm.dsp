@@ -134,6 +134,10 @@ SOURCE=.\ProtocolEditDlg.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\ScriptHelpDlg.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SerialPort.cpp
 # End Source File
 # Begin Source File
@@ -192,6 +196,10 @@ SOURCE=.\ProtocolEditDlg.h
 # Begin Source File
 
 SOURCE=.\Resource.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\ScriptHelpDlg.h
 # End Source File
 # Begin Source File
 
