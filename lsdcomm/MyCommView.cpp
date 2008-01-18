@@ -41,6 +41,8 @@ BEGIN_MESSAGE_MAP(CMyCommView, CFormView)
 	ON_COMMAND(ID_SENDKEY_NONE, OnSendkeyNone)
 	ON_COMMAND(ID_SENDKEY_ENTER, OnSendkeyEnter)
 	ON_COMMAND(ID_SENDKEY_SHIFTENTER, OnSendkeyShiftenter)
+	ON_BN_CLICKED(IDC_BTVISIBLEVALUE, OnBtvisiblevalue)
+	ON_EN_UPDATE(IDC_EDRECDATAVALUE, OnUpdateEdrecdatavalue)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -48,16 +50,19 @@ END_MESSAGE_MAP()
 // CMyCommView construction/destruction
 
 CMyCommView::CMyCommView()
-	: ETSLayoutFormView(CMyCommView::IDD)
+	: ETSLayoutFormView(CMyCommView::IDD)   
 {
 	//{{AFX_DATA_INIT(CMyCommView)
 	m_strSendData = _T("");
 	m_AutoSendTime = 1000;
+	m_ReceiveValue = _T("");
 	//}}AFX_DATA_INIT
 	// TODO: add construction code here
 	m_hint.Create(this) ;
 	m_IsViewReceiveData = TRUE;
+	m_IsShowValueWindow = FALSE;
 
+	//send key
 }
 
 CMyCommView::~CMyCommView()
@@ -67,7 +72,9 @@ CMyCommView::~CMyCommView()
 void CMyCommView::DoDataExchange(CDataExchange* pDX)
 {
 	ETSLayoutFormView::DoDataExchange(pDX);
+	
 	//{{AFX_DATA_MAP(CMyCommView)
+	DDX_Control(pDX, IDC_BTOPENCOMM, m_ctrlOpenComm);
 	DDX_Control(pDX, IDC_CHSCRIPT, m_ctrlSendScript);
 	DDX_Control(pDX, IDC_EDRECDATA, m_ctrlReciveData);
 	DDX_Control(pDX, IDC_CBCOMMAND, m_ctrlCommand);
@@ -79,9 +86,9 @@ void CMyCommView::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CBBANDRATE, m_ctrlBaudRate);
 	DDX_Control(pDX, IDC_CHSENDHEX, m_ctrlSendHex);
 	DDX_Control(pDX, IDC_CHREVHEX, m_ctrlReceiveHex);
-	DDX_Control(pDX, IDC_BMPCOM, m_ctrlComImg);
 	DDX_Text(pDX, IDC_EDSENDDATA, m_strSendData);
 	DDX_Text(pDX, IDC_EDAUTOSENDTIME, m_AutoSendTime);
+	DDX_Text(pDX, IDC_EDRECDATAVALUE, m_ReceiveValue);
 	//}}AFX_DATA_MAP
 }
 
@@ -91,6 +98,7 @@ BOOL CMyCommView::PreCreateWindow(CREATESTRUCT& cs)
 	//  the CREATESTRUCT cs
 
 	return ETSLayoutFormView::PreCreateWindow(cs);
+	
 }
 
 void CMyCommView::OnInitialUpdate()
@@ -99,6 +107,7 @@ void CMyCommView::OnInitialUpdate()
     ModifyStyleEx(WS_EX_CLIENTEDGE,0 );
 	
 	ETSLayoutFormView::OnInitialUpdate();
+	
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
 
@@ -138,58 +147,15 @@ void CMyCommView::OnInitialUpdate()
 
 	}
 	m_ctrlStopBits.SetCurSel(GetDocument()->m_intStopBits); 
-	BOOL myb = FALSE;
-	DoRefreshControl2(myb);	
+	DoRefreshControl2();	
 	
 	//layout
-	CreateRoot(VERTICAL);
-	m_RootPane	
-		<< 	( pane(HORIZONTAL)
-		<<( pane(VERTICAL,ABSOLUTE_VERT)
-		<< item( IDC_STATIC1, NORESIZE )
-		<< item( IDC_STATIC2, NORESIZE ))
-		<< item(IDC_EDRECDATA,GREEDY,0,0,0,0)    //revdata edit
-		)	
-		
-		//	<< item ( IDC_ITEM_LIST_STATIC, NORESIZE )
-		//	<< item ( IDC_ITEM_LIST, GREEDY )
-		
-		<<	( pane(HORIZONTAL, ABSOLUTE_VERT )
-		//<< (paneCtrl(IDC_STATIC3,VERTICAL,GREEDY, nDefaultBorder, 10, 10)
-		<< (pane(VERTICAL,GREEDY,8,0,0)
-			//<< item( IDC_STATIC3, NORESIZE)
-			//<< itemGrowing(VERTICAL)
-			<< item (IDC_STATIC_SEND,NORESIZE)
-			<< (pane(HORIZONTAL,GREEDY)
-				<< item( IDC_CHSENDHEX,NORESIZE)
-				<< item( IDC_CHSCRIPT,NORESIZE)
-				)
-			<< (pane(HORIZONTAL,GREEDY,2,0,0)
-					<< item(IDC_CHAUTOSEND,NORESIZE)
-					<< item(IDC_EDAUTOSENDTIME,NORESIZE)
-					
-				)
-			
-			)
-		<< ( pane(VERTICAL,ABSOLUTE_VERT)
-		<< item( IDC_EDSENDDATA,RELATIVE_HORZ,0,0,0,0)
-		<<(pane(HORIZONTAL, ABSOLUTE_VERT)
-			<< item(IDC_STCOMMANDCAPTION,NORESIZE)
-			<< item(IDC_CBCOMMAND,NORESIZE)
-			<< itemGrowing (HORIZONTAL)    // bank row 
-			<< item(IDC_BTSEND, NORESIZE)   // send button ALIGN_RIGHT	
-			<< item(IDC_BTSENDKEY,NORESIZE)
-		   )
-		
-		));
-	
-	UpdateLayout();
+	DoUpdateLayout();
 
 	//hint
 	EnableToolTips(TRUE);
 	m_hint.Activate(TRUE);
 	m_hint.AddTool(GetDlgItem(IDC_CBCOMMAND),_T("选择要发送的指令，并点发送。"));
-	m_hint.AddTool(GetDlgItem(IDC_STRECVALUE),_T("接收数据内容右键计算结果值。"));
 	m_hint.SetTipTextColor(RGB(0,0,0));  
 	m_hint.SetDelayTime(100);     
 	
@@ -222,10 +188,13 @@ void CMyCommView::OnInitialUpdate()
 			break;
 		}
 	default:
-	    break;
+		break;
 	}
-	
-	
+
+	//value
+	m_ReceiveValue = GetDocument()->m_strReceiveValue;
+
+	UpdateData(FALSE);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -248,14 +217,13 @@ CMyCommDoc* CMyCommView::GetDocument() // non-debug version is inline
 	return (CMyCommDoc*)m_pDocument;
 }
 
-void CMyCommView::DoRefreshControl2(BOOL  bValue)
+void CMyCommView::DoRefreshControl2()
 {
 
 	// send botton
-	BOOL myAction = bValue;
+	BOOL myAction = GetDocument()->m_ComAction;
 	GetDlgItem(IDC_BTSEND)->EnableWindow(myAction);
 	
-
 	// com param
 	GetDlgItem(IDC_CBCOM)->EnableWindow(!myAction);
 	GetDlgItem(IDC_CBBANDRATE)->EnableWindow(!myAction);
@@ -279,13 +247,9 @@ void CMyCommView::OnBtopencomm()
 	{
 		GetDocument()->CloseComm();
 
-		CBitmap myBitmap;
-		myBitmap.LoadBitmap(IDB_BITMAPCLOSECOM);
-		m_ctrlComImg.SetBitmap(myBitmap);
-		CButton * myb = ((CButton *)this->GetDlgItem(IDC_BTOPENCOMM));
-		myb->SetWindowText(_T("打开串口"));
+		m_ctrlOpenComm.SetWindowText(_T("打开串口"));
 		GetDocument()->m_ComAction = FALSE;
-		DoRefreshControl2(GetDocument()->m_ComAction);
+		DoRefreshControl2();
 	}
 	else{
 		
@@ -346,11 +310,12 @@ void CMyCommView::OnBtopencomm()
 		{	
 			CBitmap myBitmap;
 			myBitmap.LoadBitmap(IDB_BITMAPOPENCOM);
-			m_ctrlComImg.SetBitmap(myBitmap);
-			CButton * myb = ((CButton *)this->GetDlgItem(IDC_BTOPENCOMM));
-			myb->SetWindowText(_T("关闭串口"));
+			m_ctrlOpenComm.SetBitmap(myBitmap);
+			m_ctrlOpenComm.SetWindowText(_T("关闭串口"));
 			GetDocument()->m_ComAction = TRUE;
-			DoRefreshControl2(GetDocument()->m_ComAction);
+			DoRefreshControl2();
+			CEdit * myedit = (CEdit *)GetDlgItem(IDC_EDSENDDATA);
+			myedit->SetFocus();
 		}
 		else
 			AfxMessageBox(_T("串口被占用！"));
@@ -516,16 +481,10 @@ void CMyCommView::OnBtviewprotocol()
 {
 	// TODO: Add your control notification handler code here
 	if (!GetDocument()->m_strProtocol.IsEmpty())
-	{
-		//m_strReceiveData = m_strReceiveData + "\n" + GetDocument()->m_strProtocol;
 		m_EditLogger.AddText( "\n\r" + GetDocument()->m_strProtocol );
-		
-	}
-	else{
-		//m_strReceiveData = m_strReceiveData + "\n" + _T("无串口通信协议内容\n");
+	else
 		m_EditLogger.AddText(_T("\n\r无串口通信协议内容\n\r"));
 		
-	}	
 	UpdateData(FALSE);
 	
 }
@@ -533,8 +492,6 @@ void CMyCommView::OnBtviewprotocol()
 void CMyCommView::OnBtclearreceivedata() 
 {
 	// TODO: Add your control notification handler code here
-	//m_strReceiveData.Empty();
-	//UpdateData(FALSE);
 	HWND hEdit = m_ctrlReciveData.m_hWnd;
 	
 	BOOL bReadOnly = ::GetWindowLong( hEdit, GWL_STYLE ) & ES_READONLY;
@@ -550,9 +507,7 @@ void CMyCommView::OnBtclearreceivedata()
 void CMyCommView::OnSize(UINT nType, int cx, int cy) 
 {
 	ETSLayoutFormView::OnSize(nType, cx, cy);
-	
 	// TODO: Add your message handler code here
-	
 }
 
 
@@ -560,27 +515,24 @@ BOOL CMyCommView::PreTranslateMessage(MSG* pMsg)
 {
 	// TODO: Add your specialized code here and/or call the base class
 	m_hint.RelayEvent(pMsg);
-
-	if (GetFocus()->GetDlgCtrlID() == IDC_EDSENDDATA)
+	if ( GetFocus()!=NULL && GetFocus()->GetDlgCtrlID() == IDC_EDSENDDATA)
 	{
 		CMyCommApp * myApp = (CMyCommApp * )AfxGetApp();
-		
 		// enter
-		if( myApp->m_SendkeyType == SKENTER && pMsg->wParam==VK_RETURN )  
+		if( myApp->m_SendkeyType == SKENTER && pMsg->wParam==VK_RETURN && pMsg->message==WM_KEYDOWN)  
 		{  
 			OnBtSend();
 			return   true; 			
 		}   
 		//shift + enter
 		else if ( myApp->m_SendkeyType == SKSHIFTENTER && pMsg->wParam == VK_RETURN &&
-			 GetKeyState(VK_SHIFT))
+			 GetKeyState(VK_SHIFT) && pMsg->message==WM_KEYDOWN)
 		{
 			OnBtSend();
 			return true;
 		}
 	}
 	
-
 	return CFormView::PreTranslateMessage(pMsg);
 }
 
@@ -593,7 +545,6 @@ void CMyCommView::OnChautosend()
 	if (m_ctrlAutoSend.GetCheck())
 		SetTimer(1,m_AutoSendTime,NULL);
 	else
-		
 		KillTimer(1);
 }
 
@@ -618,14 +569,12 @@ LONG CMyCommView::OnCommunication(WPARAM ch, LPARAM port)
 		{
 			CString str;
 			str.Format("%02X ",ch);
-			//m_strReceiveData = m_strReceiveData + str;
 			m_EditLogger.AddText(str);
 			
 		}
 		else{
 			CString str;
 			str.Format("%c",ch);
-			//m_strReceiveData = m_strReceiveData + str;
 			m_EditLogger.AddText(str);
 			
 		}
@@ -686,15 +635,13 @@ void CMyCommView::OnBtviewrecdata()
 		CButton * myb = (CButton *) GetDlgItem(IDC_BTVIEWRECDATA);
 		myb->SetWindowText(_T("继续显示"));
 		m_EditLogger.AddText(_T("\r\n停止显示"));
-		
 	}
 }
 
 BOOL CMyCommView::DestroyWindow() 
 {
 	// TODO: Add your specialized code here and/or call the base class
-
-	return CFormView::DestroyWindow();
+	return ETSLayoutFormView::DestroyWindow();
 }
 
 void CMyCommView::DoRunScript(const CString str)
@@ -720,7 +667,7 @@ void CMyCommView::DoRunScript(const CString str)
 		else
 		{
 			CString ErrorStr;
-			ErrorStr.Format("\n\r语法出错 %s\n\r",str);
+			ErrorStr.Format("\n\r语法出错1 %s\n\r",str);
 			m_EditLogger.AddText(_T(ErrorStr));
 			return;
 		}
@@ -795,7 +742,7 @@ void CMyCommView::DoRunScript(const CString str)
 	}
 	else{
 		CString ErrorStr;
-		ErrorStr.Format("\n\r语法出错 %s\n\r",str);
+		ErrorStr.Format("\n\r语法出错2 %s\n\r",str);
 		m_EditLogger.AddText(_T(ErrorStr));
 	}
 		
@@ -804,16 +751,18 @@ void CMyCommView::DoRunScript(const CString str)
 void CMyCommView::OnBtsendkey() 
 {
 	// TODO: Add your control notification handler code here
-	DWORD dwPos = GetMessagePos();
-	CPoint point( LOWORD(dwPos), HIWORD(dwPos) );
-	ScreenToClient(&point);
-	ClientToScreen(&point);
-	
+	CRect rect;
+	CPoint point;
+	CButton * mybt = (CButton *)GetDlgItem(IDC_BTSENDKEY);
+	mybt->GetWindowRect(rect);
+    point.x = rect.right;
+    point.y = rect.bottom;
+
 	CMenu menu;
 	VERIFY( menu.LoadMenu( IDR_MENU_SNEDKEY ) );
 	CMenu* popup = menu.GetSubMenu(0);
 	ASSERT( popup != NULL );
-            popup->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this ); 
+            popup->TrackPopupMenu(TPM_RIGHTALIGN| TPM_RIGHTBUTTON, point.x, point.y, this ); 
 }
 
 void CMyCommView::OnSendkeyNone() 
@@ -843,3 +792,92 @@ void CMyCommView::OnSendkeyShiftenter()
 	mybt->SetWindowText(_T("发送 S"));
 	
 }
+
+void CMyCommView::OnBtvisiblevalue() 
+{
+	// TODO: Add your control notification handler code here
+	CEdit * myedit = (CEdit *)GetDlgItem(IDC_EDRECDATAVALUE);
+	CButton * mybt = (CButton *)GetDlgItem(IDC_BTVISIBLEVALUE);
+	m_IsShowValueWindow = !m_IsShowValueWindow;
+	if (m_IsShowValueWindow)
+	{	
+		mybt->SetWindowText(_T("关闭结果窗"));
+		myedit->ShowWindow(SW_SHOW); //SW_HIDE
+	}
+    else{ 
+		mybt->SetWindowText(_T("显示结果窗"));
+		myedit->ShowWindow(SW_HIDE);
+	}
+	DoUpdateLayout();
+	
+}
+
+void CMyCommView::DoUpdateLayout()
+{
+
+	CPane newRecPane = pane( VERTICAL, GREEDY );
+	if (m_IsShowValueWindow)
+	{
+		newRecPane<<item(IDC_EDRECDATAVALUE,ABSOLUTE_VERT,0,0,0,0);
+		newRecPane<<item(IDC_EDRECDATA,GREEDY,0,0,0,0);
+	}
+	else
+		newRecPane<<item(IDC_EDRECDATA,GREEDY,0,0,0,0);
+	
+	CreateRoot(VERTICAL); //layout
+	m_RootPane	//create 
+		<< 	( pane(HORIZONTAL)
+		<<( pane(VERTICAL,ABSOLUTE_VERT)
+				<< item( IDC_STATIC1, NORESIZE )
+				<< item(IDC_BTOPENCOMM,NORESIZE)
+				<< item( IDC_STATIC2, NORESIZE ))
+			<< newRecPane
+		)
+	 
+	 //	<< item ( IDC_ITEM_LIST_STATIC, NORESIZE )
+	 //	<< item ( IDC_ITEM_LIST, GREEDY )
+	 
+	 <<	( pane(HORIZONTAL, ABSOLUTE_VERT )
+	 //<< (paneCtrl(IDC_STATIC3,VERTICAL,GREEDY, nDefaultBorder, 10, 10)
+	 << (pane(VERTICAL,GREEDY,8,0,0)
+	 //<< item( IDC_STATIC3, NORESIZE)
+	 //<< itemGrowing(VERTICAL)
+	 << item (IDC_STATIC_SEND,NORESIZE)
+	 << (pane(HORIZONTAL,GREEDY)
+	 << item( IDC_CHSENDHEX,NORESIZE)
+	 << item( IDC_CHSCRIPT,NORESIZE)
+	 )
+	 << (pane(HORIZONTAL,GREEDY,2,0,0)
+					<< item(IDC_CHAUTOSEND,NORESIZE)
+					<< item(IDC_EDAUTOSENDTIME,NORESIZE)
+					
+					)
+					
+					)
+					<< ( pane(VERTICAL,ABSOLUTE_VERT)
+						<< item( IDC_EDSENDDATA,RELATIVE_HORZ,0,0,0,0)
+						<<(pane(HORIZONTAL, ABSOLUTE_VERT)
+							<< item(IDC_BTSEND, NORESIZE)   // send button ALIGN_RIGHT	
+							<< item(IDC_CBCOMMAND,NORESIZE)
+							<< itemGrowing (HORIZONTAL)    // bank row 
+							<< item(IDC_BTSENDKEY,NORESIZE)
+							)
+					));
+
+	UpdateLayout();
+	
+}
+
+void CMyCommView::OnUpdateEdrecdatavalue() 
+{
+	// TODO: If this is a RICHEDIT control, the control will not
+	// send this notification unless you override the CFormView::OnInitDialog()
+	// function to send the EM_SETEVENTMASK message to the control
+	// with the ENM_UPDATE flag ORed into the lParam mask.
+	
+	// TODO: Add your control notification handler code here
+	UpdateData(TRUE);
+	GetDocument()->m_strReceiveValue = m_ReceiveValue;
+}
+
+

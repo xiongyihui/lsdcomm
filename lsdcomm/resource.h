@@ -161,6 +161,8 @@
 #define IDC_CHSCRIPT_20                 1110
 #define IDC_BTSCRIPTHELP                1111
 #define IDC_BTSENDKEY                   1113
+#define IDC_EDRECDATAVALUE              1114
+#define IDC_BTVISIBLEVALUE              1115
 #define ID_EDIT_COMMAND                 32771
 #define IDC_EDITPROTOCOL                32772
 #define IDC_EDIT_PROTOCOL               32774
@@ -170,7 +172,6 @@
 #define IDC_LANGCHINESE2                32778
 #define ID_HELP_SCRIPT                  32779
 #define ID_SET_OPTION                   32780
-#define ID_SEND_SHIFTENTER              32783
 #define ID_SENDKEY_NONE                 32784
 #define ID_SENDKEY_ENTER                32785
 #define ID_SENDKEY_SHIFTENTER           32786
@@ -182,7 +183,7 @@
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        140
 #define _APS_NEXT_COMMAND_VALUE         32787
-#define _APS_NEXT_CONTROL_VALUE         1114
+#define _APS_NEXT_CONTROL_VALUE         1116
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

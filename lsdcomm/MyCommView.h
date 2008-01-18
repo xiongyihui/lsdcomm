@@ -22,6 +22,7 @@ protected: // create from serialization only
 public:
 	//{{AFX_DATA(CMyCommView)
 	enum { IDD = IDD_MYCOMM_FORM };
+	CButton	m_ctrlOpenComm;
 	CButton	m_ctrlSendScript;
 	CMyEditEx	m_ctrlReciveData;
 	CComboBox	m_ctrlCommand;
@@ -33,9 +34,9 @@ public:
 	CComboBox	m_ctrlBaudRate;
 	CButton	m_ctrlSendHex;
 	CButton	m_ctrlReceiveHex;
-	CStatic	m_ctrlComImg;
 	CString	m_strSendData;
 	int		m_AutoSendTime;
+	CString	m_ReceiveValue;
 	//}}AFX_DATA
 	BOOL m_IsViewReceiveData; 
 
@@ -43,6 +44,7 @@ public:
 public:
 	CMyCommDoc* GetDocument();
 	CEditLog  m_EditLogger; 
+	BOOL m_IsShowValueWindow; 
 
 // Operations
 public:
@@ -75,9 +77,9 @@ protected:
 	int DoStr2Hex(CString str,char* data);
 	char DoHexChar(char c);
 	BOOL DoIsNumeric(const CString &strText);
-	void DoRefreshControl2(BOOL bValue);
+	void DoRefreshControl2();
 	void DoRunScript(const CString str);
-	
+	void DoUpdateLayout();
 // Generated message map functions
 
 protected:
@@ -101,6 +103,8 @@ protected:
 	afx_msg void OnSendkeyNone();
 	afx_msg void OnSendkeyEnter();
 	afx_msg void OnSendkeyShiftenter();
+	afx_msg void OnBtvisiblevalue();
+	afx_msg void OnUpdateEdrecdatavalue();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

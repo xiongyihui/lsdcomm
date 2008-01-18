@@ -81,6 +81,7 @@ void CMyCommDoc::Serialize(CArchive& ar)
 	//
 	// 2. 去掉快捷键 2008-1-14
 	// 3. 增加是否是脚本功能,及16进制 2008-1-15
+	// 4. 增加结果窗口的值 2008-1-18
 	//
 	//
 	int ver; 
@@ -89,7 +90,7 @@ void CMyCommDoc::Serialize(CArchive& ar)
 	{
 		// TODO: add storing code here
 		
-		ver = 3;
+		ver = 4;
 		ar<<ver;  //version
 		ar<<m_intPort;
 		ar<<m_intBaudRate;
@@ -120,6 +121,7 @@ void CMyCommDoc::Serialize(CArchive& ar)
 		ar<<m_IsReceiveHex;
 		ar<<m_IsSendHex;
 		ar<<m_strProtocol;
+		ar<< m_strReceiveValue; //ver=4 2008-1-18
 
 				
 	}
@@ -161,6 +163,12 @@ void CMyCommDoc::Serialize(CArchive& ar)
 		ar>>m_IsReceiveHex;
 		ar>>m_IsSendHex;
 		ar>>m_strProtocol;
+
+		//ver=4
+		if (ver>3)
+		{
+			ar>>m_strReceiveValue;
+		}
 
 	};
 }

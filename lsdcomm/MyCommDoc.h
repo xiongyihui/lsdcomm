@@ -53,6 +53,7 @@ public:
 	CString m_strProtocol;
 	LONG  m_TXCount;
 	LONG  m_RXCount;
+	CString m_strReceiveValue;  //结果窗口值
 
 // Operations
 public:

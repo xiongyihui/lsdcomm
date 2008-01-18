@@ -122,6 +122,7 @@ void CMainFrame::ActivateFrame(int nCmdShow)
 
 		m_firstShow = TRUE;
 	}
+	
 
 	CFrameWnd::ActivateFrame(nCmdShow);
 }
