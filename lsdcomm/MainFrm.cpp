@@ -31,9 +31,10 @@ END_MESSAGE_MAP()
 static UINT indicators[] =
 {
 	ID_SEPARATOR,           // status line indicator
-	ID_INDICATOR_CAPS,
-	ID_INDICATOR_NUM,
-	ID_INDICATOR_SCRL,
+	ID_STATUSBAR_TX,
+	ID_STATUSBAR_RX,
+	ID_STATUSBAR_COMM,
+	ID_STATUSBAR_SENDKEY,
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -63,8 +64,13 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;      // fail to create
 	}
 	
-	//::ShowWindow(this->m_hWnd,SW_SHOWNORMAL);
-	
+	CRect rect;
+	GetClientRect(&rect);
+	m_wndStatusBar.SetPaneInfo(SBSINFO,ID_SEPARATOR,SBPS_STRETCH,0);      
+	m_wndStatusBar.SetPaneInfo(SBSTX,ID_STATUSBAR_TX ,SBPS_NORMAL,60); 
+	m_wndStatusBar.SetPaneInfo(SBSRX,ID_STATUSBAR_RX ,SBPS_NORMAL,60); 
+	m_wndStatusBar.SetPaneInfo(SBSCOMM,ID_STATUSBAR_COMM ,SBPS_NORMAL,40); 
+	m_wndStatusBar.SetPaneInfo(SBSSENDKEY,ID_STATUSBAR_SENDKEY ,SBPS_NORMAL,10); 
 
 	return 0;
 }

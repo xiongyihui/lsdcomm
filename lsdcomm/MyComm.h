@@ -15,6 +15,7 @@
 #include "resource.h"       // main symbols
 
 enum SendKeyStyle {SKNONE=0,SKENTER,SKSHIFTENTER};
+enum StatusBarStyle{SBSINFO=0,SBSTX,SBSRX,SBSCOMM,SBSSENDKEY};
 
 /////////////////////////////////////////////////////////////////////////////
 // CMyCommApp:
@@ -25,7 +26,7 @@ class CMyCommApp : public CWinApp
 {
 public:
 	CMyCommApp();
-
+	
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CMyCommApp)
@@ -43,6 +44,9 @@ public:
 public:
 	SendKeyStyle       m_SendkeyType;  
 	CString            m_ScriptHelp;
+public:
+	void DoSetStautsBarText(UINT index,CString Value);
+
 
 };
 

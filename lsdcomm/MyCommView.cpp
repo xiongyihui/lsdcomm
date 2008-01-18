@@ -247,9 +247,11 @@ void CMyCommView::OnBtopencomm()
 	{
 		GetDocument()->CloseComm();
 
-		m_ctrlOpenComm.SetWindowText(_T("打开串口"));
+		m_ctrlOpenComm.SetWindowText(_T(" 打开串口"));
 		GetDocument()->m_ComAction = FALSE;
 		DoRefreshControl2();
+		CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
+		myApp->DoSetStautsBarText(SBSCOMM,"串口:×");
 	}
 	else{
 		
@@ -316,6 +318,8 @@ void CMyCommView::OnBtopencomm()
 			DoRefreshControl2();
 			CEdit * myedit = (CEdit *)GetDlgItem(IDC_EDSENDDATA);
 			myedit->SetFocus();
+			CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
+			myApp->DoSetStautsBarText(SBSCOMM,"串口:√");
 		}
 		else
 			AfxMessageBox(_T("串口被占用！"));
@@ -772,6 +776,7 @@ void CMyCommView::OnSendkeyNone()
 	myApp->m_SendkeyType = SKNONE;
 	CButton * mybt = (CButton *) GetDlgItem(IDC_BTSEND);
 	mybt->SetWindowText(_T("发送"));
+	myApp->DoSetStautsBarText(SBSSENDKEY,"无");
 }
 
 void CMyCommView::OnSendkeyEnter() 
@@ -781,6 +786,7 @@ void CMyCommView::OnSendkeyEnter()
 	myApp->m_SendkeyType = SKENTER;
 	CButton * mybt = (CButton *) GetDlgItem(IDC_BTSEND);
 	mybt->SetWindowText(_T("发送 E"));
+	myApp->DoSetStautsBarText(SBSSENDKEY,"E");
 }
 
 void CMyCommView::OnSendkeyShiftenter() 
@@ -790,7 +796,7 @@ void CMyCommView::OnSendkeyShiftenter()
 	myApp->m_SendkeyType = SKSHIFTENTER;
 	CButton * mybt = (CButton *) GetDlgItem(IDC_BTSEND);
 	mybt->SetWindowText(_T("发送 S"));
-	
+	myApp->DoSetStautsBarText(SBSSENDKEY,"S");
 }
 
 void CMyCommView::OnBtvisiblevalue() 

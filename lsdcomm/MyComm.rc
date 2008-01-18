@@ -719,6 +719,14 @@ BEGIN
     ID_SENDKEY_SHIFTENTER   "按下shift 与 回车表示发送指令。"
 END
 
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_STATUSBAR_TX         "TX:"
+    ID_STATUSBAR_RX         "RX:"
+    ID_STATUSBAR_COMM       "串口:×"
+    ID_STATUSBAR_SNEDKEY    "无"
+END
+
 #endif    // Chinese (P.R.C.) resources
 /////////////////////////////////////////////////////////////////////////////
 

@@ -212,3 +212,9 @@ int CMyCommApp::ExitInstance()
 	return CWinApp::ExitInstance();
 }
 
+void CMyCommApp::DoSetStautsBarText(UINT index,CString Value)
+{
+	CMainFrame * myMain = (CMainFrame *)m_pMainWnd;
+	myMain->m_wndStatusBar.SetPaneText(index,Value);
+
+}

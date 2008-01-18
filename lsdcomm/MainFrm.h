@@ -26,6 +26,7 @@ protected: // create from serialization only
 // Attributes
 public:
 	Language m_language;
+	CStatusBar  m_wndStatusBar;
 // Operations
 public:
 
@@ -46,7 +47,7 @@ public:
 #endif
 
 protected:  // control bar embedded members
-	CStatusBar  m_wndStatusBar;
+	
 	BOOL m_firstShow;
 
 
