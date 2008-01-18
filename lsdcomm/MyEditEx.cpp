@@ -82,6 +82,7 @@ void CMyEditEx::OnContextMenu(CWnd* pWnd, CPoint point)
 	menu.InsertMenu(7, MF_BYPOSITION | flags, ME_SELECTALL,MES_SELECTALL); 
 	
 	// add
+	
 	menu.InsertMenu(8, MF_BYPOSITION | MF_SEPARATOR);
 	flags = LOWORD(sel) == HIWORD(sel) ? MF_GRAYED : 0;
 	menu.InsertMenu(9, MF_BYPOSITION | flags, ME_CHECKSUM,

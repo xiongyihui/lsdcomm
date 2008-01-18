@@ -42,7 +42,7 @@ public:
 // Attributes
 public:
 	CMyCommDoc* GetDocument();
-	CEditLog  m_EditLogger;  
+	CEditLog  m_EditLogger; 
 
 // Operations
 public:
@@ -97,6 +97,10 @@ protected:
 	afx_msg void OnSelchangeCbcommand();
 	afx_msg void OnBtsaverecdata();
 	afx_msg void OnBtviewrecdata();
+	afx_msg void OnBtsendkey();
+	afx_msg void OnSendkeyNone();
+	afx_msg void OnSendkeyEnter();
+	afx_msg void OnSendkeyShiftenter();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

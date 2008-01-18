@@ -63,6 +63,8 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;      // fail to create
 	}
 	
+	//::ShowWindow(this->m_hWnd,SW_SHOWNORMAL);
+	
 
 	return 0;
 }
@@ -107,16 +109,17 @@ void CMainFrame::ActivateFrame(int nCmdShow)
 		
 		WINDOWPLACEMENT   WndStatus;  
 		CRect   rect;  
-		rect.left     = AfxGetApp()->GetProfileInt("MYCOMMWNDSTATUS","LEFT",100);  
-		rect.top      = AfxGetApp()->GetProfileInt("MYCOMMWNDSTATUS","TOP",100);  
-		rect.right    = AfxGetApp()->GetProfileInt("MYCOMMWNDSTATUS","RIGHT",500);  
-		rect.bottom   = AfxGetApp()->GetProfileInt("MYCOMMWNDSTATUS","BOTTOM",400);  
+		rect.left     = AfxGetApp()->GetProfileInt("Layout","LEFT",100);  
+		rect.top      = AfxGetApp()->GetProfileInt("Layout","TOP",100);  
+		rect.right    = AfxGetApp()->GetProfileInt("Layout","RIGHT",800);  
+		rect.bottom   = AfxGetApp()->GetProfileInt("Layout","BOTTOM",600);  
 		WndStatus.rcNormalPosition   =   rect;  
-		WndStatus.flags=   AfxGetApp()->GetProfileInt("MYCOMMWNDSTATUS","FLAG",0);  
-		nCmdShow   =   AfxGetApp()->GetProfileInt("MYCOMMWNDSTATUS","SHOWCMD",SW_SHOW);  
+		WndStatus.flags=   AfxGetApp()->GetProfileInt("Layout","FLAG",0);  
+		nCmdShow   =   AfxGetApp()->GetProfileInt("Layout","SHOWCMD",SW_SHOW);  
 		WndStatus.showCmd   =   nCmdShow;  
 		WndStatus.ptMinPosition   =   CPoint(0,0);  
 		SetWindowPlacement(&WndStatus); 
+
 		m_firstShow = TRUE;
 	}
 
@@ -126,14 +129,15 @@ void CMainFrame::ActivateFrame(int nCmdShow)
 void CMainFrame::OnClose() 
 {
 	// TODO: Add your message handler code here and/or call default
+	
 	WINDOWPLACEMENT   WndStatus;  
 	GetWindowPlacement(&WndStatus);  
-	AfxGetApp()->WriteProfileInt("MYCOMMWNDSTATUS","FLAG",WndStatus.flags);  
-	AfxGetApp()->WriteProfileInt("MYCOMMWNDSTATUS","SHOWCMD",WndStatus.showCmd);  
-	AfxGetApp()->WriteProfileInt("MYCOMMWNDSTATUS","LEFT",WndStatus.rcNormalPosition.left);  
-	AfxGetApp()->WriteProfileInt("MYCOMMWNDSTATUS","RIGHT",WndStatus.rcNormalPosition.right);  
-	AfxGetApp()->WriteProfileInt("MYCOMMWNDSTATUS","TOP",WndStatus.rcNormalPosition.top);  
-	AfxGetApp()->WriteProfileInt("MYCOMMWNDSTATUS","BOTTOM",WndStatus.rcNormalPosition.bottom);  
+	AfxGetApp()->WriteProfileInt("Layout","FLAG",WndStatus.flags);  
+	AfxGetApp()->WriteProfileInt("Layout","SHOWCMD",WndStatus.showCmd);  
+	AfxGetApp()->WriteProfileInt("Layout","LEFT",WndStatus.rcNormalPosition.left);  
+	AfxGetApp()->WriteProfileInt("Layout","RIGHT",WndStatus.rcNormalPosition.right);  
+	AfxGetApp()->WriteProfileInt("Layout","TOP",WndStatus.rcNormalPosition.top);  
+	AfxGetApp()->WriteProfileInt("Layout","BOTTOM",WndStatus.rcNormalPosition.bottom); 
 	
 	CFrameWnd::OnClose();
 }

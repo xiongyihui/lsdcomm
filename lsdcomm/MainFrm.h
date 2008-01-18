@@ -15,6 +15,7 @@
 
 enum Language { LACHINA = 0, LACHINAS ,LAENGLISH};
 
+
 class CMainFrame : public CFrameWnd
 {
 	
@@ -47,6 +48,7 @@ public:
 protected:  // control bar embedded members
 	CStatusBar  m_wndStatusBar;
 	BOOL m_firstShow;
+
 
 // Generated message map functions
 protected:

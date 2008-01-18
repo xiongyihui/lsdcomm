@@ -2,7 +2,7 @@
 
 [General Info]
 Version=1
-LastClass=CCommandDlg
+LastClass=CMyCommView
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "MyComm.h"
@@ -14,42 +14,46 @@ Class2=CMyCommDoc
 Class3=CMyCommView
 Class4=CMainFrame
 
-ResourceCount=7
+ResourceCount=8
 <<<<<<< .mine
-Resource1=IDD_DLGADVANCED
+Resource1=IDD_MYCOMM_FORM
 Resource2=IDD_DLGCOMMAND
 =======
-Resource1=IDD_DLGADVANCED
+Resource1=IDD_MYCOMM_FORM
 Resource2=IDD_DLGCOMMAND
 >>>>>>> .r13
 Class5=CAboutDlg
-Resource3=IDR_MAINFRAME
+Resource3=IDD_ABOUTBOX
 Class6=CCommandDlg
 <<<<<<< .mine
-Resource4=IDD_DLGPROTOCOL
+Resource4=IDR_MENU_SNEDKEY
 =======
-Resource4=IDD_DLGPROTOCOL
+Resource4=IDR_MENU_SNEDKEY
 >>>>>>> .r13
 Class7=CCommAdvancedDlg
 <<<<<<< .mine
-Resource5=IDD_MYCOMM_FORM
+Resource5=IDD_DLGPROTOCOL
 =======
-Resource5=IDD_MYCOMM_FORM
+Resource5=IDD_DLGPROTOCOL
 >>>>>>> .r13
 Class8=CProtocolEditDlg
 Class9=MyEdit
 Class10=CMyEdit
 Class11=CMyEdit2
 Class12=CMyEditEx
-Resource6=IDD_ABOUTBOX
+Resource6=IDR_MAINFRAME
 Class13=CScriptHelpDlg
-Resource7=IDD_DLGSCRIPTHELP
+Resource7=IDD_DLGADVANCED
+Resource8=IDD_DLGSCRIPTHELP
 
 [CLS:CMyCommApp]
 Type=0
 HeaderFile=MyComm.h
 ImplementationFile=MyComm.cpp
 Filter=N
+BaseClass=CWinApp
+VirtualFilter=AC
+LastObject=ID_SENDKEY_NONE
 
 [CLS:CMyCommDoc]
 Type=0
@@ -65,7 +69,7 @@ ImplementationFile=MyCommView.cpp
 Filter=D
 BaseClass=CFormView
 VirtualFilter=VWC
-LastObject=IDC_CHSCRIPT
+LastObject=ID_SENDKEY_SHIFTENTER
 
 
 [CLS:CMainFrame]
@@ -109,12 +113,13 @@ Command6=ID_APP_EXIT
 Command7=ID_VIEW_STATUS_BAR
 Command8=ID_EDIT_COMMAND
 Command9=ID_EDIT_PROTOCOL
-Command10=IDC_LANGCHINESE
-Command11=IDC_LANGCHINESE2
-Command12=IDC_LANGENGLISH
-Command13=ID_HELP_SCRIPT
-Command14=ID_APP_ABOUT
-CommandCount=14
+Command10=ID_SET_OPTION
+Command11=IDC_LANGCHINESE
+Command12=IDC_LANGCHINESE2
+Command13=IDC_LANGENGLISH
+Command14=ID_HELP_SCRIPT
+Command15=ID_APP_ABOUT
+CommandCount=15
 
 [ACL:IDR_MAINFRAME]
 Type=1
@@ -137,7 +142,7 @@ CommandCount=13
 [DLG:IDD_MYCOMM_FORM]
 Type=1
 Class=CMyCommView
-ControlCount=31
+ControlCount=32
 Control1=IDC_STATIC1,button,1342177287
 Control2=IDC_STATIC2,button,1342177543
 Control3=IDC_EDRECDATA,edit,1352732676
@@ -169,6 +174,7 @@ Control28=IDC_STCOMMANDCAPTION,static,1342308352
 Control29=IDC_STRECVALUE,static,1342308353
 Control30=IDC_BTVIEWRECDATA,button,1342242816
 Control31=IDC_CHSCRIPT,button,1342242819
+Control32=IDC_BTSENDKEY,button,1342242816
 
 [DLG:IDD_DLGCOMMAND]
 Type=1
@@ -379,7 +385,7 @@ Class=CScriptHelpDlg
 ControlCount=3
 Control1=IDOK,button,1342242817
 Control2=IDCANCEL,button,1342242816
-Control3=IDC_EDIT1,edit,1350637700
+Control3=IDC_EDIT1,edit,1353783428
 
 [CLS:CScriptHelpDlg]
 Type=0
@@ -389,4 +395,12 @@ BaseClass=CDialog
 Filter=D
 VirtualFilter=dWC
 LastObject=CScriptHelpDlg
+
+[MNU:IDR_MENU_SNEDKEY]
+Type=1
+Class=CMyCommView
+Command1=ID_SENDKEY_NONE
+Command2=ID_SENDKEY_ENTER
+Command3=ID_SENDKEY_SHIFTENTER
+CommandCount=3
 

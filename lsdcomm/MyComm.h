@@ -14,6 +14,8 @@
 
 #include "resource.h"       // main symbols
 
+enum SendKeyStyle {SKNONE=0,SKENTER,SKSHIFTENTER};
+
 /////////////////////////////////////////////////////////////////////////////
 // CMyCommApp:
 // See MyComm.cpp for the implementation of this class
@@ -29,15 +31,19 @@ public:
 	//{{AFX_VIRTUAL(CMyCommApp)
 	public:
 	virtual BOOL InitInstance();
+	virtual int ExitInstance();
 	//}}AFX_VIRTUAL
 
 // Implementation
 	//{{AFX_MSG(CMyCommApp)
 	afx_msg void OnAppAbout();
-		// NOTE - the ClassWizard will add and remove member functions here.
-		//    DO NOT EDIT what you see in these blocks of generated code !
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
+
+public:
+	SendKeyStyle       m_SendkeyType;  
+	CString            m_ScriptHelp;
+
 };
 
 

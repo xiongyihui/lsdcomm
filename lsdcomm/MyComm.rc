@@ -92,6 +92,7 @@ BEGIN
         MENUITEM "状态栏(&S)",                  ID_VIEW_STATUS_BAR
         MENUITEM "通信指令编辑...",             ID_EDIT_COMMAND
         MENUITEM "通信协议内容...",             ID_EDIT_PROTOCOL
+        MENUITEM "选项...",                     ID_SET_OPTION
     END
     POPUP "Language(&L)"
     BEGIN
@@ -103,6 +104,16 @@ BEGIN
     BEGIN
         MENUITEM "脚本说明...",                 ID_HELP_SCRIPT
         MENUITEM "关于 LSDComm(&A)...",         ID_APP_ABOUT
+    END
+END
+
+IDR_MENU_SNEDKEY MENU DISCARDABLE 
+BEGIN
+    POPUP "SendKey"
+    BEGIN
+        MENUITEM "无",                          ID_SENDKEY_NONE
+        MENUITEM "&Enter",                      ID_SENDKEY_ENTER
+        MENUITEM "&Shift+Enter",                ID_SENDKEY_SHIFTENTER
     END
 END
 
@@ -157,7 +168,7 @@ BEGIN
                     WS_VSCROLL
     EDITTEXT        IDC_EDSENDDATA,102,232,40,45,ES_MULTILINE | 
                     ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL
-    PUSHBUTTON      "发送",IDC_BTSEND,330,280,50,14
+    PUSHBUTTON      "发送",IDC_BTSEND,305,280,50,14
     LTEXT           "串口",IDC_STATIC,9,20,17,8
     COMBOBOX        IDC_CBCOM,37,15,48,60,CBS_DROPDOWN | CBS_AUTOHSCROLL | 
                     WS_VSCROLL | WS_TABSTOP
@@ -195,6 +206,7 @@ BEGIN
     PUSHBUTTON      "停止显示",IDC_BTVIEWRECDATA,50,196,43,14
     CONTROL         "脚本",IDC_CHSCRIPT,"Button",BS_AUTOCHECKBOX | 
                     WS_TABSTOP,46,241,32,10
+    PUSHBUTTON      "↓",IDC_BTSENDKEY,358,280,11,14
 END
 
 IDD_DLGCOMMAND DIALOG DISCARDABLE  0, 0, 325, 368
@@ -396,7 +408,7 @@ BEGIN
     DEFPUSHBUTTON   "OK",IDOK,154,230,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,211,230,50,14
     EDITTEXT        IDC_EDIT1,11,10,244,210,ES_MULTILINE | ES_AUTOHSCROLL | 
-                    ES_READONLY | ES_WANTRETURN
+                    ES_READONLY | ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL
 END
 
 
@@ -697,6 +709,13 @@ BEGIN
     IDC_EDITPROTOCOL        "记录通信协议以便随时查看"
     IDC_EDIT_PROTOCOL       "编辑通信协议便于随时查看"
     ID_HELP_SCRIPT          "说明脚本的语法。"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_SENDKEY_NONE         "无快捷键，必按SEND按键才发送。"
+    ID_SENDKEY_ENTER        "按下回车，发送指令。"
+    ID_SENDKEY_SHIFTENTER   "按下shift 与 回车表示发送指令。"
 END
 
 #endif    // Chinese (P.R.C.) resources

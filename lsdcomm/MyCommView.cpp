@@ -7,6 +7,7 @@
 #include "MyCommDoc.h"
 #include "MyCommView.h"
 
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -36,6 +37,10 @@ BEGIN_MESSAGE_MAP(CMyCommView, CFormView)
 	ON_CBN_SELCHANGE(IDC_CBCOMMAND, OnSelchangeCbcommand)
 	ON_BN_CLICKED(IDC_BTSAVERECDATA, OnBtsaverecdata)
 	ON_BN_CLICKED(IDC_BTVIEWRECDATA, OnBtviewrecdata)
+	ON_BN_CLICKED(IDC_BTSENDKEY, OnBtsendkey)
+	ON_COMMAND(ID_SENDKEY_NONE, OnSendkeyNone)
+	ON_COMMAND(ID_SENDKEY_ENTER, OnSendkeyEnter)
+	ON_COMMAND(ID_SENDKEY_SHIFTENTER, OnSendkeyShiftenter)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -52,6 +57,7 @@ CMyCommView::CMyCommView()
 	// TODO: add construction code here
 	m_hint.Create(this) ;
 	m_IsViewReceiveData = TRUE;
+
 }
 
 CMyCommView::~CMyCommView()
@@ -161,18 +167,19 @@ void CMyCommView::OnInitialUpdate()
 			<< (pane(HORIZONTAL,GREEDY,2,0,0)
 					<< item(IDC_CHAUTOSEND,NORESIZE)
 					<< item(IDC_EDAUTOSENDTIME,NORESIZE)
-	
+					
 				)
 			
 			)
 		<< ( pane(VERTICAL,ABSOLUTE_VERT)
 		<< item( IDC_EDSENDDATA,RELATIVE_HORZ,0,0,0,0)
 		<<(pane(HORIZONTAL, ABSOLUTE_VERT)
-		<< item(IDC_STCOMMANDCAPTION,NORESIZE)
-		<< item(IDC_CBCOMMAND,NORESIZE)
-		<< itemGrowing (HORIZONTAL)    // bank row 
-		<< item( IDC_BTSEND, NORESIZE)   // send button ALIGN_RIGHT					
-		 )
+			<< item(IDC_STCOMMANDCAPTION,NORESIZE)
+			<< item(IDC_CBCOMMAND,NORESIZE)
+			<< itemGrowing (HORIZONTAL)    // bank row 
+			<< item(IDC_BTSEND, NORESIZE)   // send button ALIGN_RIGHT	
+			<< item(IDC_BTSENDKEY,NORESIZE)
+		   )
 		
 		));
 	
@@ -181,13 +188,14 @@ void CMyCommView::OnInitialUpdate()
 	//hint
 	EnableToolTips(TRUE);
 	m_hint.Activate(TRUE);
-	m_hint.AddTool(GetDlgItem(IDC_CBCOMMAND),_T("选择要发送的命令，并点发送。"));
+	m_hint.AddTool(GetDlgItem(IDC_CBCOMMAND),_T("选择要发送的指令，并点发送。"));
 	m_hint.AddTool(GetDlgItem(IDC_STRECVALUE),_T("接收数据内容右键计算结果值。"));
 	m_hint.SetTipTextColor(RGB(0,0,0));  
 	m_hint.SetDelayTime(100);     
 	
 	//command combox
 	CString myCommandStr;
+	m_ctrlCommand.ResetContent();
 	for(int i=0 ;i<COMMANDCOUNT ;i++)
 	{
 		if (!GetDocument()->m_Command[i].m_strName.IsEmpty())
@@ -195,7 +203,29 @@ void CMyCommView::OnInitialUpdate()
 			myCommandStr.Format("%d %s",i+1,GetDocument()->m_Command[i].m_strName);
 			m_ctrlCommand.AddString(myCommandStr);
 		}
-	}	
+	}
+	
+	//send key
+	CMyCommApp * myApp = (CMyCommApp * )AfxGetApp();
+	switch(myApp->m_SendkeyType)
+	{
+	case SKENTER:
+		{
+			CButton * mybt = (CButton *) GetDlgItem(IDC_BTSEND);
+			mybt->SetWindowText("发送 E");
+			break;
+		}	
+	case SKSHIFTENTER:
+		{
+			CButton * mybt = (CButton *) GetDlgItem(IDC_BTSEND);
+			mybt->SetWindowText("发送 S");
+			break;
+		}
+	default:
+	    break;
+	}
+	
+	
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -530,6 +560,27 @@ BOOL CMyCommView::PreTranslateMessage(MSG* pMsg)
 {
 	// TODO: Add your specialized code here and/or call the base class
 	m_hint.RelayEvent(pMsg);
+
+	if (GetFocus()->GetDlgCtrlID() == IDC_EDSENDDATA)
+	{
+		CMyCommApp * myApp = (CMyCommApp * )AfxGetApp();
+		
+		// enter
+		if( myApp->m_SendkeyType == SKENTER && pMsg->wParam==VK_RETURN )  
+		{  
+			OnBtSend();
+			return   true; 			
+		}   
+		//shift + enter
+		else if ( myApp->m_SendkeyType == SKSHIFTENTER && pMsg->wParam == VK_RETURN &&
+			 GetKeyState(VK_SHIFT))
+		{
+			OnBtSend();
+			return true;
+		}
+	}
+	
+
 	return CFormView::PreTranslateMessage(pMsg);
 }
 
@@ -662,7 +713,7 @@ void CMyCommView::DoRunScript(const CString str)
 		//有可能是无参数的命令
 		Commandstr = str;
 		Commandstr.MakeUpper();
-		if ((Commandstr=="CLEAR") || (Commandstr=="DATE"))	
+		if ((Commandstr=="CLEAR") || (Commandstr=="DATE") || (Commandstr=="HELP"))	
 		{
 			Paramsstr.Empty();
 		} 
@@ -737,10 +788,58 @@ void CMyCommView::DoRunScript(const CString str)
 	{
 		OnBtclearreceivedata();
 	}
+	else if (Commandstr == "HELP")
+	{
+		CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
+		m_EditLogger.AddText(myApp->m_ScriptHelp);
+	}
 	else{
 		CString ErrorStr;
 		ErrorStr.Format("\n\r语法出错 %s\n\r",str);
 		m_EditLogger.AddText(_T(ErrorStr));
 	}
 		
+}
+
+void CMyCommView::OnBtsendkey() 
+{
+	// TODO: Add your control notification handler code here
+	DWORD dwPos = GetMessagePos();
+	CPoint point( LOWORD(dwPos), HIWORD(dwPos) );
+	ScreenToClient(&point);
+	ClientToScreen(&point);
+	
+	CMenu menu;
+	VERIFY( menu.LoadMenu( IDR_MENU_SNEDKEY ) );
+	CMenu* popup = menu.GetSubMenu(0);
+	ASSERT( popup != NULL );
+            popup->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this ); 
+}
+
+void CMyCommView::OnSendkeyNone() 
+{
+	// TODO: Add your command handler code here
+	CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
+	myApp->m_SendkeyType = SKNONE;
+	CButton * mybt = (CButton *) GetDlgItem(IDC_BTSEND);
+	mybt->SetWindowText(_T("发送"));
+}
+
+void CMyCommView::OnSendkeyEnter() 
+{
+	// TODO: Add your command handler code here
+	CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
+	myApp->m_SendkeyType = SKENTER;
+	CButton * mybt = (CButton *) GetDlgItem(IDC_BTSEND);
+	mybt->SetWindowText(_T("发送 E"));
+}
+
+void CMyCommView::OnSendkeyShiftenter() 
+{
+	// TODO: Add your command handler code here
+	CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
+	myApp->m_SendkeyType = SKSHIFTENTER;
+	CButton * mybt = (CButton *) GetDlgItem(IDC_BTSEND);
+	mybt->SetWindowText(_T("发送 S"));
+	
 }
