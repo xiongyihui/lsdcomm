@@ -38,6 +38,7 @@ protected:
 	// Generated message map functions
 	//{{AFX_MSG(CProtocolEditDlg)
 	virtual BOOL OnInitDialog();
+	afx_msg void OnClose();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

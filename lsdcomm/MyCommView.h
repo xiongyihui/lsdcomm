@@ -77,7 +77,6 @@ protected:
 	int DoStr2Hex(CString str,char* data);
 	char DoHexChar(char c);
 	BOOL DoIsNumeric(const CString &strText);
-	void DoRefreshControl2();
 	void DoRunScript(const CString str);
 	void DoUpdateLayout();
 // Generated message map functions

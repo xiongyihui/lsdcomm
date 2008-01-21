@@ -135,6 +135,7 @@
 #define IDC_BTSENDKEY                   1113
 #define IDC_EDRECDATAVALUE              1114
 #define IDC_BTVISIBLEVALUE              1115
+#define IDC_SLIDEREDIT                  1116
 #define ID_EDIT_COMMAND                 32771
 #define IDC_EDITPROTOCOL                32772
 #define IDC_EDIT_PROTOCOL               32774
@@ -155,7 +156,7 @@
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        140
 #define _APS_NEXT_COMMAND_VALUE         32787
-#define _APS_NEXT_CONTROL_VALUE         1116
+#define _APS_NEXT_CONTROL_VALUE         1117
 #define _APS_NEXT_SYMED_VALUE           105
 #endif
 #endif

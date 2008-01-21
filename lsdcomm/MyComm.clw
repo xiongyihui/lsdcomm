@@ -2,7 +2,7 @@
 
 [General Info]
 Version=1
-LastClass=CMyCommView
+LastClass=CProtocolEditDlg
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "MyComm.h"
@@ -16,14 +16,14 @@ Class4=CMainFrame
 
 ResourceCount=8
 <<<<<<< .mine
-Resource1=IDR_MAINFRAME
-Resource2=IDD_ABOUTBOX
+Resource1=IDD_DLGPROTOCOL
+Resource2=IDR_MAINFRAME
 =======
-Resource1=IDR_MAINFRAME
-Resource2=IDD_ABOUTBOX
+Resource1=IDD_DLGPROTOCOL
+Resource2=IDR_MAINFRAME
 >>>>>>> .r13
 Class5=CAboutDlg
-Resource3=IDD_MYCOMM_FORM
+Resource3=IDD_DLGADVANCED
 Class6=CCommandDlg
 <<<<<<< .mine
 Resource4=IDD_DLGCOMMAND
@@ -41,9 +41,9 @@ Class9=MyEdit
 Class10=CMyEdit
 Class11=CMyEdit2
 Class12=CMyEditEx
-Resource6=IDD_DLGPROTOCOL
+Resource6=IDD_MYCOMM_FORM
 Class13=CScriptHelpDlg
-Resource7=IDD_DLGADVANCED
+Resource7=IDD_ABOUTBOX
 Resource8=IDD_DLGSCRIPTHELP
 
 [CLS:CMyCommApp]
@@ -69,7 +69,7 @@ ImplementationFile=MyCommView.cpp
 Filter=D
 BaseClass=CFormView
 VirtualFilter=VWC
-LastObject=IDC_BTOPENCOMM
+LastObject=CMyCommView
 
 
 [CLS:CMainFrame]
@@ -142,7 +142,7 @@ CommandCount=13
 [DLG:IDD_MYCOMM_FORM]
 Type=1
 Class=CMyCommView
-ControlCount=31
+ControlCount=32
 Control1=IDC_STATIC1,button,1342177287
 Control2=IDC_STATIC2,button,1342177543
 Control3=IDC_EDRECDATA,edit,1352732676
@@ -174,6 +174,7 @@ Control28=IDC_CHSCRIPT,button,1342242819
 Control29=IDC_BTSENDKEY,button,1342242816
 Control30=IDC_EDRECDATAVALUE,edit,1085345924
 Control31=IDC_BTVISIBLEVALUE,button,1342242816
+Control32=IDC_SLIDEREDIT,msctls_trackbar32,1073807382
 
 [DLG:IDD_DLGCOMMAND]
 Type=1
@@ -330,18 +331,16 @@ VirtualFilter=dWC
 [DLG:IDD_DLGPROTOCOL]
 Type=1
 Class=CProtocolEditDlg
-ControlCount=5
+ControlCount=3
 Control1=IDOK,button,1342242816
 Control2=IDCANCEL,button,1342242816
-Control3=IDC_EDIT,edit,1353777284
-Control4=IDC_BUTTON1,button,1073807361
-Control5=IDC_STATIC_1,static,1342308352
+Control3=IDC_EDIT,edit,1353781380
 
 [CLS:CProtocolEditDlg]
 Type=0
 HeaderFile=ProtocolEditDlg.h
 ImplementationFile=ProtocolEditDlg.cpp
-BaseClass=CDialog
+BaseClass=ETSLayoutDialog
 Filter=D
 VirtualFilter=dWC
 LastObject=CProtocolEditDlg

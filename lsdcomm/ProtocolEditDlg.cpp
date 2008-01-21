@@ -35,6 +35,7 @@ void CProtocolEditDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CProtocolEditDlg, ETSLayoutDialog)
 	//{{AFX_MSG_MAP(CProtocolEditDlg)
+	ON_WM_CLOSE()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -58,7 +59,6 @@ BOOL CProtocolEditDlg::OnInitDialog()
 		<< item ( IDC_ITEM_LIST, GREEDY )
 */		
 		<<	( pane(HORIZONTAL, ABSOLUTE_VERT )
-			<< item (IDC_STATIC_1,NORESIZE)
 			<< itemGrowing (HORIZONTAL) 
 			<< item( IDOK, NORESIZE)
 			<< item( IDCANCEL, NORESIZE )
@@ -67,4 +67,11 @@ BOOL CProtocolEditDlg::OnInitDialog()
 	UpdateLayout();
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
+}
+
+void CProtocolEditDlg::OnClose() 
+{
+	// TODO: Add your message handler code here and/or call default
+	
+	ETSLayoutDialog::OnClose();
 }

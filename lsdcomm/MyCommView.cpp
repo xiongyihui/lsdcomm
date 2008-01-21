@@ -147,7 +147,19 @@ void CMyCommView::OnInitialUpdate()
 
 	}
 	m_ctrlStopBits.SetCurSel(GetDocument()->m_intStopBits); 
-	DoRefreshControl2();	
+
+	// send botton
+	BOOL myAction = FALSE;
+	GetDlgItem(IDC_BTSEND)->EnableWindow(myAction);
+	
+	// com param
+	GetDlgItem(IDC_CBCOM)->EnableWindow(!myAction);
+	GetDlgItem(IDC_CBBANDRATE)->EnableWindow(!myAction);
+	GetDlgItem(IDC_CBDATABITS)->EnableWindow(!myAction);
+	GetDlgItem(IDC_CBPARITY)->EnableWindow(!myAction);
+	GetDlgItem(IDC_CBSTOPBITS)->EnableWindow(!myAction);
+	GetDlgItem(IDC_BTADVANCED)->EnableWindow(!myAction);
+	
 	
 	//layout
 	DoUpdateLayout();
@@ -217,24 +229,6 @@ CMyCommDoc* CMyCommView::GetDocument() // non-debug version is inline
 	return (CMyCommDoc*)m_pDocument;
 }
 
-void CMyCommView::DoRefreshControl2()
-{
-
-	// send botton
-	BOOL myAction = GetDocument()->m_ComAction;
-	GetDlgItem(IDC_BTSEND)->EnableWindow(myAction);
-	
-	// com param
-	GetDlgItem(IDC_CBCOM)->EnableWindow(!myAction);
-	GetDlgItem(IDC_CBBANDRATE)->EnableWindow(!myAction);
-	GetDlgItem(IDC_CBDATABITS)->EnableWindow(!myAction);
-	GetDlgItem(IDC_CBPARITY)->EnableWindow(!myAction);
-	GetDlgItem(IDC_CBSTOPBITS)->EnableWindow(!myAction);
-	GetDlgItem(IDC_BTADVANCED)->EnableWindow(!myAction);
-    //GetDlgItem(IDC_STATICCOMIMG)->VisielbWindow(!m_ComAction);
-	
-}
-
 #endif //_DEBUG
 
 /////////////////////////////////////////////////////////////////////////////
@@ -249,7 +243,6 @@ void CMyCommView::OnBtopencomm()
 
 		m_ctrlOpenComm.SetWindowText(_T(" 打开串口"));
 		GetDocument()->m_ComAction = FALSE;
-		DoRefreshControl2();
 		CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
 		myApp->DoSetStautsBarText(SBSCOMM,"串口:×");
 	}
@@ -315,7 +308,6 @@ void CMyCommView::OnBtopencomm()
 			m_ctrlOpenComm.SetBitmap(myBitmap);
 			m_ctrlOpenComm.SetWindowText(_T("关闭串口"));
 			GetDocument()->m_ComAction = TRUE;
-			DoRefreshControl2();
 			CEdit * myedit = (CEdit *)GetDlgItem(IDC_EDSENDDATA);
 			myedit->SetFocus();
 			CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
@@ -324,6 +316,18 @@ void CMyCommView::OnBtopencomm()
 		else
 			AfxMessageBox(_T("串口被占用！"));
 	}
+
+	// send botton
+	BOOL myAction = GetDocument()->m_ComAction;
+	GetDlgItem(IDC_BTSEND)->EnableWindow(myAction);
+	
+	// com param
+	GetDlgItem(IDC_CBCOM)->EnableWindow(!myAction);
+	GetDlgItem(IDC_CBBANDRATE)->EnableWindow(!myAction);
+	GetDlgItem(IDC_CBDATABITS)->EnableWindow(!myAction);
+	GetDlgItem(IDC_CBPARITY)->EnableWindow(!myAction);
+	GetDlgItem(IDC_CBSTOPBITS)->EnableWindow(!myAction);
+	GetDlgItem(IDC_BTADVANCED)->EnableWindow(!myAction);
 	
 }
 
@@ -804,15 +808,18 @@ void CMyCommView::OnBtvisiblevalue()
 	// TODO: Add your control notification handler code here
 	CEdit * myedit = (CEdit *)GetDlgItem(IDC_EDRECDATAVALUE);
 	CButton * mybt = (CButton *)GetDlgItem(IDC_BTVISIBLEVALUE);
+	CSliderCtrl * mys = (CSliderCtrl *)GetDlgItem(IDC_SLIDEREDIT);
 	m_IsShowValueWindow = !m_IsShowValueWindow;
 	if (m_IsShowValueWindow)
 	{	
 		mybt->SetWindowText(_T("关闭结果窗"));
 		myedit->ShowWindow(SW_SHOW); //SW_HIDE
+		mys->ShowWindow(SW_SHOW);
 	}
     else{ 
 		mybt->SetWindowText(_T("显示结果窗"));
 		myedit->ShowWindow(SW_HIDE);
+		mys->ShowWindow(SW_HIDE);
 	}
 	DoUpdateLayout();
 	
@@ -821,14 +828,20 @@ void CMyCommView::OnBtvisiblevalue()
 void CMyCommView::DoUpdateLayout()
 {
 
-	CPane newRecPane = pane( VERTICAL, GREEDY );
+	CPane newRecPane = pane( HORIZONTAL, GREEDY );
 	if (m_IsShowValueWindow)
 	{
-		newRecPane<<item(IDC_EDRECDATAVALUE,ABSOLUTE_VERT,0,0,0,0);
+		newRecPane
+			<< (pane(VERTICAL)
+					<<item(IDC_EDRECDATAVALUE,ABSOLUTE_VERT,0,0,0,0)
+					<<item(IDC_EDRECDATA,GREEDY,0,0,0,0)
+				)
+			<< item(IDC_SLIDEREDIT,ABSOLUTE_HORZ);
+
+	}
+	else{
 		newRecPane<<item(IDC_EDRECDATA,GREEDY,0,0,0,0);
 	}
-	else
-		newRecPane<<item(IDC_EDRECDATA,GREEDY,0,0,0,0);
 	
 	CreateRoot(VERTICAL); //layout
 	m_RootPane	//create 
