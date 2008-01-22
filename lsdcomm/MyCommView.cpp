@@ -225,6 +225,7 @@ void CMyCommView::OnInitialUpdate()
 	Button= (CButton *) GetDlgItem(IDC_BTCALC);;
     Button-> SetIcon(m_hicn1);
 	
+	
 
 	//value
 	m_ReceiveValue = GetDocument()->m_strReceiveValue;

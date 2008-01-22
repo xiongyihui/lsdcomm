@@ -19,7 +19,7 @@
 #define IDD_DLGSCRIPTHELP               138
 #define IDR_MENU_SNEDKEY                139
 #define IDI_ICONCLEAR                   140
-#define IDI_ICONCALC                    142
+#define IDI_ICONCALC                    144
 #define IDC_EDRECDATA                   1000
 #define IDC_EDSENDDATA                  1001
 #define IDC_BTSEND                      1010
@@ -160,7 +160,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        143
+#define _APS_NEXT_RESOURCE_VALUE        145
 #define _APS_NEXT_COMMAND_VALUE         32787
 #define _APS_NEXT_CONTROL_VALUE         1121
 #define _APS_NEXT_SYMED_VALUE           105

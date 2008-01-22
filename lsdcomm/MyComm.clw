@@ -16,34 +16,34 @@ Class4=CMainFrame
 
 ResourceCount=8
 <<<<<<< .mine
-Resource1=IDD_DLGCOMMAND
-Resource2=IDR_MAINFRAME
+Resource1=IDD_DLGADVANCED
+Resource2=IDD_DLGPROTOCOL
 =======
-Resource1=IDD_DLGCOMMAND
-Resource2=IDR_MAINFRAME
+Resource1=IDD_DLGADVANCED
+Resource2=IDD_DLGPROTOCOL
 >>>>>>> .r13
 Class5=CAboutDlg
-Resource3=IDD_ABOUTBOX
+Resource3=IDR_MAINFRAME
 Class6=CCommandDlg
 <<<<<<< .mine
-Resource4=IDD_DLGPROTOCOL
+Resource4=IDD_DLGCOMMAND
 =======
-Resource4=IDD_DLGPROTOCOL
+Resource4=IDD_DLGCOMMAND
 >>>>>>> .r13
 Class7=CCommAdvancedDlg
 <<<<<<< .mine
-Resource5=IDR_MENU_SNEDKEY
+Resource5=IDD_ABOUTBOX
 =======
-Resource5=IDR_MENU_SNEDKEY
+Resource5=IDD_ABOUTBOX
 >>>>>>> .r13
 Class8=CProtocolEditDlg
 Class9=MyEdit
 Class10=CMyEdit
 Class11=CMyEdit2
 Class12=CMyEditEx
-Resource6=IDD_DLGADVANCED
+Resource6=IDD_MYCOMM_FORM
 Class13=CScriptHelpDlg
-Resource7=IDD_MYCOMM_FORM
+Resource7=IDR_MENU_SNEDKEY
 Resource8=IDD_DLGSCRIPTHELP
 
 [CLS:CMyCommApp]
@@ -69,7 +69,7 @@ ImplementationFile=MyCommView.cpp
 Filter=D
 BaseClass=CFormView
 VirtualFilter=VWC
-LastObject=IDC_CBCOMMAND
+LastObject=IDC_BTCALC
 
 
 [CLS:CMainFrame]

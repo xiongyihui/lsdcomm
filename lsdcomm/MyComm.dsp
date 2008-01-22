@@ -224,11 +224,19 @@ SOURCE=.\res\abc.ico
 # End Source File
 # Begin Source File
 
+SOURCE=.\res\abc32.ico
+# End Source File
+# Begin Source File
+
 SOURCE=.\res\bitmap1.bmp
 # End Source File
 # Begin Source File
 
 SOURCE=.\res\bmp00001.bmp
+# End Source File
+# Begin Source File
+
+SOURCE=.\res\ico00001.ico
 # End Source File
 # Begin Source File
 

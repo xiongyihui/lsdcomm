@@ -69,7 +69,7 @@ END
 IDR_MAINFRAME           ICON    DISCARDABLE     "res\\MyComm.ico"
 IDR_MYCOMMTYPE          ICON    DISCARDABLE     "res\\MyCommDoc.ico"
 IDI_ICONCLEAR           ICON    DISCARDABLE     "res\\icon1.ico"
-IDI_ICONCALC            ICON    DISCARDABLE     "res\\abc.ico"
+IDI_ICONCALC            ICON    DISCARDABLE     "res\\abc32.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
