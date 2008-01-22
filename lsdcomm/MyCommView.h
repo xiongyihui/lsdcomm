@@ -73,6 +73,7 @@ public:
 
 protected:
 	CToolTipCtrl m_hint;
+	int m_CurrenthistoryIndex;   
 
 	int DoStr2Hex(CString str,char* data);
 	char DoHexChar(char c);
@@ -104,6 +105,12 @@ protected:
 	afx_msg void OnSendkeyShiftenter();
 	afx_msg void OnBtvisiblevalue();
 	afx_msg void OnUpdateEdrecdatavalue();
+	afx_msg void OnBtclearrxtx();
+	afx_msg void OnBtsendclear();
+	afx_msg void OnBtsendup();
+	afx_msg void OnBtsenddown();
+	afx_msg void OnBtcalc();
+
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

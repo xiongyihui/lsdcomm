@@ -43,6 +43,13 @@ BEGIN_MESSAGE_MAP(CMyCommView, CFormView)
 	ON_COMMAND(ID_SENDKEY_SHIFTENTER, OnSendkeyShiftenter)
 	ON_BN_CLICKED(IDC_BTVISIBLEVALUE, OnBtvisiblevalue)
 	ON_EN_UPDATE(IDC_EDRECDATAVALUE, OnUpdateEdrecdatavalue)
+	ON_BN_CLICKED(IDC_BTCLEARRXTX, OnBtclearrxtx)
+	ON_BN_CLICKED(IDC_BTSENDCLEAR, OnBtsendclear)
+	ON_BN_CLICKED(IDC_BTSENDUP, OnBtsendup)
+	ON_BN_CLICKED(IDC_BTSENDDOWN, OnBtsenddown)
+	ON_BN_CLICKED(IDC_BTCALC, OnBtcalc)
+
+
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -61,8 +68,7 @@ CMyCommView::CMyCommView()
 	m_hint.Create(this) ;
 	m_IsViewReceiveData = TRUE;
 	m_IsShowValueWindow = FALSE;
-
-	//send key
+	m_CurrenthistoryIndex =0;
 }
 
 CMyCommView::~CMyCommView()
@@ -168,6 +174,13 @@ void CMyCommView::OnInitialUpdate()
 	EnableToolTips(TRUE);
 	m_hint.Activate(TRUE);
 	m_hint.AddTool(GetDlgItem(IDC_CBCOMMAND),_T("选择要发送的指令，并点发送。"));
+	m_hint.AddTool(GetDlgItem(IDC_BTSENDKEY),_T("设置发送的快捷键。"));
+	m_hint.AddTool(GetDlgItem(IDC_BTCLEARRXTX),_T("清空计数RX,TX"));
+	m_hint.AddTool(GetDlgItem(IDC_BTSENDCLEAR),_T("清空发送内容。"));
+	m_hint.AddTool(GetDlgItem(IDC_BTSENDUP),_T("发送指令的上一条内容。"));
+	m_hint.AddTool(GetDlgItem(IDC_BTSENDDOWN),_T("发送指令的下一条内容。"));
+	m_hint.AddTool(GetDlgItem(IDC_BTCALC),_T("计算器"));
+		
 	m_hint.SetTipTextColor(RGB(0,0,0));  
 	m_hint.SetDelayTime(100);     
 	
@@ -203,8 +216,19 @@ void CMyCommView::OnInitialUpdate()
 		break;
 	}
 
+	//icon
+	HICON m_hicn1=AfxGetApp()->LoadIcon(IDI_ICONCLEAR);
+	CButton *Button= (CButton *) GetDlgItem(IDC_BTCLEARRXTX);;
+    Button-> SetIcon(m_hicn1);
+
+	m_hicn1=AfxGetApp()->LoadIcon(IDI_ICONCALC);
+	Button= (CButton *) GetDlgItem(IDC_BTCALC);;
+    Button-> SetIcon(m_hicn1);
+	
+
 	//value
 	m_ReceiveValue = GetDocument()->m_strReceiveValue;
+	
 
 	UpdateData(FALSE);
 }
@@ -476,13 +500,26 @@ void CMyCommView::OnBtSend()
 		int len=DoStr2Hex(m_strSendData,data);
 		GetDocument()->m_Comm.WriteToPort(data,len);
 		GetDocument()->m_RXCount+=(long)((m_strSendData.GetLength()+1)/3);
+		CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
+		CString str;
+		str.Format("TX:%d",GetDocument()->m_RXCount);
+		myApp->DoSetStautsBarText(SBSTX,str);
 	}
 	else 
 	{
 		GetDocument()->m_Comm.WriteToPort((LPCTSTR)m_strSendData);	//发送数据
 		GetDocument()->m_RXCount+=m_strSendData.GetLength();
+		CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
+		CString str;
+		str.Format("TX:%d",GetDocument()->m_RXCount);
+		myApp->DoSetStautsBarText(SBSTX,str);
 	}
 	
+	CommCommand myCommand;
+	myCommand.m_IsHex = m_ctrlSendHex.GetCheck();
+	myCommand.m_isScript = m_ctrlSendScript.GetCheck();
+	myCommand.m_strCommand = m_strSendData;
+	m_CurrenthistoryIndex = GetDocument()->AddHistory(myCommand);
 }
 
 void CMyCommView::OnBtviewprotocol() 
@@ -540,6 +577,18 @@ BOOL CMyCommView::PreTranslateMessage(MSG* pMsg)
 			return true;
 		}
 	}
+	else if (GetFocus()!=NULL && GetFocus()->GetDlgCtrlID()==IDC_EDRECDATA)
+	{
+		switch(pMsg->wParam)
+		{
+		case ME_CHECKSUM:
+			AfxMessageBox("TTT");
+			break;
+		default:
+		    break;
+		}
+		
+	}
 	
 	return CFormView::PreTranslateMessage(pMsg);
 }
@@ -570,7 +619,7 @@ void CMyCommView::OnTimer(UINT nIDEvent)
 
 LONG CMyCommView::OnCommunication(WPARAM ch, LPARAM port)
 {
-	GetDocument()->m_RXCount++;
+	
 	if (m_IsViewReceiveData)
 	{
 		if (m_ctrlReceiveHex.GetCheck())
@@ -588,6 +637,11 @@ LONG CMyCommView::OnCommunication(WPARAM ch, LPARAM port)
 		}
 		UpdateData(FALSE);
 	}
+	GetDocument()->m_RXCount++;
+	CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
+	CString str;
+	str.Format("RX:%d",GetDocument()->m_RXCount);
+	myApp->DoSetStautsBarText(SBSRX,str);
 	
 	return 0;
 }
@@ -711,11 +765,19 @@ void CMyCommView::DoRunScript(const CString str)
 		{
 			int len=DoStr2Hex(SendStr,data);
 			GetDocument()->m_Comm.WriteToPort(data,len);
-			GetDocument()->m_RXCount+=(long)((SendStr.GetLength()+1)/3);	
+			GetDocument()->m_RXCount+=(long)((SendStr.GetLength()+1)/3);
+			CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
+			CString str;
+			str.Format("TX:%d",GetDocument()->m_RXCount);
+			myApp->DoSetStautsBarText(SBSTX,str);
 		}
 		else{
 			GetDocument()->m_Comm.WriteToPort((LPCTSTR)SendStr);	//发送数据
 			GetDocument()->m_RXCount+=SendStr.GetLength();
+			CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
+			CString str;
+			str.Format("TX:%d",GetDocument()->m_RXCount);
+			myApp->DoSetStautsBarText(SBSTX,str);
 		}
 	}
 	else if (Commandstr=="SLEEP")
@@ -808,18 +870,16 @@ void CMyCommView::OnBtvisiblevalue()
 	// TODO: Add your control notification handler code here
 	CEdit * myedit = (CEdit *)GetDlgItem(IDC_EDRECDATAVALUE);
 	CButton * mybt = (CButton *)GetDlgItem(IDC_BTVISIBLEVALUE);
-	CSliderCtrl * mys = (CSliderCtrl *)GetDlgItem(IDC_SLIDEREDIT);
 	m_IsShowValueWindow = !m_IsShowValueWindow;
 	if (m_IsShowValueWindow)
 	{	
 		mybt->SetWindowText(_T("关闭结果窗"));
 		myedit->ShowWindow(SW_SHOW); //SW_HIDE
-		mys->ShowWindow(SW_SHOW);
+	
 	}
     else{ 
 		mybt->SetWindowText(_T("显示结果窗"));
 		myedit->ShowWindow(SW_HIDE);
-		mys->ShowWindow(SW_HIDE);
 	}
 	DoUpdateLayout();
 	
@@ -835,8 +895,8 @@ void CMyCommView::DoUpdateLayout()
 			<< (pane(VERTICAL)
 					<<item(IDC_EDRECDATAVALUE,ABSOLUTE_VERT,0,0,0,0)
 					<<item(IDC_EDRECDATA,GREEDY,0,0,0,0)
-				)
-			<< item(IDC_SLIDEREDIT,ABSOLUTE_HORZ);
+				);
+			//<< item(IDC_SLIDEREDIT,ABSOLUTE_HORZ,0,0,0,0);
 
 	}
 	else{
@@ -858,28 +918,41 @@ void CMyCommView::DoUpdateLayout()
 	 
 	 <<	( pane(HORIZONTAL, ABSOLUTE_VERT )
 	 //<< (paneCtrl(IDC_STATIC3,VERTICAL,GREEDY, nDefaultBorder, 10, 10)
-	 << (pane(VERTICAL,GREEDY,8,0,0)
-	 //<< item( IDC_STATIC3, NORESIZE)
-	 //<< itemGrowing(VERTICAL)
-	 << item (IDC_STATIC_SEND,NORESIZE)
-	 << (pane(HORIZONTAL,GREEDY)
-	 << item( IDC_CHSENDHEX,NORESIZE)
-	 << item( IDC_CHSCRIPT,NORESIZE)
-	 )
-	 << (pane(HORIZONTAL,GREEDY,2,0,0)
+	 << (pane(VERTICAL,GREEDY)
+		//<< item( IDC_STATIC3, NORESIZE)
+		//<< itemGrowing(VERTICAL)
+		<< item (IDC_STATIC_SEND,NORESIZE)
+		<< (pane(HORIZONTAL,GREEDY)
+			<< item( IDC_CHSENDHEX,NORESIZE)
+			<< item( IDC_CHSCRIPT,NORESIZE)
+			)
+		<< (pane(HORIZONTAL,GREEDY,2,0,0)
 					<< item(IDC_CHAUTOSEND,NORESIZE)
 					<< item(IDC_EDAUTOSENDTIME,NORESIZE)
 					
-					)
+				)
+		<< (pane(HORIZONTAL)
+			<< item(IDC_BTSENDUP,NORESIZE)    //上
+			<< item(IDC_BTSENDCLEAR,NORESIZE) //clear
+			<< item(IDC_BTSENDDOWN,NORESIZE)  //下	
+
+		   )
 					
-					)
-					<< ( pane(VERTICAL,ABSOLUTE_VERT)
-						<< item( IDC_EDSENDDATA,RELATIVE_HORZ,0,0,0,0)
+		)
+		<< ( pane(VERTICAL,ABSOLUTE_VERT)
+					   //send
+					   << item( IDC_EDSENDDATA,ABSOLUTE_VERT,0,0,0,0)
+						
+					   //option
 						<<(pane(HORIZONTAL, ABSOLUTE_VERT)
 							<< item(IDC_BTSEND, NORESIZE)   // send button ALIGN_RIGHT	
 							<< item(IDC_CBCOMMAND,NORESIZE)
 							<< itemGrowing (HORIZONTAL)    // bank row 
-							<< item(IDC_BTSENDKEY,NORESIZE)
+							<<(pane(HORIZONTAL, ABSOLUTE_VERT,0)
+							    << item(IDC_BTCALC,NORESIZE)
+								<< item(IDC_BTCLEARRXTX,NORESIZE)
+								<< item(IDC_BTSENDKEY,NORESIZE)
+							  )
 							)
 					));
 
@@ -899,4 +972,68 @@ void CMyCommView::OnUpdateEdrecdatavalue()
 	GetDocument()->m_strReceiveValue = m_ReceiveValue;
 }
 
+
+
+void CMyCommView::OnBtclearrxtx() 
+{
+	// TODO: Add your control notification handler code here
+	GetDocument()->m_RXCount = 0;
+	GetDocument()->m_TXCount = 0;
+	CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
+	myApp->DoSetStautsBarText(SBSRX,"RX:");
+	myApp->DoSetStautsBarText(SBSTX,"TX:");
+	
+}
+
+
+
+void CMyCommView::OnBtsendclear() 
+{
+	// TODO: Add your control notification handler code here
+	m_strSendData.Empty();
+	UpdateData(FALSE);
+	CEdit * myedit = (CEdit *)GetDlgItem(IDC_EDSENDDATA);
+	myedit->SetFocus();
+}
+
+
+
+void CMyCommView::OnBtsendup() 
+{
+	// TODO: Add your control notification handler code here
+	if (m_CurrenthistoryIndex<=0) return;
+	if (m_CurrenthistoryIndex>=COMMANDCOUNT) return;
+	m_CurrenthistoryIndex--;
+	
+	CommCommand myCommand = GetDocument()->m_HistoryCommand[m_CurrenthistoryIndex];
+	m_ctrlSendScript.SetCheck(myCommand.m_isScript);
+	m_ctrlSendHex.SetCheck(myCommand.m_IsHex);
+	m_strSendData = myCommand.m_strCommand;
+	UpdateData(FALSE);
+}
+
+void CMyCommView::OnBtsenddown() 
+{
+	// TODO: Add your control notification handler code here
+	if (m_CurrenthistoryIndex<0) return;
+	if (m_CurrenthistoryIndex>=COMMANDCOUNT) return;
+	m_CurrenthistoryIndex++;
+
+	int myindex = GetDocument()->GetHistoryIndex();
+	if (m_CurrenthistoryIndex>=myindex) return;
+	
+	
+	CommCommand myCommand = GetDocument()->m_HistoryCommand[m_CurrenthistoryIndex];
+	m_ctrlSendScript.SetCheck(myCommand.m_isScript);
+	m_ctrlSendHex.SetCheck(myCommand.m_IsHex);
+	m_strSendData = myCommand.m_strCommand;
+	UpdateData(FALSE);
+	
+}
+
+void CMyCommView::OnBtcalc() 
+{
+	// TODO: Add your control notification handler code here
+	ShellExecute(this->m_hWnd,"open","calc.exe","",NULL,SW_SHOW ); 
+}
 

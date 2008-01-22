@@ -34,6 +34,9 @@ protected: // create from serialization only
 	DECLARE_DYNCREATE(CMyCommDoc)
 
 // Attributes
+protected:
+	int m_historyIndex;   
+	
 public:
 	CSerialPort m_Comm;
 	BOOL m_ComAction;
@@ -54,11 +57,18 @@ public:
 	LONG  m_TXCount;
 	LONG  m_RXCount;
 	CString m_strReceiveValue;  //结果窗口值
+	
+
+	CommCommand m_HistoryCommand[COMMANDCOUNT];
+	
 
 // Operations
 public:
 	BOOL OpenComm(CWnd * POwner);
 	void CloseComm();
+
+	int AddHistory(CommCommand Command);
+	int GetHistoryIndex();
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CMyCommDoc)

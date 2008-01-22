@@ -23,7 +23,6 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CLOSE()
 	ON_COMMAND(ID_EDIT_COMMAND, OnEditCommand)
 	ON_COMMAND(ID_EDIT_PROTOCOL, OnEditProtocol)
-	ON_COMMAND(IDC_LANGCHINESE, OnLangchinese)
 	ON_COMMAND(ID_HELP_SCRIPT, OnHelpScript)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -374,11 +373,7 @@ void CMainFrame::OnEditProtocol()
 	}	
 }
 
-void CMainFrame::OnLangchinese() 
-{
-	// TODO: Add your command handler code here
-	//	
-}
+
 
 
 void CMainFrame::OnHelpScript() 

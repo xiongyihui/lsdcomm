@@ -12,17 +12,6 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 
-#define MES_UNDO _T("&Undo")
-#define MES_CUT _T("Cu&t")
-#define MES_COPY _T("&Copy")
-#define MES_PASTE _T("&Paste")
-#define MES_DELETE _T("&Delete")
-#define MES_SELECTALL _T("Select &All")
-#define ME_SELECTALL WM_USER+0x7000 
-
-//add 
-#define ME_CHECKSUM WM_USER+0x7001
-#define MES_CHECKSUM _T("Ð£¼ìºÍ")
 
 /////////////////////////////////////////////////////////////////////////////
 // CMyEditEx
@@ -116,6 +105,8 @@ BOOL CMyEditEx::OnCommand(WPARAM wParam, LPARAM lParam)
 			GetWindowText(myv);
 			myv = myv.Mid(a,b-a);
 			AfxMessageBox(myv);
+			//return SendMessage (EM_SETSEL, 0, -1);
+			return SendMessage(ME_CHECKSUM,wParam,(LPARAM)&myv);
 		}
 	default:
 		return CEdit::OnCommand(wParam, lParam);

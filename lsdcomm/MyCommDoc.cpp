@@ -54,6 +54,8 @@ CMyCommDoc::CMyCommDoc()
 		m_Command[i].m_IsHex = FALSE;
 		m_Command[i].m_isScript = FALSE;
 	}
+	
+	m_historyIndex = 0;
 }
 
 CMyCommDoc::~CMyCommDoc()
@@ -196,7 +198,39 @@ void CMyCommDoc::CloseComm()
 	m_Comm.StopMonitoring();
 }
 
+int CMyCommDoc::AddHistory(CommCommand Command)
+{
+	if (m_historyIndex>=COMMANDCOUNT)  //=20
+	{	
+		CommCommand myCommand;
+		for (int i=1;i<COMMANDCOUNT;i++)
+		{
+			m_HistoryCommand[i-1].m_IsHex = m_HistoryCommand[i].m_IsHex;
+			m_HistoryCommand[i-1].m_isScript = m_HistoryCommand[i].m_isScript;
+			m_HistoryCommand[i-1].m_strCommand = m_HistoryCommand[i].m_strCommand;
+			m_HistoryCommand[i-1].m_strName = m_HistoryCommand[i].m_strName;
+		}
+		// end
+		m_HistoryCommand[m_historyIndex-1].m_IsHex = Command.m_IsHex;
+		m_HistoryCommand[m_historyIndex-1].m_isScript = Command.m_isScript;
+		m_HistoryCommand[m_historyIndex-1].m_strCommand = Command.m_strCommand;
+		m_HistoryCommand[m_historyIndex-1].m_strName = Command.m_strName;
+	}
+	else{
+		m_HistoryCommand[m_historyIndex].m_IsHex = Command.m_IsHex;
+		m_HistoryCommand[m_historyIndex].m_isScript = Command.m_isScript;
+		m_HistoryCommand[m_historyIndex].m_strCommand = Command.m_strCommand;
+		m_HistoryCommand[m_historyIndex].m_strName = Command.m_strName;
+		m_historyIndex++;
+	}	
+	return m_historyIndex;
+	
+}
 
+int CMyCommDoc::GetHistoryIndex()
+{
+	return m_historyIndex;
+}
 /////////////////////////////////////////////////////////////////////////////
 // CMyCommDoc diagnostics
 

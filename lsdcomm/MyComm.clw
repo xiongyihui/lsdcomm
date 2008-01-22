@@ -2,7 +2,7 @@
 
 [General Info]
 Version=1
-LastClass=CProtocolEditDlg
+LastClass=CMyCommView
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "MyComm.h"
@@ -16,19 +16,19 @@ Class4=CMainFrame
 
 ResourceCount=8
 <<<<<<< .mine
-Resource1=IDD_DLGPROTOCOL
+Resource1=IDD_DLGCOMMAND
 Resource2=IDR_MAINFRAME
 =======
-Resource1=IDD_DLGPROTOCOL
+Resource1=IDD_DLGCOMMAND
 Resource2=IDR_MAINFRAME
 >>>>>>> .r13
 Class5=CAboutDlg
-Resource3=IDD_DLGADVANCED
+Resource3=IDD_ABOUTBOX
 Class6=CCommandDlg
 <<<<<<< .mine
-Resource4=IDD_DLGCOMMAND
+Resource4=IDD_DLGPROTOCOL
 =======
-Resource4=IDD_DLGCOMMAND
+Resource4=IDD_DLGPROTOCOL
 >>>>>>> .r13
 Class7=CCommAdvancedDlg
 <<<<<<< .mine
@@ -41,9 +41,9 @@ Class9=MyEdit
 Class10=CMyEdit
 Class11=CMyEdit2
 Class12=CMyEditEx
-Resource6=IDD_MYCOMM_FORM
+Resource6=IDD_DLGADVANCED
 Class13=CScriptHelpDlg
-Resource7=IDD_ABOUTBOX
+Resource7=IDD_MYCOMM_FORM
 Resource8=IDD_DLGSCRIPTHELP
 
 [CLS:CMyCommApp]
@@ -69,7 +69,7 @@ ImplementationFile=MyCommView.cpp
 Filter=D
 BaseClass=CFormView
 VirtualFilter=VWC
-LastObject=CMyCommView
+LastObject=IDC_CBCOMMAND
 
 
 [CLS:CMainFrame]
@@ -94,12 +94,15 @@ LastObject=CAboutDlg
 [DLG:IDD_ABOUTBOX]
 Type=1
 Class=CAboutDlg
-ControlCount=5
+ControlCount=8
 Control1=IDC_STATIC,static,1342177283
 Control2=IDC_STATIC,static,1342308480
 Control3=IDC_STATIC,static,1342308352
 Control4=IDOK,button,1342373889
 Control5=IDC_STATIC,static,1342308352
+Control6=IDC_STATIC,button,1342177287
+Control7=IDC_STATIC,button,1342177287
+Control8=IDC_STATIC,static,1342308352
 
 [MNU:IDR_MAINFRAME]
 Type=1
@@ -113,13 +116,9 @@ Command6=ID_APP_EXIT
 Command7=ID_VIEW_STATUS_BAR
 Command8=ID_EDIT_COMMAND
 Command9=ID_EDIT_PROTOCOL
-Command10=ID_SET_OPTION
-Command11=IDC_LANGCHINESE
-Command12=IDC_LANGCHINESE2
-Command13=IDC_LANGENGLISH
-Command14=ID_HELP_SCRIPT
-Command15=ID_APP_ABOUT
-CommandCount=15
+Command10=ID_HELP_SCRIPT
+Command11=ID_APP_ABOUT
+CommandCount=11
 
 [ACL:IDR_MAINFRAME]
 Type=1
@@ -142,7 +141,7 @@ CommandCount=13
 [DLG:IDD_MYCOMM_FORM]
 Type=1
 Class=CMyCommView
-ControlCount=32
+ControlCount=36
 Control1=IDC_STATIC1,button,1342177287
 Control2=IDC_STATIC2,button,1342177543
 Control3=IDC_EDRECDATA,edit,1352732676
@@ -174,7 +173,11 @@ Control28=IDC_CHSCRIPT,button,1342242819
 Control29=IDC_BTSENDKEY,button,1342242816
 Control30=IDC_EDRECDATAVALUE,edit,1085345924
 Control31=IDC_BTVISIBLEVALUE,button,1342242816
-Control32=IDC_SLIDEREDIT,msctls_trackbar32,1073807382
+Control32=IDC_BTCLEARRXTX,button,1342242880
+Control33=IDC_BTSENDUP,button,1342242816
+Control34=IDC_BTSENDDOWN,button,1342242816
+Control35=IDC_BTSENDCLEAR,button,1342242816
+Control36=IDC_BTCALC,button,1342246720
 
 [DLG:IDD_DLGCOMMAND]
 Type=1

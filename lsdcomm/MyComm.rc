@@ -68,6 +68,8 @@ END
 // remains consistent on all systems.
 IDR_MAINFRAME           ICON    DISCARDABLE     "res\\MyComm.ico"
 IDR_MYCOMMTYPE          ICON    DISCARDABLE     "res\\MyCommDoc.ico"
+IDI_ICONCLEAR           ICON    DISCARDABLE     "res\\icon1.ico"
+IDI_ICONCALC            ICON    DISCARDABLE     "res\\abc.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -92,13 +94,6 @@ BEGIN
         MENUITEM "状态栏(&S)",                  ID_VIEW_STATUS_BAR
         MENUITEM "通信指令编辑...",             ID_EDIT_COMMAND
         MENUITEM "通信协议内容...",             ID_EDIT_PROTOCOL
-        MENUITEM "选项...",                     ID_SET_OPTION
-    END
-    POPUP "Language(&L)"
-    BEGIN
-        MENUITEM "简体中文",                    IDC_LANGCHINESE
-        MENUITEM "繁体中文",                    IDC_LANGCHINESE2
-        MENUITEM "英文",                        IDC_LANGENGLISH
     END
     POPUP "帮助(&H)"
     BEGIN
@@ -146,16 +141,19 @@ END
 // Dialog
 //
 
-IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 259, 165
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "关于 LSDComm"
 FONT 9, "宋体"
 BEGIN
-    ICON            IDR_MAINFRAME,IDC_STATIC,10,10,20,20
-    LTEXT           "LSDComm 1.0 版",IDC_STATIC,40,10,119,8,SS_NOPREFIX
-    LTEXT           "版权所有 (C) 2008",IDC_STATIC,40,25,119,8
-    DEFPUSHBUTTON   "确定",IDOK,178,7,50,14,WS_GROUP
-    LTEXT           "http://lsdcomm.googlecode.com",IDC_STATIC,40,39,117,8
+    ICON            IDR_MAINFRAME,IDC_STATIC,17,23,21,21
+    LTEXT           "LSDComm 1.0 版",IDC_STATIC,47,23,119,8,SS_NOPREFIX
+    LTEXT           "版权所有 (C) 2008",IDC_STATIC,47,38,119,8
+    DEFPUSHBUTTON   "确定",IDOK,202,144,50,14,WS_GROUP
+    LTEXT           "http://lsdcomm.googlecode.com",IDC_STATIC,47,52,117,8
+    GROUPBOX        "开源项目",IDC_STATIC,7,7,245,70
+    GROUPBOX        "贡献者",IDC_STATIC,7,81,245,58
+    LTEXT           "mrlong.com@gmail.com",IDC_STATIC,18,94,81,8
 END
 
 IDD_MYCOMM_FORM DIALOG DISCARDABLE  0, 0, 385, 300
@@ -164,11 +162,11 @@ FONT 9, "宋体"
 BEGIN
     GROUPBOX        "串口设置",IDC_STATIC1,3,5,94,109
     GROUPBOX        "接收区",IDC_STATIC2,3,132,94,79,BS_LEFT
-    EDITTEXT        IDC_EDRECDATA,102,7,41,108,ES_MULTILINE | ES_WANTRETURN | 
-                    WS_VSCROLL
-    EDITTEXT        IDC_EDSENDDATA,102,232,40,45,ES_MULTILINE | 
+    EDITTEXT        IDC_EDRECDATA,100,115,41,108,ES_MULTILINE | 
+                    ES_WANTRETURN | WS_VSCROLL
+    EDITTEXT        IDC_EDSENDDATA,102,232,40,37,ES_MULTILINE | 
                     ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL
-    PUSHBUTTON      "发送",IDC_BTSEND,305,280,50,14
+    PUSHBUTTON      "发送",IDC_BTSEND,100,280,50,14
     LTEXT           "串 口",IDC_STATIC,9,18,21,8
     COMBOBOX        IDC_CBCOM,37,15,48,60,CBS_DROPDOWN | CBS_AUTOHSCROLL | 
                     WS_VSCROLL | WS_TABSTOP
@@ -197,20 +195,23 @@ BEGIN
                     ES_NUMBER
     CONTROL         "周期发送(ms)",IDC_CHAUTOSEND,"Button",BS_AUTOCHECKBOX | 
                     WS_TABSTOP,5,254,59,14
-    COMBOBOX        IDC_CBCOMMAND,170,280,128,161,CBS_DROPDOWNLIST | 
+    COMBOBOX        IDC_CBCOMMAND,150,280,95,161,CBS_DROPDOWNLIST | 
                     WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "保存数据",IDC_BTSAVERECDATA,6,161,43,14
     PUSHBUTTON      "停止显示",IDC_BTVIEWRECDATA,50,177,43,14
     CONTROL         "脚本",IDC_CHSCRIPT,"Button",BS_AUTOCHECKBOX | 
                     WS_TABSTOP,46,241,32,10
     PUSHBUTTON      "↓",IDC_BTSENDKEY,358,280,11,14
-    EDITTEXT        IDC_EDRECDATAVALUE,103,150,60,75,ES_MULTILINE | 
+    EDITTEXT        IDC_EDRECDATAVALUE,100,10,60,75,ES_MULTILINE | 
                     ES_AUTOHSCROLL | ES_WANTRETURN | NOT WS_VISIBLE | 
                     WS_VSCROLL | WS_HSCROLL
     PUSHBUTTON      "显示结果窗",IDC_BTVISIBLEVALUE,6,193,43,14
-    CONTROL         "Slider1",IDC_SLIDEREDIT,"msctls_trackbar32",TBS_VERT | 
-                    TBS_TOP | TBS_NOTICKS | NOT WS_VISIBLE | WS_TABSTOP,353,
-                    19,10,175
+    PUSHBUTTON      "",IDC_BTCLEARRXTX,343,280,14,14,BS_ICON
+    PUSHBUTTON      "←",IDC_BTSENDUP,5,270,15,11
+    PUSHBUTTON      "→",IDC_BTSENDDOWN,45,270,15,11
+    PUSHBUTTON      "清空",IDC_BTSENDCLEAR,20,270,24,11
+    PUSHBUTTON      "Calc",IDC_BTCALC,320,280,14,14,BS_ICON | BS_CENTER | 
+                    BS_VCENTER
 END
 
 IDD_DLGCOMMAND DIALOG DISCARDABLE  0, 0, 325, 368
@@ -471,9 +472,9 @@ BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 228
+        RIGHTMARGIN, 252
         TOPMARGIN, 7
-        BOTTOMMARGIN, 48
+        BOTTOMMARGIN, 158
     END
 
     IDD_MYCOMM_FORM, DIALOG

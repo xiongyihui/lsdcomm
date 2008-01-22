@@ -10,6 +10,20 @@
 /////////////////////////////////////////////////////////////////////////////
 // CMyEditEx window
 
+#define MES_UNDO _T("&Undo")
+#define MES_CUT _T("Cu&t")
+#define MES_COPY _T("&Copy")
+#define MES_PASTE _T("&Paste")
+#define MES_DELETE _T("&Delete")
+#define MES_SELECTALL _T("Select &All")
+#define ME_SELECTALL WM_USER+0x7000 
+
+//add 
+#define ME_CHECKSUM WM_USER+0x7001
+#define MES_CHECKSUM _T("Ð£¼ìºÍ")
+
+#define ME_COMMAND	WM_USER+0x7002; 
+
 class CMyEditEx : public CEdit
 {
 // Construction
