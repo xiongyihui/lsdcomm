@@ -44,8 +44,12 @@ public:
 public:
 	SendKeyStyle       m_SendkeyType;  
 	CString            m_ScriptHelp;
+	CString            m_AppDir;
+	CString            m_AppVersion;
+	CString            m_downfileexefilename;
 public:
 	void DoSetStautsBarText(UINT index,CString Value);
+
 
 
 };

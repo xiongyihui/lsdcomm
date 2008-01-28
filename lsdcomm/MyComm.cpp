@@ -142,7 +142,16 @@ BOOL CMyCommApp::InitInstance()
 	// Enable drag/drop open
 	m_pMainWnd->DragAcceptFiles();
 
+	//App dir
+	GetModuleFileName(NULL,m_AppDir.GetBufferSetLength (MAX_PATH+1),MAX_PATH);
+	m_AppDir.ReleaseBuffer ();
+	int nPos = 0;
+	nPos = m_AppDir.ReverseFind('\\');
+	CString str = m_AppDir.Right(m_AppDir.GetLength()-nPos-1);    // 不含路径的升级文件名
+	m_AppDir = m_AppDir.Left (nPos);
 
+	m_AppVersion = "1.0.1";
+	m_downfileexefilename = "";
 
 	return TRUE;
 }
@@ -170,7 +179,7 @@ public:
 // Implementation
 protected:
 	//{{AFX_MSG(CAboutDlg)
-		// No message handlers
+	virtual BOOL OnInitDialog();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
@@ -190,7 +199,6 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialog)
 	//{{AFX_MSG_MAP(CAboutDlg)
-		// No message handlers
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -217,4 +225,19 @@ void CMyCommApp::DoSetStautsBarText(UINT index,CString Value)
 	CMainFrame * myMain = (CMainFrame *)m_pMainWnd;
 	myMain->m_wndStatusBar.SetPaneText(index,Value);
 
+}
+
+
+
+BOOL CAboutDlg::OnInitDialog() 
+{
+	CDialog::OnInitDialog();
+	
+	// TODO: Add extra initialization here
+	CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
+	CStatic * mystatic = (CStatic *)GetDlgItem(IDC_STATIC_VERSION);
+	mystatic->SetWindowText(myApp->m_AppVersion);
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	              // EXCEPTION: OCX Property Pages should return FALSE
 }

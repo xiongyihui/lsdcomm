@@ -142,6 +142,7 @@
 #define IDC_BTSENDDOWN                  1118
 #define IDC_BTSENDCLEAR                 1119
 #define IDC_BTCALC                      1120
+#define IDC_STATIC_VERSION              1121
 #define ID_EDIT_COMMAND                 32771
 #define IDC_EDITPROTOCOL                32772
 #define IDC_EDIT_PROTOCOL               32774
@@ -154,6 +155,8 @@
 #define ID_SENDKEY_NONE                 32784
 #define ID_SENDKEY_ENTER                32785
 #define ID_SENDKEY_SHIFTENTER           32786
+#define ID_APP_SNEDMAIL                 32787
+#define ID_APP_UPGRADE                  32788
 
 // Next default values for new objects
 // 
@@ -161,8 +164,8 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        145
-#define _APS_NEXT_COMMAND_VALUE         32787
-#define _APS_NEXT_CONTROL_VALUE         1121
+#define _APS_NEXT_COMMAND_VALUE         32789
+#define _APS_NEXT_CONTROL_VALUE         1122
 #define _APS_NEXT_SYMED_VALUE           105
 #endif
 #endif

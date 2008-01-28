@@ -98,6 +98,8 @@ BEGIN
     POPUP "帮助(&H)"
     BEGIN
         MENUITEM "脚本说明...",                 ID_HELP_SCRIPT
+        MENUITEM "发送邮件给我们...",           ID_APP_SNEDMAIL
+        MENUITEM "在线升级",                    ID_APP_UPGRADE
         MENUITEM "关于 LSDComm(&A)...",         ID_APP_ABOUT
     END
 END
@@ -146,14 +148,15 @@ STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "关于 LSDComm"
 FONT 9, "宋体"
 BEGIN
-    ICON            IDR_MAINFRAME,IDC_STATIC,17,23,21,21
-    LTEXT           "LSDComm 1.0 版",IDC_STATIC,47,23,119,8,SS_NOPREFIX
+    ICON            IDR_MAINFRAME,IDC_STATIC,17,23,20,20
+    LTEXT           "LSDComm 版本：",IDC_STATIC,47,23,56,8,SS_NOPREFIX
     LTEXT           "版权所有 (C) 2008",IDC_STATIC,47,38,119,8
     DEFPUSHBUTTON   "确定",IDOK,202,144,50,14,WS_GROUP
     LTEXT           "http://lsdcomm.googlecode.com",IDC_STATIC,47,52,117,8
     GROUPBOX        "开源项目",IDC_STATIC,7,7,245,70
     GROUPBOX        "贡献者",IDC_STATIC,7,81,245,58
     LTEXT           "mrlong.com@gmail.com",IDC_STATIC,18,94,81,8
+    LTEXT           "版本",IDC_STATIC_VERSION,110,23,93,8
 END
 
 IDD_MYCOMM_FORM DIALOG DISCARDABLE  0, 0, 385, 300
@@ -443,7 +446,7 @@ BEGIN
             VALUE "FileDescription", "MyComm Microsoft 基础类应用程序\0"
             VALUE "FileVersion", "1, 0, 0, 1\0"
             VALUE "InternalName", "LSDComm\0"
-            VALUE "LegalCopyright", "版权所有 (C) 2007\0"
+            VALUE "LegalCopyright", "版权所有 (C) 2008\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "LSDComm.EXE\0"
             VALUE "PrivateBuild", "\0"
@@ -719,6 +722,8 @@ BEGIN
     ID_SENDKEY_NONE         "无快捷键，必按SEND按键才发送。"
     ID_SENDKEY_ENTER        "按下回车，发送指令。"
     ID_SENDKEY_SHIFTENTER   "按下shift 与 回车表示发送指令。"
+    ID_APP_SNEDMAIL         "联系我们"
+    ID_APP_UPGRADE          "升级更新工具..."
 END
 
 STRINGTABLE DISCARDABLE 

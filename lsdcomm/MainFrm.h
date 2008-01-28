@@ -41,6 +41,8 @@ public:
 // Implementation
 public:
 	virtual ~CMainFrame();
+	BOOL DonwLoadFile(PSTR pURL, LPSTR SaveAsFilePath);
+
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
@@ -49,6 +51,10 @@ public:
 protected:  // control bar embedded members
 	
 	BOOL m_firstShow;
+
+	//thread
+	HANDLE hThread;
+	DWORD ThreadID;
 
 
 // Generated message map functions
@@ -59,6 +65,8 @@ protected:
 	afx_msg void OnEditCommand();
 	afx_msg void OnEditProtocol();
 	afx_msg void OnHelpScript();
+	afx_msg void OnAppSnedmail();
+	afx_msg void OnAppUpgrade();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

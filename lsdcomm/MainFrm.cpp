@@ -5,6 +5,9 @@
 #include "MyComm.h"
 #include "MainFrm.h"
 #include "ScriptHelpDlg.h"
+#include "MyCommView.h"
+#include "afxinet.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -24,6 +27,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_COMMAND(ID_EDIT_COMMAND, OnEditCommand)
 	ON_COMMAND(ID_EDIT_PROTOCOL, OnEditProtocol)
 	ON_COMMAND(ID_HELP_SCRIPT, OnHelpScript)
+	ON_COMMAND(ID_APP_SNEDMAIL, OnAppSnedmail)
+	ON_COMMAND(ID_APP_UPGRADE, OnAppUpgrade)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -44,10 +49,67 @@ CMainFrame::CMainFrame()
 	// TODO: add member initialization code here
 	m_firstShow = FALSE;
 	m_language = LACHINA;
+	
 }
 
 CMainFrame::~CMainFrame()
 {
+}
+
+
+void ThreadCheckVersion()
+{
+	CMyCommApp *myApp = (CMyCommApp *)AfxGetApp();
+	CMainFrame * myMain = (CMainFrame *) myApp->GetMainWnd();
+	CStdioFile myfile;
+	CString vertext = myApp->m_AppDir + "\\version";
+	if(!myfile.Open(vertext,CFile::modeRead))
+	{
+		
+		CString myver;
+		myver = myApp->m_AppDir + "\\version";
+		char s[256];
+		_tcscpy(s,myver.GetBuffer(myver.GetLength())) ;
+		myMain->DonwLoadFile("http://lsdcomm.googlecode.com/svn/trunk/lsdcomm/version/ver.txt",
+			s);
+		return;
+	}
+	else{
+	   CString myverion;
+	   myfile.ReadString(myverion); //line:1
+	   myverion.TrimLeft();  myverion.TrimRight();
+       if (myApp->m_AppVersion!=myverion)
+	   {
+			//new version
+		   CMyCommView * myview = (CMyCommView *) myMain->GetActiveView();
+		   myview->m_EditLogger.AddText(">>最新版本:"+myverion+"\r\n");
+		   myview->m_EditLogger.AddText(">>升级点击主菜单的[帮助]->[在线升级]\r\n");
+		   CString strLine;
+		   myfile.ReadString(strLine); // downfilename line:2
+		   myApp->m_downfileexefilename = strLine;
+		   while(myfile.ReadString(strLine))
+		   {
+			   if(strLine.GetLength()>2)
+			   {
+				   if ((strLine[0] == '>') && (strLine[1]=='>'))
+				   {
+						myview->m_EditLogger.AddText(strLine+"\r\n");
+				   }
+			   }
+		   } 
+	   }
+	   else{
+		   
+		   CString myver;
+		   myver = myApp->m_AppDir + "\\version";
+		   char s[256];
+		   _tcscpy(s,myver.GetBuffer(myver.GetLength())) ;
+		   myMain->DonwLoadFile("http://lsdcomm.googlecode.com/svn/trunk/lsdcomm/version/ver.txt",
+			   s);
+		   return;
+	   }
+
+	}
 }
 
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -125,6 +187,17 @@ void CMainFrame::ActivateFrame(int nCmdShow)
 		WndStatus.ptMinPosition   =   CPoint(0,0);  
 		SetWindowPlacement(&WndStatus); 
 
+
+		//check version
+		
+		hThread=CreateThread(NULL,
+			0,
+			(LPTHREAD_START_ROUTINE)ThreadCheckVersion,
+			NULL,
+			0,
+			&ThreadID);
+		
+        
 		m_firstShow = TRUE;
 	}
 	
@@ -357,7 +430,20 @@ void CMainFrame::OnEditCommand()
 		Doc->m_Command[19].m_IsHex = dlg.m_IsHex_20;
 		Doc->m_Command[19].m_isScript = dlg.m_IsScript_20;
 
+		//command combox
+		CMyCommView * myView = (CMyCommView *)  this->GetActiveView();
+		CString myCommandStr;
+		myView->m_ctrlCommand.ResetContent();
+		for(int i=0 ;i<COMMANDCOUNT ;i++)
+		{
+			if (!Doc->m_Command[i].m_strName.IsEmpty())
+			{
+				myCommandStr.Format("%d %s",i+1,Doc->m_Command[i].m_strName);
+				myView->m_ctrlCommand.AddString(myCommandStr);
+			}
+		}
 		
+	
 	}
 }
 
@@ -373,12 +459,83 @@ void CMainFrame::OnEditProtocol()
 	}	
 }
 
-
-
-
 void CMainFrame::OnHelpScript() 
 {
 	// TODO: Add your command handler code here
 	CScriptHelpDlg dlg;
 	dlg.DoModal();
+}
+
+void CMainFrame::OnAppSnedmail() 
+{
+	// TODO: Add your command handler code here
+
+	ShellExecute(NULL,NULL,"mailto:mrlong.com@gmail.com",NULL,NULL,SW_SHOW);
+}
+
+void CMainFrame::OnAppUpgrade() 
+{
+	// TODO: Add your command handler code here
+	CMyCommApp *myApp = (CMyCommApp *)AfxGetApp();
+	CString myver;
+	myver = myApp->m_AppDir + "\\version";
+	char s[256];
+	_tcscpy(s,myver.GetBuffer(myver.GetLength())) ;
+    if(!DonwLoadFile("http://lsdcomm.googlecode.com/svn/trunk/lsdcomm/version/ver.txt",s))
+	{
+		AfxMessageBox(_T("无法升级。"));
+		return;
+	}
+}
+
+BOOL CMainFrame::DonwLoadFile(PSTR pURL, LPSTR SaveAsFilePath)
+{
+	CInternetSession session; 
+	CHttpConnection* pServer = NULL; 
+	CHttpFile * pHttpFile = NULL;
+	CString strServerName;  //去掉http://
+	CString strObject;  
+	INTERNET_PORT nPort;
+	DWORD dwServiceType; 
+	DWORD dwHttpRequestFlags = INTERNET_FLAG_NO_AUTO_REDIRECT; //请求标志
+	const TCHAR szHeaders[]=_T("Accept: text/*\r\nUser-Agent:HttpClient\r\n");
+	
+	BOOL OK=AfxParseURL( 
+		pURL, 
+		dwServiceType, 
+		strServerName, 
+		strObject, 
+		nPort ); 
+	
+	pServer = session.GetHttpConnection(strServerName, nPort); //获得服务器名
+	
+	pHttpFile = pServer-> OpenRequest( CHttpConnection::HTTP_VERB_GET,
+		strObject,
+		NULL, 
+		1, 
+		NULL, 
+		NULL,
+		dwHttpRequestFlags);
+	
+	pHttpFile->AddRequestHeaders(szHeaders);
+	pHttpFile->SendRequest(); //发送请求
+	CStdioFile f; 
+	if( !f.Open( SaveAsFilePath, 
+		CFile::modeCreate | CFile::modeWrite | CFile::typeBinary ) )
+	{ 
+		return false;
+	}
+	
+	TCHAR szBuf[1024];
+	int length=0;
+	long a=pHttpFile->GetLength();
+	while (length=pHttpFile->Read(szBuf, 1023))
+		f.Write(szBuf,length);
+	f.Close();
+	pHttpFile ->Close();
+	pServer ->Close();
+	if (pHttpFile != NULL) delete pHttpFile;
+	if (pServer != NULL) delete pServer;
+	session.Close();
+	return true;
 }

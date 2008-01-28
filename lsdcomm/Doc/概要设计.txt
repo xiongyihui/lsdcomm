@@ -64,5 +64,14 @@
      3. 增加一个菜单. 如是中文则示language,英文则显示语言
   
 八、在线升级功能。
-    采用http协议进行下载文件，并进行更新。
+    采用http协议进行下载文件，并进行更新。 支持线程处理。
+    版本下载路径: http://lsdcomm.googlecode.com/svn/trunk/lsdcomm/version/ver.txt
+    只能是第一次打开并进行版本的确定，如有新的版本则提示升级。 
+    但是提升级放在第二次打开才提示。
+    
+    ver.txt 的文件格式规定:
+      第一行是版本号 如 1.0.1
+      第二行是下载的全路径 如: http://lsdcomm.googlecode.com/downfile/lsdcomm.exe
+      其他行如有 >>开头的都是显示到工具的接收区内. 
+    
 

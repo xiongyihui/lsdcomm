@@ -2,7 +2,7 @@
 
 [General Info]
 Version=1
-LastClass=CMyCommView
+LastClass=CAboutDlg
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "MyComm.h"
@@ -16,14 +16,14 @@ Class4=CMainFrame
 
 ResourceCount=8
 <<<<<<< .mine
-Resource1=IDD_DLGADVANCED
-Resource2=IDD_DLGPROTOCOL
+Resource1=IDD_MYCOMM_FORM
+Resource2=IDD_DLGADVANCED
 =======
-Resource1=IDD_DLGADVANCED
-Resource2=IDD_DLGPROTOCOL
+Resource1=IDD_MYCOMM_FORM
+Resource2=IDD_DLGADVANCED
 >>>>>>> .r13
 Class5=CAboutDlg
-Resource3=IDR_MAINFRAME
+Resource3=IDR_MENU_SNEDKEY
 Class6=CCommandDlg
 <<<<<<< .mine
 Resource4=IDD_DLGCOMMAND
@@ -32,18 +32,18 @@ Resource4=IDD_DLGCOMMAND
 >>>>>>> .r13
 Class7=CCommAdvancedDlg
 <<<<<<< .mine
-Resource5=IDD_ABOUTBOX
+Resource5=IDD_DLGPROTOCOL
 =======
-Resource5=IDD_ABOUTBOX
+Resource5=IDD_DLGPROTOCOL
 >>>>>>> .r13
 Class8=CProtocolEditDlg
 Class9=MyEdit
 Class10=CMyEdit
 Class11=CMyEdit2
 Class12=CMyEditEx
-Resource6=IDD_MYCOMM_FORM
+Resource6=IDD_ABOUTBOX
 Class13=CScriptHelpDlg
-Resource7=IDR_MENU_SNEDKEY
+Resource7=IDR_MAINFRAME
 Resource8=IDD_DLGSCRIPTHELP
 
 [CLS:CMyCommApp]
@@ -90,11 +90,13 @@ HeaderFile=MyComm.cpp
 ImplementationFile=MyComm.cpp
 Filter=D
 LastObject=CAboutDlg
+BaseClass=CDialog
+VirtualFilter=dWC
 
 [DLG:IDD_ABOUTBOX]
 Type=1
 Class=CAboutDlg
-ControlCount=8
+ControlCount=9
 Control1=IDC_STATIC,static,1342177283
 Control2=IDC_STATIC,static,1342308480
 Control3=IDC_STATIC,static,1342308352
@@ -103,6 +105,7 @@ Control5=IDC_STATIC,static,1342308352
 Control6=IDC_STATIC,button,1342177287
 Control7=IDC_STATIC,button,1342177287
 Control8=IDC_STATIC,static,1342308352
+Control9=IDC_STATIC_VERSION,static,1342308352
 
 [MNU:IDR_MAINFRAME]
 Type=1
@@ -117,8 +120,10 @@ Command7=ID_VIEW_STATUS_BAR
 Command8=ID_EDIT_COMMAND
 Command9=ID_EDIT_PROTOCOL
 Command10=ID_HELP_SCRIPT
-Command11=ID_APP_ABOUT
-CommandCount=11
+Command11=ID_APP_SNEDMAIL
+Command12=ID_APP_UPGRADE
+Command13=ID_APP_ABOUT
+CommandCount=13
 
 [ACL:IDR_MAINFRAME]
 Type=1
