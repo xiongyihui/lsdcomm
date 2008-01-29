@@ -150,6 +150,10 @@ SOURCE=.\StdAfx.cpp
 
 SOURCE=.\SubclassWnd.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=.\UpgradeDlg.cpp
+# End Source File
 # End Group
 # Begin Group "Header Files"
 
@@ -213,6 +217,10 @@ SOURCE=.\StdAfx.h
 # Begin Source File
 
 SOURCE=.\SubclassWnd.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\UpgradeDlg.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"

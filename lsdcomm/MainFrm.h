@@ -67,6 +67,7 @@ protected:
 	afx_msg void OnHelpScript();
 	afx_msg void OnAppSnedmail();
 	afx_msg void OnAppUpgrade();
+	afx_msg void OnAppHome();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

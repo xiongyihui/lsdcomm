@@ -20,6 +20,7 @@
 #define IDR_MENU_SNEDKEY                139
 #define IDI_ICONCLEAR                   140
 #define IDI_ICONCALC                    144
+#define IDD_DLGUPGRADE                  145
 #define IDC_EDRECDATA                   1000
 #define IDC_EDSENDDATA                  1001
 #define IDC_BTSEND                      1010
@@ -143,6 +144,7 @@
 #define IDC_BTSENDCLEAR                 1119
 #define IDC_BTCALC                      1120
 #define IDC_STATIC_VERSION              1121
+#define IDC_EDDATE                      1122
 #define ID_EDIT_COMMAND                 32771
 #define IDC_EDITPROTOCOL                32772
 #define IDC_EDIT_PROTOCOL               32774
@@ -157,15 +159,16 @@
 #define ID_SENDKEY_SHIFTENTER           32786
 #define ID_APP_SNEDMAIL                 32787
 #define ID_APP_UPGRADE                  32788
+#define ID_APP_HOME                     32789
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        145
-#define _APS_NEXT_COMMAND_VALUE         32789
-#define _APS_NEXT_CONTROL_VALUE         1122
+#define _APS_NEXT_RESOURCE_VALUE        146
+#define _APS_NEXT_COMMAND_VALUE         32790
+#define _APS_NEXT_CONTROL_VALUE         1123
 #define _APS_NEXT_SYMED_VALUE           105
 #endif
 #endif

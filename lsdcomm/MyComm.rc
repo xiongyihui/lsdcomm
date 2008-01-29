@@ -98,8 +98,9 @@ BEGIN
     POPUP "帮助(&H)"
     BEGIN
         MENUITEM "脚本说明...",                 ID_HELP_SCRIPT
-        MENUITEM "发送邮件给我们...",           ID_APP_SNEDMAIL
         MENUITEM "在线升级",                    ID_APP_UPGRADE
+        MENUITEM "项目主页",                    ID_APP_HOME
+        MENUITEM "发送邮件给我们...",           ID_APP_SNEDMAIL
         MENUITEM "关于 LSDComm(&A)...",         ID_APP_ABOUT
     END
 END
@@ -417,6 +418,18 @@ BEGIN
                     ES_READONLY | ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL
 END
 
+IDD_DLGUPGRADE DIALOG DISCARDABLE  0, 0, 272, 225
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "在线升级"
+FONT 9, "宋体"
+BEGIN
+    DEFPUSHBUTTON   "确定(&O)",IDOK,158,204,50,14
+    PUSHBUTTON      "取消(&C)",IDCANCEL,215,204,50,14
+    LTEXT           "升级后将自动关闭并重新启动。",IDC_STATIC,9,10,247,8
+    EDITTEXT        IDC_EDDATE,7,25,258,168,ES_MULTILINE | ES_AUTOHSCROLL | 
+                    ES_READONLY | WS_VSCROLL | WS_HSCROLL
+END
+
 
 #ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
@@ -518,6 +531,14 @@ BEGIN
         RIGHTMARGIN, 261
         TOPMARGIN, 7
         BOTTOMMARGIN, 244
+    END
+
+    IDD_DLGUPGRADE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 265
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 218
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -724,6 +745,7 @@ BEGIN
     ID_SENDKEY_SHIFTENTER   "按下shift 与 回车表示发送指令。"
     ID_APP_SNEDMAIL         "联系我们"
     ID_APP_UPGRADE          "升级更新工具..."
+    ID_APP_HOME             "打开项目主页。"
 END
 
 STRINGTABLE DISCARDABLE 

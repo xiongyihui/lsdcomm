@@ -7,6 +7,7 @@
 #include "ScriptHelpDlg.h"
 #include "MyCommView.h"
 #include "afxinet.h"
+#include "UpgradeDlg.h"
 
 
 #ifdef _DEBUG
@@ -29,6 +30,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_COMMAND(ID_HELP_SCRIPT, OnHelpScript)
 	ON_COMMAND(ID_APP_SNEDMAIL, OnAppSnedmail)
 	ON_COMMAND(ID_APP_UPGRADE, OnAppUpgrade)
+	ON_COMMAND(ID_APP_HOME, OnAppHome)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -57,19 +59,32 @@ CMainFrame::~CMainFrame()
 }
 
 
+BOOL IsFileExist( CString strFileName )  
+{  
+	WIN32_FIND_DATA   FindFileData;  
+	HANDLE   hFind;  
+	//   判断参数文件是否存在  
+	hFind=FindFirstFile(   (LPCTSTR)strFileName,   &FindFileData   );  
+	if (hFind==INVALID_HANDLE_VALUE)  
+		return   FALSE;  
+	return   TRUE;  
+}
+
 void ThreadCheckVersion()
 {
+	//app dir
+	CString myAppDir;
 	CMyCommApp *myApp = (CMyCommApp *)AfxGetApp();
 	CMainFrame * myMain = (CMainFrame *) myApp->GetMainWnd();
 	CStdioFile myfile;
-	CString vertext = myApp->m_AppDir + "\\version";
+	myAppDir = myApp->m_AppDir;
+	CString vertext = myAppDir + "\\version";
 	if(!myfile.Open(vertext,CFile::modeRead))
 	{
 		
 		CString myver;
-		myver = myApp->m_AppDir + "\\version";
 		char s[256];
-		_tcscpy(s,myver.GetBuffer(myver.GetLength())) ;
+		_tcscpy(s,vertext.GetBuffer(vertext.GetLength())) ;
 		myMain->DonwLoadFile("http://lsdcomm.googlecode.com/svn/trunk/lsdcomm/version/ver.txt",
 			s);
 		return;
@@ -78,38 +93,34 @@ void ThreadCheckVersion()
 	   CString myverion;
 	   myfile.ReadString(myverion); //line:1
 	   myverion.TrimLeft();  myverion.TrimRight();
-       if (myApp->m_AppVersion!=myverion)
+       if (atof(myApp->m_AppVersion)<atof(myverion))
 	   {
 			//new version
-		   CMyCommView * myview = (CMyCommView *) myMain->GetActiveView();
-		   myview->m_EditLogger.AddText(">>最新版本:"+myverion+"\r\n");
-		   myview->m_EditLogger.AddText(">>升级点击主菜单的[帮助]->[在线升级]\r\n");
-		   CString strLine;
-		   myfile.ReadString(strLine); // downfilename line:2
-		   myApp->m_downfileexefilename = strLine;
-		   while(myfile.ReadString(strLine))
-		   {
-			   if(strLine.GetLength()>2)
-			   {
-				   if ((strLine[0] == '>') && (strLine[1]=='>'))
-				   {
-						myview->m_EditLogger.AddText(strLine+"\r\n");
-				   }
-			   }
-		   } 
+			CMyCommView * myview = (CMyCommView *) myMain->GetActiveView();
+			myview->m_EditLogger.AddText(vertext+"\r\n");
+			myview->m_EditLogger.AddText(myverion+"\r\n");
+			myview->m_EditLogger.AddText(myApp->m_AppVersion+"\r\n");
+			myview->m_EditLogger.AddText(">>44最新版本:"+myverion+"\r\n");
+			CString strLine;
+			myfile.ReadString(strLine); // downfilename line:2
+			myApp->m_downfileexefilename = strLine;
+			myfile.ReadString(strLine); //line:3
+			myview->m_EditLogger.AddText(">>"+strLine +"\r\n");
+			myview->m_EditLogger.AddText(">>升级点击主菜单的[帮助]->[在线升级]\r\n");
+
+			myfile.Close();
 	   }
 	   else{
 		   
-		   CString myver;
-		   myver = myApp->m_AppDir + "\\version";
 		   char s[256];
-		   _tcscpy(s,myver.GetBuffer(myver.GetLength())) ;
+		   _tcscpy(s,vertext.GetBuffer(vertext.GetLength())) ;
 		   myMain->DonwLoadFile("http://lsdcomm.googlecode.com/svn/trunk/lsdcomm/version/ver.txt",
 			   s);
+		   myfile.Close();
 		   return;
 	   }
-
 	}
+	
 }
 
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -476,16 +487,86 @@ void CMainFrame::OnAppSnedmail()
 void CMainFrame::OnAppUpgrade() 
 {
 	// TODO: Add your command handler code here
+	
+	CString myStr;
+	BOOL myhasUpgrade = FALSE;
 	CMyCommApp *myApp = (CMyCommApp *)AfxGetApp();
-	CString myver;
-	myver = myApp->m_AppDir + "\\version";
-	char s[256];
-	_tcscpy(s,myver.GetBuffer(myver.GetLength())) ;
-    if(!DonwLoadFile("http://lsdcomm.googlecode.com/svn/trunk/lsdcomm/version/ver.txt",s))
+	CMainFrame * myMain = (CMainFrame *) myApp->GetMainWnd();
+	CStdioFile myfile;
+	CString vertext = myApp->m_AppDir + "\\version";
+	if (!IsFileExist(vertext))
 	{
-		AfxMessageBox(_T("无法升级。"));
+		char s[256];
+		_tcscpy(s,vertext.GetBuffer(vertext.GetLength())) ;
+		if(!DonwLoadFile("http://lsdcomm.googlecode.com/svn/trunk/lsdcomm/version/ver.txt",s))
+		{
+			AfxMessageBox(_T("无法连接服务器。"));
+			return;
+		}
+	};
+	
+	if(!myfile.Open(vertext,CFile::modeRead))
+	{
+		AfxMessageBox(_T("打开升级文件出错。"));
 		return;
 	}
+	else{
+
+		CString myverion;
+		myfile.ReadString(myverion); //line:1
+		myverion.TrimLeft();  myverion.TrimRight();
+		if (atof(myApp->m_AppVersion)<atof(myverion))
+		{
+			//new version
+			myhasUpgrade = TRUE;
+			CMyCommView * myview = (CMyCommView *) myMain->GetActiveView();
+			myStr = "最新版本:"+myverion+"\r\n";
+			CString strLine;
+			myfile.ReadString(strLine); // downfilename line:2
+			myApp->m_downfileexefilename = strLine;
+			while(myfile.ReadString(strLine))
+			{
+				if(strLine.GetLength()>2)
+					if ((strLine[0] == '>') && (strLine[1]=='>'))
+						myStr += strLine+"\r\n";
+			} 
+		}
+		else{
+			myStr = myApp->m_AppVersion + "版本已是最新了";
+		}
+		
+	}
+	myfile.Close();
+
+	CUpgradeDlg dlg;
+	dlg.m_strData = myStr;
+	dlg.m_strdownfile  = myApp->m_downfileexefilename;
+	dlg.m_StrLocalfile = myApp->m_AppDir + "\\exe";
+	dlg.m_IsUpgrade = myhasUpgrade;
+	if((dlg.DoModal()==IDOK) && myhasUpgrade)
+	{
+		if(!IsFileExist(myApp->m_AppDir + "\\exe"))	return;
+		CStdioFile batfile;
+		CString mybatFile;
+		mybatFile = myApp->m_AppDir+"\\update.bat";
+		if(!batfile.Open(mybatFile,CStdioFile::modeReadWrite|CStdioFile::modeCreate)) 
+			return;
+		
+		batfile.WriteString("@echo off\n\r");
+		CString myexename;
+		myexename = myApp->m_AppDir + "\\MyComm.exe";
+		batfile.WriteString("del "+ myexename + "\n\r");
+		batfile.WriteString("if exist "+myexename+" goto loop" + "\n\r");
+		batfile.WriteString("copy "+ myApp->m_AppDir + "\\exe" + " " + myexename + "\n\r");
+		batfile.WriteString("del "+myApp->m_AppDir + "\\exe" + "\n\r");
+		batfile.WriteString(myexename+"\n\r");
+		batfile.WriteString("del "+mybatFile+"\n\r");
+		batfile.Close();
+
+		ShellExecute(NULL,NULL,mybatFile,NULL,NULL,SW_HIDE);
+		CFrameWnd::OnClose();
+	};
+
 }
 
 BOOL CMainFrame::DonwLoadFile(PSTR pURL, LPSTR SaveAsFilePath)
@@ -538,4 +619,10 @@ BOOL CMainFrame::DonwLoadFile(PSTR pURL, LPSTR SaveAsFilePath)
 	if (pServer != NULL) delete pServer;
 	session.Close();
 	return true;
+}
+
+void CMainFrame::OnAppHome() 
+{
+	// TODO: Add your command handler code here
+	ShellExecute(NULL,NULL,"Http://lsdcomm.googlecode.com",NULL,NULL,SW_SHOW);
 }

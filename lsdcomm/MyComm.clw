@@ -2,49 +2,52 @@
 
 [General Info]
 Version=1
-LastClass=CAboutDlg
+LastClass=CMainFrame
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "MyComm.h"
 LastPage=0
 
-ClassCount=13
+ClassCount=14
 Class1=CMyCommApp
 Class2=CMyCommDoc
 Class3=CMyCommView
 Class4=CMainFrame
 
-ResourceCount=8
+ResourceCount=10
 <<<<<<< .mine
-Resource1=IDD_MYCOMM_FORM
-Resource2=IDD_DLGADVANCED
+Resource1=IDR_MAINFRAME
+Resource2=IDD_ABOUTBOX
 =======
-Resource1=IDD_MYCOMM_FORM
-Resource2=IDD_DLGADVANCED
+Resource1=IDR_MAINFRAME
+Resource2=IDD_ABOUTBOX
 >>>>>>> .r13
 Class5=CAboutDlg
 Resource3=IDR_MENU_SNEDKEY
 Class6=CCommandDlg
 <<<<<<< .mine
-Resource4=IDD_DLGCOMMAND
+Resource4=IDD_DLGPROTOCOL
 =======
-Resource4=IDD_DLGCOMMAND
+Resource4=IDD_DLGPROTOCOL
 >>>>>>> .r13
 Class7=CCommAdvancedDlg
 <<<<<<< .mine
-Resource5=IDD_DLGPROTOCOL
+Resource5=IDD_DLGCOMMAND
 =======
-Resource5=IDD_DLGPROTOCOL
+Resource5=IDD_DLGCOMMAND
 >>>>>>> .r13
 Class8=CProtocolEditDlg
 Class9=MyEdit
 Class10=CMyEdit
 Class11=CMyEdit2
 Class12=CMyEditEx
-Resource6=IDD_ABOUTBOX
+Resource6=IDD_DLGSCRIPTHELP
 Class13=CScriptHelpDlg
-Resource7=IDR_MAINFRAME
-Resource8=IDD_DLGSCRIPTHELP
+Resource7=IDD_MYCOMM_FORM
+Resource8=IDD_DLGADVANCED
+Resource9=IDD_PROPPAGE_SMALL (English (U.S.))
+Class14=CUpgradeDlg
+Resource10=IDD_DLGUPGRADE
 
 [CLS:CMyCommApp]
 Type=0
@@ -79,7 +82,7 @@ ImplementationFile=MainFrm.cpp
 Filter=T
 BaseClass=CFrameWnd
 VirtualFilter=fWC
-LastObject=CMainFrame
+LastObject=ID_APP_HOME
 
 
 
@@ -120,10 +123,11 @@ Command7=ID_VIEW_STATUS_BAR
 Command8=ID_EDIT_COMMAND
 Command9=ID_EDIT_PROTOCOL
 Command10=ID_HELP_SCRIPT
-Command11=ID_APP_SNEDMAIL
-Command12=ID_APP_UPGRADE
-Command13=ID_APP_ABOUT
-CommandCount=13
+Command11=ID_APP_UPGRADE
+Command12=ID_APP_HOME
+Command13=ID_APP_SNEDMAIL
+Command14=ID_APP_ABOUT
+CommandCount=14
 
 [ACL:IDR_MAINFRAME]
 Type=1
@@ -409,4 +413,27 @@ Command1=ID_SENDKEY_NONE
 Command2=ID_SENDKEY_ENTER
 Command3=ID_SENDKEY_SHIFTENTER
 CommandCount=3
+
+[DLG:IDD_PROPPAGE_SMALL (English (U.S.))]
+Type=1
+ControlCount=1
+Control1=IDC_STATIC,static,1342308352
+
+[DLG:IDD_DLGUPGRADE]
+Type=1
+Class=CUpgradeDlg
+ControlCount=4
+Control1=IDOK,button,1342242817
+Control2=IDCANCEL,button,1342242816
+Control3=IDC_STATIC,static,1342308352
+Control4=IDC_EDDATE,edit,1353779332
+
+[CLS:CUpgradeDlg]
+Type=0
+HeaderFile=UpgradeDlg.h
+ImplementationFile=UpgradeDlg.cpp
+BaseClass=CDialog
+Filter=D
+LastObject=IDC_EDIT1
+VirtualFilter=dWC
 

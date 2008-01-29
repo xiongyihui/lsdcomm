@@ -112,6 +112,18 @@ BOOL CMyCommApp::InitInstance()
 	// Register the application's document templates.  Document templates
 	//  serve as the connection between documents, frame windows and views.
 
+	//App dir
+	GetModuleFileName(NULL,m_AppDir.GetBufferSetLength (MAX_PATH+1),MAX_PATH);
+	m_AppDir.ReleaseBuffer ();
+	int nPos = 0;
+	nPos = m_AppDir.ReverseFind('\\');
+	CString str = m_AppDir.Right(m_AppDir.GetLength()-nPos-1);    // 不含路径的升级文件名
+	m_AppDir = m_AppDir.Left (nPos);
+	
+	m_AppVersion = "1.0";
+	m_downfileexefilename = "";
+	
+
 	CSingleDocTemplate* pDocTemplate;
 	pDocTemplate = new CSingleDocTemplate(
 		IDR_MAINFRAME,
@@ -142,16 +154,7 @@ BOOL CMyCommApp::InitInstance()
 	// Enable drag/drop open
 	m_pMainWnd->DragAcceptFiles();
 
-	//App dir
-	GetModuleFileName(NULL,m_AppDir.GetBufferSetLength (MAX_PATH+1),MAX_PATH);
-	m_AppDir.ReleaseBuffer ();
-	int nPos = 0;
-	nPos = m_AppDir.ReverseFind('\\');
-	CString str = m_AppDir.Right(m_AppDir.GetLength()-nPos-1);    // 不含路径的升级文件名
-	m_AppDir = m_AppDir.Left (nPos);
 
-	m_AppVersion = "1.0.1";
-	m_downfileexefilename = "";
 
 	return TRUE;
 }
