@@ -1,5 +1,7 @@
 1.1
 http://lsdcomm.googlecode.com/files/MyComm.exe
+更新日期:2008-1-28
+
 >>
 >>更新日期: 2008-1-28
 >>修改内容: 
