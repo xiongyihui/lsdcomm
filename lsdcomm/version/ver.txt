@@ -1,5 +1,5 @@
 1.0
-http://lsdcomm.googlecode.com/files/MyComm.exe
+http://lsdcomm.googlecode.com/files/mycomm.exe
 更新日期:2008-1-29
 
 >>
