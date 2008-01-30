@@ -9,9 +9,12 @@
 /////////////////////////////////////////////////////////////////////////////
 // CUpgradeDlg dialog
 
-class CUpgradeDlg : public CDialog
+#include "ETSLayout.h"
+
+class CUpgradeDlg : public ETSLayoutDialog
 {
 // Construction
+   DECLARE_LAYOUT();
 public:
 	CUpgradeDlg(CWnd* pParent = NULL);   // standard constructor
 
@@ -37,6 +40,7 @@ protected:
 	// Generated message map functions
 	//{{AFX_MSG(CUpgradeDlg)
 	virtual void OnOK();
+	virtual BOOL OnInitDialog();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

@@ -40,7 +40,7 @@ CMyCommDoc::CMyCommDoc()
 
 	m_IsReceiveHex = TRUE;
 	m_IsSendHex = TRUE;
-	m_CommTimeout.ReadIntervalTimeout = 1000;
+	m_CommTimeout.ReadIntervalTimeout = 1;  //units ms
 	m_CommTimeout.ReadTotalTimeoutMultiplier = 0;
 	m_CommTimeout.ReadTotalTimeoutConstant = 0;
 	m_CommTimeout.WriteTotalTimeoutMultiplier = 0;

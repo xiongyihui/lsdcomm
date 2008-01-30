@@ -2,52 +2,50 @@
 
 [General Info]
 Version=1
-LastClass=CMainFrame
+LastClass=CMyCommView
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "MyComm.h"
 LastPage=0
 
-ClassCount=14
+ClassCount=11
 Class1=CMyCommApp
 Class2=CMyCommDoc
 Class3=CMyCommView
 Class4=CMainFrame
 
-ResourceCount=10
+ResourceCount=11
 <<<<<<< .mine
-Resource1=IDR_MAINFRAME
-Resource2=IDD_ABOUTBOX
+Resource1=IDR_MENU_SNEDKEY
+Resource2=IDR_MAINFRAME
 =======
-Resource1=IDR_MAINFRAME
-Resource2=IDD_ABOUTBOX
+Resource1=IDR_MENU_SNEDKEY
+Resource2=IDR_MAINFRAME
 >>>>>>> .r13
 Class5=CAboutDlg
-Resource3=IDR_MENU_SNEDKEY
+Resource3=IDR_MENU_CHECK
 Class6=CCommandDlg
 <<<<<<< .mine
-Resource4=IDD_DLGPROTOCOL
+Resource4=IDD_ABOUTBOX
 =======
-Resource4=IDD_DLGPROTOCOL
+Resource4=IDD_ABOUTBOX
 >>>>>>> .r13
 Class7=CCommAdvancedDlg
 <<<<<<< .mine
-Resource5=IDD_DLGCOMMAND
+Resource5=IDD_DLGSCRIPTHELP
 =======
-Resource5=IDD_DLGCOMMAND
+Resource5=IDD_DLGSCRIPTHELP
 >>>>>>> .r13
 Class8=CProtocolEditDlg
-Class9=MyEdit
-Class10=CMyEdit
-Class11=CMyEdit2
-Class12=CMyEditEx
-Resource6=IDD_DLGSCRIPTHELP
-Class13=CScriptHelpDlg
-Resource7=IDD_MYCOMM_FORM
-Resource8=IDD_DLGADVANCED
+Class9=CMyEditEx
+Class10=CScriptHelpDlg
+Class11=CUpgradeDlg
+Resource6=IDD_DLGCOMMAND
+Resource7=IDD_DLGADVANCED
+Resource8=IDD_MYCOMM_FORM
 Resource9=IDD_PROPPAGE_SMALL (English (U.S.))
-Class14=CUpgradeDlg
-Resource10=IDD_DLGUPGRADE
+Resource10=IDD_DLGPROTOCOL
+Resource11=IDD_DLGUPGRADE
 
 [CLS:CMyCommApp]
 Type=0
@@ -72,7 +70,7 @@ ImplementationFile=MyCommView.cpp
 Filter=D
 BaseClass=CFormView
 VirtualFilter=VWC
-LastObject=IDC_BTCALC
+LastObject=IDC_BTCHECKSUM
 
 
 [CLS:CMainFrame]
@@ -82,7 +80,7 @@ ImplementationFile=MainFrm.cpp
 Filter=T
 BaseClass=CFrameWnd
 VirtualFilter=fWC
-LastObject=ID_APP_HOME
+LastObject=CMainFrame
 
 
 
@@ -150,10 +148,10 @@ CommandCount=13
 [DLG:IDD_MYCOMM_FORM]
 Type=1
 Class=CMyCommView
-ControlCount=36
+ControlCount=38
 Control1=IDC_STATIC1,button,1342177287
 Control2=IDC_STATIC2,button,1342177543
-Control3=IDC_EDRECDATA,edit,1352732676
+Control3=IDC_EDRECDATA,edit,1352732932
 Control4=IDC_EDSENDDATA,edit,1352732804
 Control5=IDC_BTSEND,button,1342242816
 Control6=IDC_STATIC,static,1342308352
@@ -187,6 +185,8 @@ Control33=IDC_BTSENDUP,button,1342242816
 Control34=IDC_BTSENDDOWN,button,1342242816
 Control35=IDC_BTSENDCLEAR,button,1342242816
 Control36=IDC_BTCALC,button,1342246720
+Control37=IDC_BTCHECKSUM,button,1342242816
+Control38=IDC_BTCHECKDATA,button,1342242816
 
 [DLG:IDD_DLGCOMMAND]
 Type=1
@@ -311,25 +311,27 @@ VirtualFilter=dWC
 [DLG:IDD_DLGADVANCED]
 Type=1
 Class=CCommAdvancedDlg
-ControlCount=18
+ControlCount=20
 Control1=IDOK,button,1342242817
 Control2=IDCANCEL,button,1342242816
 Control3=IDC_STATIC,button,1342177287
 Control4=IDC_STATIC,static,1342308352
 Control5=IDC_STATIC,static,1342308352
 Control6=IDC_STATIC,static,1342308352
-Control7=IDC_STATIC,static,1342308352
-Control8=IDC_STATIC,static,1342308352
-Control9=IDC_EDREADINTER,edit,1350631552
-Control10=IDC_EDREADTOTALMUL,edit,1350631552
-Control11=IDC_EDREATOTALCONST,edit,1350631552
-Control12=IDC_EDWRITETOTALMUL,edit,1350631552
-Control13=IDC_EDWRITETOTALCONST,edit,1350631552
+Control7=IDC_EDREADINTER,edit,1350639744
+Control8=IDC_EDREADTOTALMUL,edit,1350639744
+Control9=IDC_EDREATOTALCONST,edit,1350639744
+Control10=IDC_STATIC,static,1342308352
+Control11=IDC_STATIC,static,1342308352
+Control12=IDC_STATIC,static,1342308352
+Control13=IDC_STATIC,button,1342177287
 Control14=IDC_STATIC,static,1342308352
 Control15=IDC_STATIC,static,1342308352
-Control16=IDC_STATIC,static,1342308352
-Control17=IDC_STATIC,static,1342308352
+Control16=IDC_EDWRITETOTALMUL,edit,1350639744
+Control17=IDC_EDWRITETOTALCONST,edit,1350639744
 Control18=IDC_STATIC,static,1342308352
+Control19=IDC_STATIC,static,1342308352
+Control20=IDC_BTDEFAULT,button,1342242816
 
 [CLS:CCommAdvancedDlg]
 Type=0
@@ -357,29 +359,6 @@ Filter=D
 VirtualFilter=dWC
 LastObject=CProtocolEditDlg
 
-[CLS:MyEdit]
-Type=0
-HeaderFile=MyEdit.h
-ImplementationFile=MyEdit.cpp
-BaseClass=CEdit
-Filter=W
-VirtualFilter=WC
-LastObject=MyEdit
-
-[CLS:CMyEdit]
-Type=0
-HeaderFile=MyEdit.h
-ImplementationFile=MyEdit.cpp
-BaseClass=CEdit
-Filter=W
-
-[CLS:CMyEdit2]
-Type=0
-HeaderFile=MyEdit2.h
-ImplementationFile=MyEdit2.cpp
-BaseClass=CEdit
-Filter=W
-
 [CLS:CMyEditEx]
 Type=0
 HeaderFile=MyEditEx.h
@@ -387,7 +366,7 @@ ImplementationFile=MyEditEx.cpp
 BaseClass=CEdit
 Filter=W
 VirtualFilter=WC
-LastObject=CMyEditEx
+LastObject=ID_CHECK_SUM
 
 [DLG:IDD_DLGSCRIPTHELP]
 Type=1
@@ -425,7 +404,7 @@ Class=CUpgradeDlg
 ControlCount=4
 Control1=IDOK,button,1342242817
 Control2=IDCANCEL,button,1342242816
-Control3=IDC_STATIC,static,1342308352
+Control3=IDC_STATIC1,static,1342308352
 Control4=IDC_EDDATE,edit,1353779332
 
 [CLS:CUpgradeDlg]
@@ -434,6 +413,13 @@ HeaderFile=UpgradeDlg.h
 ImplementationFile=UpgradeDlg.cpp
 BaseClass=CDialog
 Filter=D
-LastObject=IDC_EDIT1
+LastObject=CUpgradeDlg
 VirtualFilter=dWC
+
+[MNU:IDR_MENU_CHECK]
+Type=1
+Class=CMyCommView
+Command1=ID_CHECK_SUM
+Command2=ID_CHECK_CRC
+CommandCount=2
 

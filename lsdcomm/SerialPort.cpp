@@ -220,11 +220,11 @@ BOOL CSerialPort::InitPort(CWnd* pPortOwner,	// the owner (CWnd) of the port (re
 	}
 
 	// set the timeout values
-	m_CommTimeouts.ReadIntervalTimeout         = ReadIntervalTimeout;
-	m_CommTimeouts.ReadTotalTimeoutMultiplier  = ReadTotalTimeoutMultiplier;
-	m_CommTimeouts.ReadTotalTimeoutConstant    = ReadTotalTimeoutConstant;
-	m_CommTimeouts.WriteTotalTimeoutMultiplier = WriteTotalTimeoutMultiplier;
-	m_CommTimeouts.WriteTotalTimeoutConstant   = WriteTotalTimeoutConstant;
+	m_CommTimeouts.ReadIntervalTimeout         = ReadIntervalTimeout * 1000;
+	m_CommTimeouts.ReadTotalTimeoutMultiplier  = ReadTotalTimeoutMultiplier * 1000;
+	m_CommTimeouts.ReadTotalTimeoutConstant    = ReadTotalTimeoutConstant * 1000;
+	m_CommTimeouts.WriteTotalTimeoutMultiplier = WriteTotalTimeoutMultiplier * 1000;
+	m_CommTimeouts.WriteTotalTimeoutConstant   = WriteTotalTimeoutConstant * 1000;
 
 	// configure
 	if (SetCommTimeouts(m_hComm, &m_CommTimeouts))

@@ -17,7 +17,7 @@ static char THIS_FILE[] = __FILE__;
 
 
 CUpgradeDlg::CUpgradeDlg(CWnd* pParent /*=NULL*/)
-	: CDialog(CUpgradeDlg::IDD, pParent)
+	: ETSLayoutDialog(CUpgradeDlg::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CUpgradeDlg)
 	m_strData = _T("");
@@ -63,4 +63,23 @@ void CUpgradeDlg::OnOK()
 		CDialog::OnOK();
 	}
 	
+}
+
+BOOL CUpgradeDlg::OnInitDialog() 
+{
+	CDialog::OnInitDialog();
+	
+	// TODO: Add extra initialization here
+		CreateRoot(VERTICAL)
+		<< item(IDC_STATIC1,NORESIZE)
+		<< item (IDC_EDDATE)
+		<<	( pane(HORIZONTAL, ABSOLUTE_VERT )
+			<< itemGrowing (HORIZONTAL) 
+			<< item( IDOK, NORESIZE)
+			<< item( IDCANCEL, NORESIZE )
+		);
+	UpdateLayout();
+	
+	return TRUE;  // return TRUE unless you set the focus to a control
+	              // EXCEPTION: OCX Property Pages should return FALSE
 }

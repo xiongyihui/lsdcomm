@@ -39,7 +39,7 @@ protected:
 
 	// Generated message map functions
 	//{{AFX_MSG(CCommAdvancedDlg)
-		// NOTE: the ClassWizard will add member functions here
+	afx_msg void OnBtdefault();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

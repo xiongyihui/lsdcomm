@@ -16,6 +16,7 @@
 
 enum SendKeyStyle {SKNONE=0,SKENTER,SKSHIFTENTER};
 enum StatusBarStyle{SBSINFO=0,SBSTX,SBSRX,SBSCOMM,SBSSENDKEY};
+enum CheckDataStyle{CDSSUM=0,CDSCRC};
 
 /////////////////////////////////////////////////////////////////////////////
 // CMyCommApp:

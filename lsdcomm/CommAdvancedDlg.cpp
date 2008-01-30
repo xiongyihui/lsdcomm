@@ -43,9 +43,20 @@ void CCommAdvancedDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CCommAdvancedDlg, CDialog)
 	//{{AFX_MSG_MAP(CCommAdvancedDlg)
-		// NOTE: the ClassWizard will add message map macros here
+	ON_BN_CLICKED(IDC_BTDEFAULT, OnBtdefault)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
 // CCommAdvancedDlg message handlers
+
+void CCommAdvancedDlg::OnBtdefault() 
+{
+	// TODO: Add your control notification handler code here
+	m_dwoReadInter = 1;
+	m_dwoReadTotalMult = 0;
+	m_dwoReadTotalConst = 0;
+	m_dwoWriteTotalMult = 0;
+	m_dwoWriteTotalConst =0;
+	UpdateData(FALSE);
+}

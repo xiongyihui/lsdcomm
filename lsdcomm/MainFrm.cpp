@@ -185,19 +185,37 @@ void CMainFrame::ActivateFrame(int nCmdShow)
 	if (!m_firstShow)
 	{
 		
-		WINDOWPLACEMENT   WndStatus;  
-		CRect   rect;  
-		rect.left     = AfxGetApp()->GetProfileInt("Layout","LEFT",100);  
-		rect.top      = AfxGetApp()->GetProfileInt("Layout","TOP",100);  
-		rect.right    = AfxGetApp()->GetProfileInt("Layout","RIGHT",800);  
-		rect.bottom   = AfxGetApp()->GetProfileInt("Layout","BOTTOM",600);  
-		WndStatus.rcNormalPosition   =   rect;  
-		WndStatus.flags=   AfxGetApp()->GetProfileInt("Layout","FLAG",0);  
-		nCmdShow   =   AfxGetApp()->GetProfileInt("Layout","SHOWCMD",SW_SHOW);  
-		WndStatus.showCmd   =   nCmdShow;  
-		WndStatus.ptMinPosition   =   CPoint(0,0);  
-		SetWindowPlacement(&WndStatus); 
-
+		CString myver;
+		CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
+		myver = AfxGetApp()->GetProfileString("Version","VER",myApp->m_AppVersion);
+		if(atof(myver)>=atof(myApp->m_AppVersion))
+		{
+			WINDOWPLACEMENT   WndStatus;  
+			CRect   rect;  
+			rect.left     = AfxGetApp()->GetProfileInt("Layout","LEFT",100);  
+			rect.top      = AfxGetApp()->GetProfileInt("Layout","TOP",100);  
+			rect.right    = AfxGetApp()->GetProfileInt("Layout","RIGHT",800);  
+			rect.bottom   = AfxGetApp()->GetProfileInt("Layout","BOTTOM",600);  
+			WndStatus.rcNormalPosition   =   rect;  
+			WndStatus.flags=   AfxGetApp()->GetProfileInt("Layout","FLAG",0);  
+			nCmdShow   =   AfxGetApp()->GetProfileInt("Layout","SHOWCMD",SW_SHOW);  
+			WndStatus.showCmd   =   nCmdShow;  
+			WndStatus.ptMinPosition   =   CPoint(0,0);  
+			SetWindowPlacement(&WndStatus); 
+		}
+		else{
+			WINDOWPLACEMENT   WndStatus;  
+			CRect   rect;  
+			rect.left     = 100;
+			rect.top      = 100;
+			rect.right    = 800;
+			rect.bottom   = 600;
+			WndStatus.rcNormalPosition = rect;  
+			WndStatus.flags=  0 ;
+			WndStatus.showCmd = SW_SHOW;
+			WndStatus.ptMinPosition  =  CPoint(0,0);  
+			SetWindowPlacement(&WndStatus); 
+		}
 
 		//check version
 		
@@ -219,7 +237,9 @@ void CMainFrame::ActivateFrame(int nCmdShow)
 void CMainFrame::OnClose() 
 {
 	// TODO: Add your message handler code here and/or call default
-	
+	CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
+	AfxGetApp()->WriteProfileString("Version","VER",myApp->m_AppVersion);
+
 	WINDOWPLACEMENT   WndStatus;  
 	GetWindowPlacement(&WndStatus);  
 	AfxGetApp()->WriteProfileInt("Layout","FLAG",WndStatus.flags);  

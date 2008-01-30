@@ -48,8 +48,10 @@ BEGIN_MESSAGE_MAP(CMyCommView, CFormView)
 	ON_BN_CLICKED(IDC_BTSENDUP, OnBtsendup)
 	ON_BN_CLICKED(IDC_BTSENDDOWN, OnBtsenddown)
 	ON_BN_CLICKED(IDC_BTCALC, OnBtcalc)
-
-
+	ON_BN_CLICKED(IDC_BTCHECKSUM, OnBtchecksum)
+	ON_BN_CLICKED(IDC_BTCHECKDATA, OnBtcheckdata)
+	ON_COMMAND(ID_CHECK_SUM, OnCheckSum)
+	ON_COMMAND(ID_CHECK_CRC, OnCheckCrc)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -69,6 +71,7 @@ CMyCommView::CMyCommView()
 	m_IsViewReceiveData = TRUE;
 	m_IsShowValueWindow = FALSE;
 	m_CurrenthistoryIndex =0;
+	m_CheckDataStyle = CDSSUM;
 }
 
 CMyCommView::~CMyCommView()
@@ -80,6 +83,7 @@ void CMyCommView::DoDataExchange(CDataExchange* pDX)
 	ETSLayoutFormView::DoDataExchange(pDX);
 	
 	//{{AFX_DATA_MAP(CMyCommView)
+	DDX_Control(pDX, IDC_BTCHECKSUM, m_CheckData);
 	DDX_Control(pDX, IDC_BTOPENCOMM, m_ctrlOpenComm);
 	DDX_Control(pDX, IDC_CHSCRIPT, m_ctrlSendScript);
 	DDX_Control(pDX, IDC_EDRECDATA, m_ctrlReciveData);
@@ -180,6 +184,8 @@ void CMyCommView::OnInitialUpdate()
 	m_hint.AddTool(GetDlgItem(IDC_BTSENDUP),_T("发送指令的上一条内容。"));
 	m_hint.AddTool(GetDlgItem(IDC_BTSENDDOWN),_T("发送指令的下一条内容。"));
 	m_hint.AddTool(GetDlgItem(IDC_BTCALC),_T("计算器"));
+	m_hint.AddTool(GetDlgItem(IDC_BTCHECKSUM),_T("接收窗口选择的内容进行数据校验。"));
+	m_hint.AddTool(GetDlgItem(IDC_BTCHECKDATA),_T("更多的校检方法。"));
 		
 	m_hint.SetTipTextColor(RGB(0,0,0));  
 	m_hint.SetDelayTime(100);     
@@ -217,18 +223,17 @@ void CMyCommView::OnInitialUpdate()
 	}
 
 	//icon
-	HICON m_hicn1=AfxGetApp()->LoadIcon(IDI_ICONCLEAR);
 	CButton *Button= (CButton *) GetDlgItem(IDC_BTCLEARRXTX);;
-    Button-> SetIcon(m_hicn1);
-
-	m_hicn1=AfxGetApp()->LoadIcon(IDI_ICONCALC);
-	Button= (CButton *) GetDlgItem(IDC_BTCALC);;
-    Button-> SetIcon(m_hicn1);
+    Button-> SetIcon(DoGetButtonIcon(IDI_ICONCLEAR));
+	Button= (CButton *) GetDlgItem(IDC_BTCALC);
+    Button-> SetIcon(DoGetButtonIcon(IDI_ICONCALC));
 	
 	
 
 	//value
 	m_ReceiveValue = GetDocument()->m_strReceiveValue;
+	m_CheckDataStyle = CDSSUM;
+	m_CheckData.SetWindowText(_T("累加和"));
 	
 
 	UpdateData(FALSE);
@@ -578,18 +583,7 @@ BOOL CMyCommView::PreTranslateMessage(MSG* pMsg)
 			return true;
 		}
 	}
-	else if (GetFocus()!=NULL && GetFocus()->GetDlgCtrlID()==IDC_EDRECDATA)
-	{
-		switch(pMsg->wParam)
-		{
-		case ME_CHECKSUM:
-			AfxMessageBox("TTT");
-			break;
-		default:
-		    break;
-		}
-		
-	}
+	
 	
 	return CFormView::PreTranslateMessage(pMsg);
 }
@@ -643,6 +637,7 @@ LONG CMyCommView::OnCommunication(WPARAM ch, LPARAM port)
 	CString str;
 	str.Format("RX:%d",GetDocument()->m_RXCount);
 	myApp->DoSetStautsBarText(SBSRX,str);
+	m_ctrlReciveData.LineScroll(m_ctrlReciveData.GetLineCount());
 	
 	return 0;
 }
@@ -903,7 +898,8 @@ void CMyCommView::DoUpdateLayout()
 	else{
 		newRecPane<<item(IDC_EDRECDATA,GREEDY,0,0,0,0);
 	}
-	
+
+		
 	CreateRoot(VERTICAL); //layout
 	m_RootPane	//create 
 		<< 	( pane(HORIZONTAL)
@@ -946,13 +942,16 @@ void CMyCommView::DoUpdateLayout()
 						
 					   //option
 						<<(pane(HORIZONTAL, ABSOLUTE_VERT)
-							<< item(IDC_BTSEND, NORESIZE)   // send button ALIGN_RIGHT	
+							<<(pane(HORIZONTAL, ABSOLUTE_VERT,0)
+								<< item(IDC_BTSEND, NORESIZE)   // send button ALIGN_RIGHT	
+								<< item(IDC_BTSENDKEY,NORESIZE)
+								)
 							<< item(IDC_CBCOMMAND,NORESIZE)
 							<< itemGrowing (HORIZONTAL)    // bank row 
 							<<(pane(HORIZONTAL, ABSOLUTE_VERT,0)
 							    << item(IDC_BTCALC,NORESIZE)
 								<< item(IDC_BTCLEARRXTX,NORESIZE)
-								<< item(IDC_BTSENDKEY,NORESIZE)
+								
 							  )
 							)
 					));
@@ -1038,3 +1037,167 @@ void CMyCommView::OnBtcalc()
 	ShellExecute(this->m_hWnd,"open","calc.exe","",NULL,SW_SHOW ); 
 }
 
+HICON CMyCommView::DoGetButtonIcon(UINT nID)
+{
+	return (HICON)LoadImage(AfxGetResourceHandle(), 
+		MAKEINTRESOURCE(nID), 
+		IMAGE_ICON,16,16,0);
+}
+
+CString CMyCommView::DoGetReciveSelected()
+{
+	int a,b;
+	m_ctrlReciveData.GetSel(a,b);
+	CString myv;
+	m_ctrlReciveData.GetWindowText(myv);
+	if (b-a >0) myv = myv.Mid(a,b-a);
+	return myv;
+}
+
+
+unsigned short DoCheckSum(unsigned short *buffer,   int   size)    
+{  
+	unsigned long cksum =  0;  
+	
+	//   Sum   all   the   words   together,   adding   the   final   byte   if   size   is   odd  
+	while(size>1)    
+	{  
+		cksum += *buffer++;  
+		size  -= sizeof(unsigned short);  
+	}  
+	if(size)  
+	{  
+		cksum += *(UCHAR*)buffer;  
+	}  
+	// Do   a   little   shuffling  
+	cksum =  (cksum   >> 16) + (cksum & 0xffff);  
+	cksum += (cksum   >> 16);  
+	// Return   the   bitwise   complement   of   the   resulting   mishmash  
+	return   (unsigned short)(~cksum);  
+}
+
+#define CRC16_GEN_POL 0x8005
+#define MKSHORT(a,b) ((unsigned short) (a) | ((unsigned short)(b) << 8))
+unsigned short CMyCommView::DoCreateCRC(unsigned char *CommData, unsigned int uLen )
+{
+	unsigned short uCrc16;
+	unsigned char abData[2];
+	uCrc16 = 0;
+	abData[0] = 0;
+	while (uLen-- )
+	{
+		abData[1] = abData[0];
+		abData[0] = *CommData++;
+		if(uCrc16 & 0x8000)
+		{
+			uCrc16 = (uCrc16 & 0x7fff) << 1;
+			uCrc16 ^= CRC16_GEN_POL;
+		}
+		else
+		{
+			uCrc16 <<= 1;
+		}
+		uCrc16 ^= MKSHORT (abData[0] , abData[1]);
+	}
+	return(uCrc16);
+}
+
+
+void CMyCommView::OnBtchecksum() 
+{
+	// TODO: Add your control notification handler code here
+	switch(m_CheckDataStyle) {
+		case CDSSUM:
+			OnCheckSum();	
+			break;
+		case CDSCRC:
+			OnCheckCrc();
+			break;
+		default:
+			return;
+	};
+}
+
+void CMyCommView::OnBtcheckdata() 
+{
+	// TODO: Add your control notification handler code here
+	CRect rect;
+	CPoint point;
+	CButton * mybt = (CButton *)GetDlgItem(IDC_BTCHECKDATA);
+	mybt->GetWindowRect(rect);
+    point.x = rect.right;
+    point.y = rect.bottom;
+	
+	CMenu menu;
+	VERIFY( menu.LoadMenu( IDR_MENU_CHECK ) );
+	CMenu* popup = menu.GetSubMenu(0);
+	ASSERT( popup != NULL );
+	popup->TrackPopupMenu(TPM_RIGHTALIGN| TPM_RIGHTBUTTON, point.x, point.y, this ); 
+}
+
+void CMyCommView::OnCheckSum() 
+{
+	// TODO: Add your command handler code here
+	m_CheckDataStyle = CDSSUM;
+	m_CheckData.SetWindowText(_T("累加和"));
+	CString mystr = DoGetReciveSelected();
+	mystr.TrimLeft(); mystr.TrimRight();
+	if (mystr == "") return;
+	
+	/*
+	char data[512];
+	int len=DoStr2Hex(mystr,data);
+	unsigned char *ptemp=(unsigned char*)((LPCTSTR)data);
+	unsigned short a =DoCheckSum(ptemp,len);
+
+
+	
+		
+	CString myvalue;
+	myvalue.Format("%02x",a);
+	if (m_ReceiveValue=="") 
+		m_ReceiveValue = myvalue;
+	else 
+		m_ReceiveValue += "\r\n" + myvalue;
+	
+	UpdateData(FALSE);
+	if(!m_IsShowValueWindow) OnBtvisiblevalue();
+	CEdit *myEdit = (CEdit *)GetDlgItem(IDC_EDRECDATAVALUE);
+	myEdit->LineScroll(myEdit->GetLineCount());
+	*/
+}
+
+void CMyCommView::OnCheckCrc() 
+{
+	// TODO: Add your command handler code here
+	m_CheckDataStyle = CDSCRC;
+	m_CheckData.SetWindowText(_T("CRC"));
+	CString mystr = DoGetReciveSelected();
+	mystr.TrimLeft(); mystr.TrimRight();
+	if (mystr == "") return;
+
+	char data[512];
+	int len=DoStr2Hex(mystr,data);
+	unsigned char *ptemp=(unsigned char*)((LPCTSTR)data);
+	unsigned short cc=DoCreateCRC(ptemp,len);
+	
+			
+	unsigned short hightbit=cc/256;
+	unsigned short lowbit = cc-hightbit*256;
+	
+	CString strHighBit;
+	strHighBit.Format("%02x",hightbit);
+	
+	CString strLowBit;
+	strLowBit.Format("%02x",lowbit);
+	
+	if (m_ReceiveValue=="") 
+		m_ReceiveValue = strLowBit + ' ' + strHighBit;
+	else 
+		m_ReceiveValue += "\r\n" + strLowBit + ' ' + strHighBit;
+	
+	UpdateData(FALSE);
+	if(!m_IsShowValueWindow) OnBtvisiblevalue();
+	CEdit *myEdit = (CEdit *)GetDlgItem(IDC_EDRECDATAVALUE);
+	myEdit->LineScroll(myEdit->GetLineCount());
+}

@@ -22,6 +22,7 @@ protected: // create from serialization only
 public:
 	//{{AFX_DATA(CMyCommView)
 	enum { IDD = IDD_MYCOMM_FORM };
+	CButton	m_CheckData;
 	CButton	m_ctrlOpenComm;
 	CButton	m_ctrlSendScript;
 	CMyEditEx	m_ctrlReciveData;
@@ -38,7 +39,9 @@ public:
 	int		m_AutoSendTime;
 	CString	m_ReceiveValue;
 	//}}AFX_DATA
+
 	BOOL m_IsViewReceiveData; 
+	CheckDataStyle m_CheckDataStyle;
 
 // Attributes
 public:
@@ -80,6 +83,9 @@ protected:
 	BOOL DoIsNumeric(const CString &strText);
 	void DoRunScript(const CString str);
 	void DoUpdateLayout();
+	HICON DoGetButtonIcon(UINT nID);
+	CString DoGetReciveSelected();
+	unsigned short DoCreateCRC(unsigned char *CommData, unsigned int uLen );
 // Generated message map functions
 
 protected:
@@ -110,7 +116,10 @@ protected:
 	afx_msg void OnBtsendup();
 	afx_msg void OnBtsenddown();
 	afx_msg void OnBtcalc();
-
+	afx_msg void OnBtchecksum();
+	afx_msg void OnBtcheckdata();
+	afx_msg void OnCheckSum();
+	afx_msg void OnCheckCrc();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
