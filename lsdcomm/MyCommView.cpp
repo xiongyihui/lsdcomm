@@ -274,7 +274,7 @@ void CMyCommView::OnBtopencomm()
 		m_ctrlOpenComm.SetWindowText(_T(" 打开串口"));
 		GetDocument()->m_ComAction = FALSE;
 		CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
-		myApp->DoSetStautsBarText(SBSCOMM,"串口:×");
+		myApp->DoSetStautsBarText(SBSCOMM,_T("串口:×"));
 	}
 	else{
 		
@@ -341,7 +341,7 @@ void CMyCommView::OnBtopencomm()
 			CEdit * myedit = (CEdit *)GetDlgItem(IDC_EDSENDDATA);
 			myedit->SetFocus();
 			CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
-			myApp->DoSetStautsBarText(SBSCOMM,"串口:√");
+			myApp->DoSetStautsBarText(SBSCOMM,_T("串口:√"));
 		}
 		else
 			AfxMessageBox(_T("串口被占用！"));
@@ -1055,26 +1055,14 @@ CString CMyCommView::DoGetReciveSelected()
 }
 
 
-unsigned short DoCheckSum(unsigned short *buffer,   int   size)    
-{  
-	unsigned long cksum =  0;  
-	
-	//   Sum   all   the   words   together,   adding   the   final   byte   if   size   is   odd  
-	while(size>1)    
-	{  
-		cksum += *buffer++;  
-		size  -= sizeof(unsigned short);  
-	}  
-	if(size)  
-	{  
-		cksum += *(UCHAR*)buffer;  
-	}  
-	// Do   a   little   shuffling  
-	cksum =  (cksum   >> 16) + (cksum & 0xffff);  
-	cksum += (cksum   >> 16);  
-	// Return   the   bitwise   complement   of   the   resulting   mishmash  
-	return   (unsigned short)(~cksum);  
+byte DoCheckSum(unsigned char *buffer,   int   size)
+{
+	byte myv = 0x00;
+	for(int i=0;i<size;i++)
+		myv += *buffer++;
+	return myv;
 }
+
 
 #define CRC16_GEN_POL 0x8005
 #define MKSHORT(a,b) ((unsigned short) (a) | ((unsigned short)(b) << 8))
@@ -1144,17 +1132,15 @@ void CMyCommView::OnCheckSum()
 	mystr.TrimLeft(); mystr.TrimRight();
 	if (mystr == "") return;
 	
-	/*
+	
 	char data[512];
 	int len=DoStr2Hex(mystr,data);
 	unsigned char *ptemp=(unsigned char*)((LPCTSTR)data);
-	unsigned short a =DoCheckSum(ptemp,len);
-
-
-	
+	byte a = DoCheckSum(ptemp,len);
 		
 	CString myvalue;
-	myvalue.Format("%02x",a);
+	myvalue.Format("%x",a);
+	myvalue.MakeUpper();
 	if (m_ReceiveValue=="") 
 		m_ReceiveValue = myvalue;
 	else 
@@ -1164,7 +1150,7 @@ void CMyCommView::OnCheckSum()
 	if(!m_IsShowValueWindow) OnBtvisiblevalue();
 	CEdit *myEdit = (CEdit *)GetDlgItem(IDC_EDRECDATAVALUE);
 	myEdit->LineScroll(myEdit->GetLineCount());
-	*/
+
 }
 
 void CMyCommView::OnCheckCrc() 

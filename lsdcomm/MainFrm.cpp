@@ -97,10 +97,8 @@ void ThreadCheckVersion()
 	   {
 			//new version
 			CMyCommView * myview = (CMyCommView *) myMain->GetActiveView();
-			myview->m_EditLogger.AddText(vertext+"\r\n");
-			myview->m_EditLogger.AddText(myverion+"\r\n");
 			myview->m_EditLogger.AddText(myApp->m_AppVersion+"\r\n");
-			myview->m_EditLogger.AddText(">>44最新版本:"+myverion+"\r\n");
+			myview->m_EditLogger.AddText(">>最新版本:"+myverion+"\r\n");
 			CString strLine;
 			myfile.ReadString(strLine); // downfilename line:2
 			myApp->m_downfileexefilename = strLine;

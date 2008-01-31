@@ -120,7 +120,7 @@ BOOL CMyCommApp::InitInstance()
 	CString str = m_AppDir.Right(m_AppDir.GetLength()-nPos-1);    // 不含路径的升级文件名
 	m_AppDir = m_AppDir.Left (nPos);
 	
-	m_AppVersion = "1.0";
+	m_AppVersion = "1.1";
 	m_downfileexefilename = "";
 	
 

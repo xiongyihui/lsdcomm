@@ -16,35 +16,35 @@ Class4=CMainFrame
 
 ResourceCount=11
 <<<<<<< .mine
-Resource1=IDR_MENU_SNEDKEY
-Resource2=IDR_MAINFRAME
+Resource1=IDD_DLGPROTOCOL
+Resource2=IDD_DLGADVANCED
 =======
-Resource1=IDR_MENU_SNEDKEY
-Resource2=IDR_MAINFRAME
+Resource1=IDD_DLGPROTOCOL
+Resource2=IDD_DLGADVANCED
 >>>>>>> .r13
 Class5=CAboutDlg
-Resource3=IDR_MENU_CHECK
+Resource3=IDR_MENU_SNEDKEY
 Class6=CCommandDlg
 <<<<<<< .mine
-Resource4=IDD_ABOUTBOX
+Resource4=IDD_DLGSCRIPTHELP
 =======
-Resource4=IDD_ABOUTBOX
+Resource4=IDD_DLGSCRIPTHELP
 >>>>>>> .r13
 Class7=CCommAdvancedDlg
 <<<<<<< .mine
-Resource5=IDD_DLGSCRIPTHELP
+Resource5=IDD_DLGCOMMAND
 =======
-Resource5=IDD_DLGSCRIPTHELP
+Resource5=IDD_DLGCOMMAND
 >>>>>>> .r13
 Class8=CProtocolEditDlg
 Class9=CMyEditEx
 Class10=CScriptHelpDlg
 Class11=CUpgradeDlg
-Resource6=IDD_DLGCOMMAND
-Resource7=IDD_DLGADVANCED
-Resource8=IDD_MYCOMM_FORM
+Resource6=IDR_MAINFRAME
+Resource7=IDD_ABOUTBOX
+Resource8=IDR_MENU_CHECK
 Resource9=IDD_PROPPAGE_SMALL (English (U.S.))
-Resource10=IDD_DLGPROTOCOL
+Resource10=IDD_MYCOMM_FORM
 Resource11=IDD_DLGUPGRADE
 
 [CLS:CMyCommApp]
