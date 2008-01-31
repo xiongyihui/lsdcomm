@@ -27,6 +27,7 @@ protected: // create from serialization only
 public:
 	Language m_language;
 	CStatusBar  m_wndStatusBar;
+	BOOL  m_IsNewVertxt;
 // Operations
 public:
 

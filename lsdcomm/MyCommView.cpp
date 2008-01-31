@@ -584,7 +584,6 @@ BOOL CMyCommView::PreTranslateMessage(MSG* pMsg)
 		}
 	}
 	
-	
 	return CFormView::PreTranslateMessage(pMsg);
 }
 
@@ -985,8 +984,6 @@ void CMyCommView::OnBtclearrxtx()
 	
 }
 
-
-
 void CMyCommView::OnBtsendclear() 
 {
 	// TODO: Add your control notification handler code here
@@ -995,7 +992,6 @@ void CMyCommView::OnBtsendclear()
 	CEdit * myedit = (CEdit *)GetDlgItem(IDC_EDSENDDATA);
 	myedit->SetFocus();
 }
-
 
 
 void CMyCommView::OnBtsendup() 

@@ -51,7 +51,7 @@ CMainFrame::CMainFrame()
 	// TODO: add member initialization code here
 	m_firstShow = FALSE;
 	m_language = LACHINA;
-	
+	m_IsNewVertxt = FALSE;
 }
 
 CMainFrame::~CMainFrame()
@@ -85,8 +85,9 @@ void ThreadCheckVersion()
 		CString myver;
 		char s[256];
 		_tcscpy(s,vertext.GetBuffer(vertext.GetLength())) ;
-		myMain->DonwLoadFile("http://lsdcomm.googlecode.com/svn/trunk/lsdcomm/version/ver.txt",
-			s);
+		if(myMain->DonwLoadFile("http://lsdcomm.googlecode.com/svn/trunk/lsdcomm/version/ver.txt",
+			s))
+			myMain->m_IsNewVertxt = TRUE;
 		return;
 	}
 	else{
@@ -97,7 +98,8 @@ void ThreadCheckVersion()
 	   {
 			//new version
 			CMyCommView * myview = (CMyCommView *) myMain->GetActiveView();
-			myview->m_EditLogger.AddText(myApp->m_AppVersion+"\r\n");
+			//myview->m_EditLogger.AddText(vertext);
+			//myview->m_EditLogger.AddText(myApp->m_AppVersion+"\r\n");
 			myview->m_EditLogger.AddText(">>最新版本:"+myverion+"\r\n");
 			CString strLine;
 			myfile.ReadString(strLine); // downfilename line:2
@@ -107,14 +109,17 @@ void ThreadCheckVersion()
 			myview->m_EditLogger.AddText(">>升级点击主菜单的[帮助]->[在线升级]\r\n");
 
 			myfile.Close();
+			myMain->m_IsNewVertxt = TRUE;
 	   }
 	   else{
 		   
 		   char s[256];
 		   _tcscpy(s,vertext.GetBuffer(vertext.GetLength())) ;
-		   myMain->DonwLoadFile("http://lsdcomm.googlecode.com/svn/trunk/lsdcomm/version/ver.txt",
-			   s);
+		   if(myMain->DonwLoadFile("http://lsdcomm.googlecode.com/svn/trunk/lsdcomm/version/ver.txt",
+			   s))
+				myMain->m_IsNewVertxt = TRUE;
 		   myfile.Close();
+		   
 		   return;
 	   }
 	}
@@ -502,6 +507,19 @@ void CMainFrame::OnAppSnedmail()
 	ShellExecute(NULL,NULL,"mailto:mrlong.com@gmail.com",NULL,NULL,SW_SHOW);
 }
 
+CString DoGetShortFileName(CString strFileName)
+{
+	TCHAR szShortPathName[MAX_PATH];   
+	CString mystr;
+	if(GetShortPathName(strFileName,szShortPathName,MAX_PATH)>0)
+	{
+		mystr = szShortPathName;
+		return mystr;
+	}
+	else
+		return strFileName;
+}
+
 void CMainFrame::OnAppUpgrade() 
 {
 	// TODO: Add your command handler code here
@@ -512,7 +530,8 @@ void CMainFrame::OnAppUpgrade()
 	CMainFrame * myMain = (CMainFrame *) myApp->GetMainWnd();
 	CStdioFile myfile;
 	CString vertext = myApp->m_AppDir + "\\version";
-	if (!IsFileExist(vertext))
+
+	if(!myMain->m_IsNewVertxt || !IsFileExist(vertext))
 	{
 		char s[256];
 		_tcscpy(s,vertext.GetBuffer(vertext.GetLength())) ;
@@ -521,8 +540,10 @@ void CMainFrame::OnAppUpgrade()
 			AfxMessageBox(_T("无法连接服务器。"));
 			return;
 		}
-	};
+		myMain->m_IsNewVertxt = TRUE;
+	}
 	
+		
 	if(!myfile.Open(vertext,CFile::modeRead))
 	{
 		AfxMessageBox(_T("打开升级文件出错。"));
@@ -566,17 +587,20 @@ void CMainFrame::OnAppUpgrade()
 		if(!IsFileExist(myApp->m_AppDir + "\\exe"))	return;
 		CStdioFile batfile;
 		CString mybatFile;
+		CString myAppDir;
 		mybatFile = myApp->m_AppDir+"\\update.bat";
 		if(!batfile.Open(mybatFile,CStdioFile::modeReadWrite|CStdioFile::modeCreate)) 
 			return;
-		
+
+		myAppDir = DoGetShortFileName(myApp->m_AppDir);
 		batfile.WriteString("@echo off\n\r");
 		CString myexename;
-		myexename = myApp->m_AppDir + "\\MyComm.exe";
+		myexename = myAppDir + "\\LSDComm.exe";
+					
 		batfile.WriteString("del "+ myexename + "\n\r");
-		batfile.WriteString("if exist "+myexename+" goto loop" + "\n\r");
-		batfile.WriteString("copy "+ myApp->m_AppDir + "\\exe" + " " + myexename + "\n\r");
-		batfile.WriteString("del "+myApp->m_AppDir + "\\exe" + "\n\r");
+		batfile.WriteString("if exist "+ myexename +" goto loop" + "\n\r");
+		batfile.WriteString("copy "+ myAppDir + "\\exe" + " " + myexename + "\n\r");
+		batfile.WriteString("del "+ myAppDir + "\\exe" + "\n\r");
 		batfile.WriteString(myexename+"\n\r");
 		batfile.WriteString("del "+mybatFile+"\n\r");
 		batfile.Close();
