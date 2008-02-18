@@ -2,50 +2,52 @@
 
 [General Info]
 Version=1
-LastClass=CMyCommView
+LastClass=CSendFileByXModem
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "MyComm.h"
 LastPage=0
 
-ClassCount=11
+ClassCount=12
 Class1=CMyCommApp
 Class2=CMyCommDoc
 Class3=CMyCommView
 Class4=CMainFrame
 
-ResourceCount=11
+ResourceCount=12
 <<<<<<< .mine
 Resource1=IDR_MENU_CHECK
-Resource2=IDD_DLGSCRIPTHELP
+Resource2=IDD_ABOUTBOX
 =======
 Resource1=IDR_MENU_CHECK
-Resource2=IDD_DLGSCRIPTHELP
+Resource2=IDD_ABOUTBOX
 >>>>>>> .r13
 Class5=CAboutDlg
 Resource3=IDR_MENU_SNEDKEY
 Class6=CCommandDlg
 <<<<<<< .mine
-Resource4=IDR_MAINFRAME
+Resource4=IDD_DLGCOMMAND
 =======
-Resource4=IDR_MAINFRAME
+Resource4=IDD_DLGCOMMAND
 >>>>>>> .r13
 Class7=CCommAdvancedDlg
 <<<<<<< .mine
-Resource5=IDD_DLGADVANCED
+Resource5=IDD_DLGUPGRADE
 =======
-Resource5=IDD_DLGADVANCED
+Resource5=IDD_DLGUPGRADE
 >>>>>>> .r13
 Class8=CProtocolEditDlg
 Class9=CMyEditEx
 Class10=CScriptHelpDlg
 Class11=CUpgradeDlg
-Resource6=IDD_ABOUTBOX
-Resource7=IDD_MYCOMM_FORM
-Resource8=IDD_DLGPROTOCOL
+Resource6=IDD_DLGADVANCED
+Resource7=IDD_DLGPROTOCOL
+Resource8=IDR_MAINFRAME
 Resource9=IDD_PROPPAGE_SMALL (English (U.S.))
-Resource10=IDD_DLGCOMMAND
-Resource11=IDD_DLGUPGRADE
+Resource10=IDD_DLGSCRIPTHELP
+Resource11=IDD_MYCOMM_FORM
+Class12=CSendFileByXModem
+Resource12=IDD_DLGSENDFILE
 
 [CLS:CMyCommApp]
 Type=0
@@ -54,7 +56,7 @@ ImplementationFile=MyComm.cpp
 Filter=N
 BaseClass=CWinApp
 VirtualFilter=AC
-LastObject=ID_SENDKEY_NONE
+LastObject=CMyCommApp
 
 [CLS:CMyCommDoc]
 Type=0
@@ -120,12 +122,13 @@ Command6=ID_APP_EXIT
 Command7=ID_VIEW_STATUS_BAR
 Command8=ID_EDIT_COMMAND
 Command9=ID_EDIT_PROTOCOL
-Command10=ID_HELP_SCRIPT
-Command11=ID_APP_UPGRADE
-Command12=ID_APP_HOME
-Command13=ID_APP_SNEDMAIL
-Command14=ID_APP_ABOUT
-CommandCount=14
+Command10=ID_SEND_FILE
+Command11=ID_HELP_SCRIPT
+Command12=ID_APP_UPGRADE
+Command13=ID_APP_HOME
+Command14=ID_APP_SNEDMAIL
+Command15=ID_APP_ABOUT
+CommandCount=15
 
 [ACL:IDR_MAINFRAME]
 Type=1
@@ -422,4 +425,29 @@ Class=CMyCommView
 Command1=ID_CHECK_SUM
 Command2=ID_CHECK_CRC
 CommandCount=2
+
+[DLG:IDD_DLGSENDFILE]
+Type=1
+Class=CSendFileByXModem
+ControlCount=11
+Control1=IDOK,button,1342242817
+Control2=IDCANCEL,button,1342242816
+Control3=IDC_STATIC,button,1342177287
+Control4=IDC_STATIC,button,1342177287
+Control5=IDC_STATIC,static,1342308352
+Control6=IDC_EDFILENAME,edit,1350631552
+Control7=IDC_BTSELECTFILE,button,1342242816
+Control8=IDC_RD_XMODEM,button,1342308361
+Control9=IDC_RD_YMODEM,button,1342177289
+Control10=IDC_RD_ZMODEM,button,1342177289
+Control11=IDC_RD_1KXMODEM,button,1342177289
+
+[CLS:CSendFileByXModem]
+Type=0
+HeaderFile=SendFileByXModem.h
+ImplementationFile=SendFileByXModem.cpp
+BaseClass=CDialog
+Filter=D
+LastObject=IDC_RD_XMODEM
+VirtualFilter=dWC
 

@@ -10,6 +10,23 @@
 #endif // _MSC_VER > 1000
 #include "SerialPort.h"
 
+//XModem
+#define XMODEM_NUL            0x00
+#define XMODEM_SOH            0x01
+#define XMODEM_STX            0x02
+#define XMODEM_EOT            0x04
+#define XMODEM_ACK            0x06
+#define XMODEM_NAK            0x15
+#define XMODEM_CAN            0x18
+#define XMODEM_EOF            0x1A
+#define XMODEM_STA            0xAA
+
+#define XMODEM_BLOCK_HEAD_SIZE      1
+#define XMODEM_BLOCK_NO_SIZE        2
+#define XMODEM_BLOCK_BODY_SIZE      128
+#define XMODEM_BLOCK_CHK_SIZE       1
+
+
 const COMMANDCOUNT = 20; 
 
 struct CommCommand {
@@ -69,6 +86,8 @@ public:
 
 	int AddHistory(CommCommand Command);
 	int GetHistoryIndex();
+
+	BOOL SendByXmodem(LPCTSTR lpszData, const int nLength, const int nRetryTimes);
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CMyCommDoc)
@@ -102,3 +121,24 @@ protected:
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 
 #endif // !defined(AFX_MYCOMMDOC_H__82C943F9_55E4_4E3A_9F44_4F7FB6E5A707__INCLUDED_)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -95,6 +95,10 @@ BEGIN
         MENUITEM "通信指令编辑...",             ID_EDIT_COMMAND
         MENUITEM "通信协议内容...",             ID_EDIT_PROTOCOL
     END
+    POPUP "传送(&T)"
+    BEGIN
+        MENUITEM "发送文件...",                 ID_SEND_FILE
+    END
     POPUP "帮助(&H)"
     BEGIN
         MENUITEM "脚本说明...",                 ID_HELP_SCRIPT
@@ -447,6 +451,28 @@ BEGIN
                     ES_READONLY | WS_VSCROLL | WS_HSCROLL
 END
 
+IDD_DLGSENDFILE DIALOG DISCARDABLE  0, 0, 237, 165
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "发送文件"
+FONT 9, "宋体"
+BEGIN
+    DEFPUSHBUTTON   "发送(&S)",IDOK,125,144,50,14
+    PUSHBUTTON      "关闭(&C)",IDCANCEL,180,144,50,14
+    GROUPBOX        "协议",IDC_STATIC,7,7,223,50
+    GROUPBOX        "发送的文件",IDC_STATIC,7,65,223,64
+    LTEXT           "文件名:",IDC_STATIC,15,80,29,8
+    EDITTEXT        IDC_EDFILENAME,15,92,208,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "浏览...",IDC_BTSELECTFILE,15,110,50,14
+    CONTROL         "Xmodem",IDC_RD_XMODEM,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,16,24,40,10
+    CONTROL         "Ymodem",IDC_RD_YMODEM,"Button",BS_AUTORADIOBUTTON,79,24,
+                    40,10
+    CONTROL         "Zmodem",IDC_RD_ZMODEM,"Button",BS_AUTORADIOBUTTON,138,
+                    24,40,10
+    CONTROL         "1K Xmodem ",IDC_RD_1KXMODEM,"Button",BS_AUTORADIOBUTTON,
+                    16,37,56,10
+END
+
 
 #ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
@@ -556,6 +582,14 @@ BEGIN
         RIGHTMARGIN, 265
         TOPMARGIN, 7
         BOTTOMMARGIN, 218
+    END
+
+    IDD_DLGSENDFILE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 230
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 158
     END
 END
 #endif    // APSTUDIO_INVOKED

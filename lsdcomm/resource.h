@@ -22,6 +22,7 @@
 #define IDI_ICONCALC                    144
 #define IDD_DLGUPGRADE                  145
 #define IDR_MENU_CHECK                  149
+#define IDD_DLGSENDFILE                 150
 #define IDC_EDRECDATA                   1000
 #define IDC_EDSENDDATA                  1001
 #define IDC_BTSEND                      1010
@@ -58,6 +59,7 @@
 #define IDC_BUTTON1                     1036
 #define IDC_BTCLEARRXTX                 1036
 #define IDC_BTDEFAULT                   1036
+#define IDC_BTSELECTFILE                1036
 #define IDC_STATIC1                     1037
 #define IDC_EDNAME_6                    1038
 #define IDC_STATIC2                     1038
@@ -149,6 +151,11 @@
 #define IDC_EDDATE                      1122
 #define IDC_BTCHECKSUM                  1123
 #define IDC_BTCHECKDATA                 1125
+#define IDC_EDFILENAME                  1126
+#define IDC_RD_XMODEM                   1127
+#define IDC_RD_YMODEM                   1128
+#define IDC_RD_ZMODEM                   1129
+#define IDC_RD_1KXMODEM                 1130
 #define ID_EDIT_COMMAND                 32771
 #define IDC_EDITPROTOCOL                32772
 #define IDC_EDIT_PROTOCOL               32774
@@ -166,15 +173,16 @@
 #define ID_APP_HOME                     32789
 #define ID_CHECK_SUM                    32790
 #define ID_CHECK_CRC                    32791
+#define ID_SEND_FILE                    32792
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        150
-#define _APS_NEXT_COMMAND_VALUE         32792
-#define _APS_NEXT_CONTROL_VALUE         1126
+#define _APS_NEXT_RESOURCE_VALUE        151
+#define _APS_NEXT_COMMAND_VALUE         32793
+#define _APS_NEXT_CONTROL_VALUE         1134
 #define _APS_NEXT_SYMED_VALUE           105
 #endif
 #endif

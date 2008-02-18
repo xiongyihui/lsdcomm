@@ -31,6 +31,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_COMMAND(ID_APP_SNEDMAIL, OnAppSnedmail)
 	ON_COMMAND(ID_APP_UPGRADE, OnAppUpgrade)
 	ON_COMMAND(ID_APP_HOME, OnAppHome)
+	ON_COMMAND(ID_SEND_FILE, OnSendFile)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -668,3 +669,85 @@ void CMainFrame::OnAppHome()
 	// TODO: Add your command handler code here
 	ShellExecute(NULL,NULL,"Http://lsdcomm.googlecode.com",NULL,NULL,SW_SHOW);
 }
+
+void CMainFrame::OnSendFile() 
+{
+	// TODO: Add your command handler code here
+	CMyCommDoc   *Doc   =  (CMyCommDoc   *)GetActiveDocument();
+	if (!Doc->m_ComAction) {
+		AfxMessageBox(_T("串口没有打开！"));
+		return;
+	}
+	
+	CSendFileByXModem dlg;
+	dlg.m_ModemType = 0;
+	if (dlg.DoModal()==IDOK)
+	{
+		//发送文件
+		CFile fp;
+		if(!(fp.Open((LPCTSTR)dlg.m_SendFileName ,CFile::modeRead))) 
+		{
+			AfxMessageBox(_T("打开文件出错!"));
+			return;
+		}
+		fp.SeekToEnd();
+		unsigned long fplength=fp.GetLength();
+		char* fpBuff;
+		fpBuff=new char[fplength];
+		fp.SeekToBegin();
+		if(fp.Read(fpBuff,fplength)<1)
+		{
+			fp.Close();
+			return;
+		}
+		fp.Close();
+
+		//send
+		CMyCommView * myview = (CMyCommView *)GetActiveView();
+		myview->m_EditLogger.AddText(_T("发送文件....\r\n"));
+		BOOL mySendOk;
+        
+		switch(dlg.m_ModemType) {
+			case 0:  //xModem
+				mySendOk = Doc->SendByXmodem(fpBuff,fplength,0);
+				break;
+			case 1: //yModem
+				break;
+			case 2: //zModem
+				
+				break;
+			case 3: //1k xmodem 
+				
+				break;
+			default:
+				return;
+		}
+
+		if(mySendOk)
+			myview->m_EditLogger.AddText(_T("完成发送。\r\n"));
+		else
+			myview->m_EditLogger.AddText(_T("发送失败！！！\n\r"));
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

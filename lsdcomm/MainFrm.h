@@ -12,6 +12,7 @@
 #include "CommandDlg.h"
 #include "MyCommDoc.h"
 #include "ProtocolEditDlg.h"
+#include "SendFileByXModem.h"
 
 enum Language { LACHINA = 0, LACHINAS ,LAENGLISH};
 
@@ -69,6 +70,7 @@ protected:
 	afx_msg void OnAppSnedmail();
 	afx_msg void OnAppUpgrade();
 	afx_msg void OnAppHome();
+	afx_msg void OnSendFile();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

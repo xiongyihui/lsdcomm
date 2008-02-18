@@ -231,6 +231,83 @@ int CMyCommDoc::GetHistoryIndex()
 {
 	return m_historyIndex;
 }
+
+// bool SendData(LPCTSTR lpszData, const int nLength)    - 串口发送函数
+// int RecvData(LPTSTR lpszData, const int nSize)    - 串口接收函数
+BOOL CMyCommDoc::SendByXmodem(LPCTSTR lpszData, const int nLength, const int nRetryTimes)
+{
+	char szPacket[XMODEM_BLOCK_HEAD_SIZE + XMODEM_BLOCK_NO_SIZE + 
+		  XMODEM_BLOCK_BODY_SIZE + XMODEM_BLOCK_CHK_SIZE];
+    char szRecvBuff[128];
+    char cPartNo = 0;
+    char cChkSum = 0;
+    int nRetry   = 0;
+    int nTemp1, nTemp2;
+	
+    // Notify Destination of Data Transfer
+    sprintf(szPacket, "%c", XMODEM_STA);
+    m_Comm.SendData(szPacket, 1);
+	Sleep(100);
+    if (m_Comm.RecvData(szRecvBuff, sizeof(szRecvBuff)) && szRecvBuff[0] == XMODEM_NAK)
+    {
+		// Send Data
+		for (nTemp1 = 0; nTemp1 < nLength; nTemp1 += XMODEM_BLOCK_BODY_SIZE)
+		{
+
+			//1.Make One Packet 
+			memset(szPacket, NULL, sizeof(szPacket));
+			if (cPartNo == 0xFF)
+				cPartNo = 0;
+			else
+				cPartNo++;
+			cChkSum = 0;
+			szPacket[0] = XMODEM_SOH;
+			szPacket[1] = cPartNo;
+			szPacket[2] = 0xFF - cPartNo;
+			for (nTemp2 = 0; nTemp2 < XMODEM_BLOCK_BODY_SIZE; nTemp2++)
+			{
+				if ((nTemp1 + nTemp2) < nLength)
+					szPacket[XMODEM_BLOCK_HEAD_SIZE + XMODEM_BLOCK_NO_SIZE + nTemp2] = *(lpszData + nTemp1 + nTemp2);
+				else
+					szPacket[XMODEM_BLOCK_HEAD_SIZE + XMODEM_BLOCK_NO_SIZE + nTemp2] = XMODEM_EOF;
+				cChkSum += szPacket[XMODEM_BLOCK_HEAD_SIZE + XMODEM_BLOCK_NO_SIZE + nTemp2];
+			}
+			szPacket[sizeof(szPacket) - 1] = cChkSum;
+
+			//2.Send Packet
+			m_Comm.SendData(szPacket, sizeof(szPacket));
+			while (true)
+			{
+				Sleep(10);
+				if (m_Comm.RecvData(szRecvBuff, sizeof(szRecvBuff)))
+				{
+					// Affirmative Answer
+					if (szRecvBuff[0] == XMODEM_ACK)
+						break;
+					// Negative Answer
+					else
+						if (szRecvBuff[0] == XMODEM_NAK)
+						{
+							m_Comm.SendData(szPacket, sizeof(szPacket));
+							nRetry++;
+						}
+				}
+				if (nRetry >= nRetryTimes)
+				{
+					// Cancel Transfer
+					sprintf(szPacket, "%c%c%c%c%c", XMODEM_CAN, XMODEM_CAN, XMODEM_CAN, XMODEM_CAN, XMODEM_CAN);
+					m_Comm.SendData(szPacket, 5);
+					return false;
+				}
+			}
+		} // end form
+	} //end if
+	
+    // Transfer Done
+    sprintf(szPacket, "%c%c%c%c%c", XMODEM_EOT, XMODEM_EOT, XMODEM_EOT, XMODEM_EOT, XMODEM_EOT);
+    m_Comm.SendData(szPacket, 5);
+    return true;	
+}
 /////////////////////////////////////////////////////////////////////////////
 // CMyCommDoc diagnostics
 
@@ -248,3 +325,24 @@ void CMyCommDoc::Dump(CDumpContext& dc) const
 
 /////////////////////////////////////////////////////////////////////////////
 // CMyCommDoc commands
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

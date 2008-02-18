@@ -66,7 +66,9 @@ public:
 	void		WriteToPort(LPCTSTR string);     // add by mrlong 2007-12-25
 	void        WriteToPort(BYTE* Buffer, int n);// add by mrlong
 	void        ClosePort();                     // add by mrlong 2007-12-2  
-	
+
+	void SendData(LPCTSTR lpszData, const int nLength);   //串口发送函数 by mrlong 2008-2-15
+	int RecvData(LPTSTR lpszData, const int nSize);      //串口接收函数 by mrlong 2008-2-15
 
 protected:
 	// protected memberfunctions
@@ -111,5 +113,26 @@ protected:
 };
 
 #endif __SERIALPORT_H__
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

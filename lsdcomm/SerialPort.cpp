@@ -775,3 +775,40 @@ void CSerialPort::WriteToPort(BYTE* Buffer, int n)
 	SetEvent(m_hWriteEvent);
 }
 
+
+void CSerialPort::SendData(LPCTSTR lpszData, const int nLength)
+{
+	assert(m_hComm != 0);
+	memset(m_szWriteBuffer, 0, nLength);
+	strcpy(m_szWriteBuffer, lpszData);
+	m_nWriteSize=nLength;
+	// set event for write
+	SetEvent(m_hWriteEvent);
+}
+
+int CSerialPort::RecvData(LPTSTR lpszData, const int nSize)
+{
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

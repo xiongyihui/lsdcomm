@@ -140,6 +140,10 @@ SOURCE=.\ScriptHelpDlg.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SendFileByXModem.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SerialPort.cpp
 # End Source File
 # Begin Source File
@@ -206,6 +210,10 @@ SOURCE=.\Resource.h
 # Begin Source File
 
 SOURCE=.\ScriptHelpDlg.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SendFileByXModem.h
 # End Source File
 # Begin Source File
 

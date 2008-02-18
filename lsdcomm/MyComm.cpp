@@ -119,8 +119,15 @@ BOOL CMyCommApp::InitInstance()
 	nPos = m_AppDir.ReverseFind('\\');
 	CString str = m_AppDir.Right(m_AppDir.GetLength()-nPos-1);    // 不含路径的升级文件名
 	m_AppDir = m_AppDir.Left (nPos);
+	//=============================================================================
+	//1.3 2008-2-16 
+	//  增加发送文件功能。
+	//
+	//
+	//
+	m_AppVersion = "1.3"; 
 	
-	m_AppVersion = "1.2";
+	//=============================================================================
 	m_downfileexefilename = "";
 	
 
@@ -244,3 +251,5 @@ BOOL CAboutDlg::OnInitDialog()
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
 }
+
+
