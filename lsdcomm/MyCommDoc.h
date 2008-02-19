@@ -74,10 +74,10 @@ public:
 	LONG  m_TXCount;
 	LONG  m_RXCount;
 	CString m_strReceiveValue;  //结果窗口值
+
 	
 
 	CommCommand m_HistoryCommand[COMMANDCOUNT];
-	
 
 // Operations
 public:

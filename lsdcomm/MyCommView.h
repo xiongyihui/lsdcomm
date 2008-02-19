@@ -51,7 +51,7 @@ public:
 
 // Operations
 public:
-	
+	void ShowMsg(CString strMsg);
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CMyCommView)

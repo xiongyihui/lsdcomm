@@ -47,6 +47,7 @@ static UINT indicators[] =
 /////////////////////////////////////////////////////////////////////////////
 // CMainFrame construction/destruction
 
+
 CMainFrame::CMainFrame()
 {
 	// TODO: add member initialization code here
@@ -731,23 +732,11 @@ void CMainFrame::OnSendFile()
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void CMainFrame::ShowMessage(CString strMsg)
+{
+	CMyCommView * myView = (CMyCommView *)  this->GetActiveView();
+	myView->m_EditLogger.AddText(strMsg);
+}
 
 
 

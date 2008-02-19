@@ -18,6 +18,7 @@
 **  改进
 **    1) 增加ClosePort
 **    2) 增加 writetoProt() 两个方法
+**    3) 增加 SendData 与 RecvData 方法
 ** 
 */
 
@@ -68,7 +69,7 @@ public:
 	void        ClosePort();                     // add by mrlong 2007-12-2  
 
 	void SendData(LPCTSTR lpszData, const int nLength);   //串口发送函数 by mrlong 2008-2-15
-	int RecvData(LPTSTR lpszData, const int nSize);      //串口接收函数 by mrlong 2008-2-15
+	BOOL RecvData(LPTSTR lpszData, const int nSize);      //串口接收函数 by mrlong 2008-2-15
 
 protected:
 	// protected memberfunctions

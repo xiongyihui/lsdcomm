@@ -1183,3 +1183,8 @@ void CMyCommView::OnCheckCrc()
 	CEdit *myEdit = (CEdit *)GetDlgItem(IDC_EDRECDATAVALUE);
 	myEdit->LineScroll(myEdit->GetLineCount());
 }
+
+void CMyCommView::ShowMsg(CString strMsg)
+{
+	this->m_EditLogger.AddText(strMsg);
+}

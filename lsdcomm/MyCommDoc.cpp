@@ -56,6 +56,7 @@ CMyCommDoc::CMyCommDoc()
 	}
 	
 	m_historyIndex = 0;
+
 }
 
 CMyCommDoc::~CMyCommDoc()
@@ -92,7 +93,7 @@ void CMyCommDoc::Serialize(CArchive& ar)
 	{
 		// TODO: add storing code here
 		
-		ver = 4;
+		ver = 5;
 		ar<<ver;  //version
 		ar<<m_intPort;
 		ar<<m_intBaudRate;
@@ -171,6 +172,8 @@ void CMyCommDoc::Serialize(CArchive& ar)
 		{
 			ar>>m_strReceiveValue;
 		}
+		
+
 
 	};
 }

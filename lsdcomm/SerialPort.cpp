@@ -786,9 +786,24 @@ void CSerialPort::SendData(LPCTSTR lpszData, const int nLength)
 	SetEvent(m_hWriteEvent);
 }
 
-int CSerialPort::RecvData(LPTSTR lpszData, const int nSize)
+BOOL CSerialPort::RecvData(LPTSTR lpszData, const int nSize)
 {
-	return 0;
+	//
+	//接收数据
+	//
+	assert(m_hComm!=0);
+	memset(lpszData,0,nSize);
+	DWORD mylen  = 0;
+	DWORD mylen2 = 0;
+	while (mylen<nSize) {
+		if(!ReadFile(m_hComm,lpszData,nSize,&mylen2,NULL)) 
+			return FALSE;
+		mylen += mylen2;
+
+		
+	}
+	
+	return TRUE;
 }
 
 

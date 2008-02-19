@@ -14,8 +14,6 @@
 #include "ProtocolEditDlg.h"
 #include "SendFileByXModem.h"
 
-enum Language { LACHINA = 0, LACHINAS ,LAENGLISH};
-
 
 class CMainFrame : public CFrameWnd
 {
@@ -44,6 +42,7 @@ public:
 public:
 	virtual ~CMainFrame();
 	BOOL DonwLoadFile(PSTR pURL, LPSTR SaveAsFilePath);
+	void ShowMessage(CString strMsg);
 
 #ifdef _DEBUG
 	virtual void AssertValid() const;

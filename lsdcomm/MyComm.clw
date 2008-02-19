@@ -2,13 +2,13 @@
 
 [General Info]
 Version=1
-LastClass=CSendFileByXModem
+LastClass=CMainFrame
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "MyComm.h"
 LastPage=0
 
-ClassCount=12
+ClassCount=13
 Class1=CMyCommApp
 Class2=CMyCommDoc
 Class3=CMyCommView
@@ -16,14 +16,14 @@ Class4=CMainFrame
 
 ResourceCount=12
 <<<<<<< .mine
-Resource1=IDR_MENU_CHECK
-Resource2=IDD_ABOUTBOX
+Resource1=IDR_MENU_SNEDKEY
+Resource2=IDD_MYCOMM_FORM
 =======
-Resource1=IDR_MENU_CHECK
-Resource2=IDD_ABOUTBOX
+Resource1=IDR_MENU_SNEDKEY
+Resource2=IDD_MYCOMM_FORM
 >>>>>>> .r13
 Class5=CAboutDlg
-Resource3=IDR_MENU_SNEDKEY
+Resource3=IDR_MENU_CHECK
 Class6=CCommandDlg
 <<<<<<< .mine
 Resource4=IDD_DLGCOMMAND
@@ -32,21 +32,22 @@ Resource4=IDD_DLGCOMMAND
 >>>>>>> .r13
 Class7=CCommAdvancedDlg
 <<<<<<< .mine
-Resource5=IDD_DLGUPGRADE
+Resource5=IDD_DLGSCRIPTHELP
 =======
-Resource5=IDD_DLGUPGRADE
+Resource5=IDD_DLGSCRIPTHELP
 >>>>>>> .r13
 Class8=CProtocolEditDlg
 Class9=CMyEditEx
 Class10=CScriptHelpDlg
 Class11=CUpgradeDlg
-Resource6=IDD_DLGADVANCED
-Resource7=IDD_DLGPROTOCOL
-Resource8=IDR_MAINFRAME
+Resource6=IDD_ABOUTBOX
+Resource7=IDD_DLGADVANCED
+Resource8=IDD_DLGUPGRADE
 Resource9=IDD_PROPPAGE_SMALL (English (U.S.))
-Resource10=IDD_DLGSCRIPTHELP
-Resource11=IDD_MYCOMM_FORM
+Resource10=IDD_DLGPROTOCOL
+Resource11=IDR_MAINFRAME
 Class12=CSendFileByXModem
+Class13=CRemoteApplyDlg
 Resource12=IDD_DLGSENDFILE
 
 [CLS:CMyCommApp]
@@ -448,6 +449,15 @@ HeaderFile=SendFileByXModem.h
 ImplementationFile=SendFileByXModem.cpp
 BaseClass=CDialog
 Filter=D
-LastObject=IDC_RD_XMODEM
+LastObject=CSendFileByXModem
+VirtualFilter=dWC
+
+[CLS:CRemoteApplyDlg]
+Type=0
+HeaderFile=RemoteApplyDlg.h
+ImplementationFile=RemoteApplyDlg.cpp
+BaseClass=CDialog
+Filter=D
+LastObject=IDC_EDIP
 VirtualFilter=dWC
 
