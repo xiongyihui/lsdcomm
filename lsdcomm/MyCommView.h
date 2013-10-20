@@ -120,6 +120,7 @@ protected:
 	afx_msg void OnBtcheckdata();
 	afx_msg void OnCheckSum();
 	afx_msg void OnCheckCrc();
+	afx_msg void OnDropdownCbcom();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

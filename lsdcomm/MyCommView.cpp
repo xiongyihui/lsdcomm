@@ -7,6 +7,8 @@
 #include "MyCommDoc.h"
 #include "MyCommView.h"
 
+#include "enumser.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -52,6 +54,7 @@ BEGIN_MESSAGE_MAP(CMyCommView, CFormView)
 	ON_BN_CLICKED(IDC_BTCHECKDATA, OnBtcheckdata)
 	ON_COMMAND(ID_CHECK_SUM, OnCheckSum)
 	ON_COMMAND(ID_CHECK_CRC, OnCheckCrc)
+	ON_CBN_DROPDOWN(IDC_CBCOM, OnDropdownCbcom)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -131,7 +134,19 @@ void CMyCommView::OnInitialUpdate()
 	m_ctrlReceiveHex.SetCheck(GetDocument()->m_IsReceiveHex);
 	m_ctrlSendHex.SetCheck(GetDocument()->m_IsSendHex);
 	CString mystr;
-	m_ctrlCOM.SetCurSel(GetDocument()->m_intPort-1);
+
+	// Get available COM ports
+	CStringArray COMs;
+	m_ctrlCOM.ResetContent();
+	if (CEnumerateSerial::UsingRegistry(COMs))
+	{
+		for (int i = 0; i < COMs.GetSize(); i++)
+		{
+			m_ctrlCOM.AddString(COMs[i]);
+		}
+	}
+	m_ctrlCOM.SetCurSel(0);
+
 	mystr.Format("%d",GetDocument()->m_intBaudRate); 
 	m_ctrlBaudRate.SetCurSel(m_ctrlBaudRate.FindString(0,mystr));
 	mystr.Format("%d",GetDocument()->m_intDataBits);
@@ -277,16 +292,25 @@ void CMyCommView::OnBtopencomm()
 		myApp->DoSetStautsBarText(SBSCOMM,_T("串口:×"));
 	}
 	else{
-		
+		CString mycom;
+		CString mycomPrefix;
+		CString mycomNum;
+		int port;
 		CString mystr;
 		char myc;		
 
-		if (m_ctrlCOM.GetCurSel()<0) 
+		m_ctrlCOM.GetWindowText(mycom);
+		mycomPrefix = mycom.Left(3);
+		mycomNum = mycom.Right(mycom.GetLength() - 3);
+		port = _ttoi(mycomNum);
+
+		if (mycomPrefix.CompareNoCase("COM") || (port <= 0))
 		{
-			AfxMessageBox(_T("请选择串口"));
+			AfxMessageBox(_T("请选择可用串口"));
 			return ;
-		}	
-		GetDocument()->m_intPort = m_ctrlCOM.GetCurSel()+1;
+		}
+		
+		GetDocument()->m_intPort = port;
 		m_ctrlBaudRate.GetWindowText(mystr);
 		if (!DoIsNumeric(mystr)) 
 		{	
@@ -1187,4 +1211,20 @@ void CMyCommView::OnCheckCrc()
 void CMyCommView::ShowMsg(CString strMsg)
 {
 	this->m_EditLogger.AddText(strMsg);
+}
+
+void CMyCommView::OnDropdownCbcom() 
+{
+	CStringArray COMs;
+
+	m_ctrlCOM.ResetContent();
+	if (CEnumerateSerial::UsingRegistry(COMs))
+	{
+		for (int i = 0; i < COMs.GetSize(); i++)
+		{
+			m_ctrlCOM.AddString(COMs[i]);
+		}
+	}
+
+	m_ctrlCOM.SetCurSel(0);
 }

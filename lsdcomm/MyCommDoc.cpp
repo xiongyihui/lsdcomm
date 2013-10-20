@@ -33,13 +33,13 @@ CMyCommDoc::CMyCommDoc()
 	m_ComAction = FALSE;
 
 	m_intPort     = 1;
-	m_intBaudRate = 9600;
+	m_intBaudRate = 115200;
 	m_intDataBits = 8;
 	m_cParity     ='N';
 	m_intStopBits = 0;
 
-	m_IsReceiveHex = TRUE;
-	m_IsSendHex = TRUE;
+	m_IsReceiveHex = FALSE;
+	m_IsSendHex = FALSE;
 	m_CommTimeout.ReadIntervalTimeout = 1;  //units ms
 	m_CommTimeout.ReadTotalTimeoutMultiplier = 0;
 	m_CommTimeout.ReadTotalTimeoutConstant = 0;

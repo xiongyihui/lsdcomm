@@ -85,7 +85,7 @@ CSerialPort::~CSerialPort()
 //  1,1.5,2 
 //
 BOOL CSerialPort::InitPort(CWnd* pPortOwner,	// the owner (CWnd) of the port (receives message)
-						   UINT  portnr,		// portnumber (1..4)
+						   UINT  portnr,		// portnumber
 						   UINT  baud,			// baudrate
 						   char  parity,		// parity 
 						   UINT  databits,		// databits 
@@ -100,7 +100,7 @@ BOOL CSerialPort::InitPort(CWnd* pPortOwner,	// the owner (CWnd) of the port (re
 						   DWORD   WriteTotalTimeoutConstant )	
 
 {
-	assert(portnr > 0 && portnr < 5);
+	assert(portnr > 0);
 	assert(pPortOwner != NULL);
 
 	// if the thread is alive: Kill

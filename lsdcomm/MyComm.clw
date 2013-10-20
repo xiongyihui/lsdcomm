@@ -16,36 +16,36 @@ Class4=CMainFrame
 
 ResourceCount=12
 <<<<<<< .mine
-Resource1=IDR_MENU_SNEDKEY
-Resource2=IDD_MYCOMM_FORM
+Resource1=IDR_MENU_CHECK
+Resource2=IDD_DLGCOMMAND
 =======
-Resource1=IDR_MENU_SNEDKEY
-Resource2=IDD_MYCOMM_FORM
+Resource1=IDR_MENU_CHECK
+Resource2=IDD_DLGCOMMAND
 >>>>>>> .r13
 Class5=CAboutDlg
-Resource3=IDR_MENU_CHECK
+Resource3=IDR_MENU_SNEDKEY
 Class6=CCommandDlg
 <<<<<<< .mine
-Resource4=IDD_DLGCOMMAND
+Resource4=IDR_MAINFRAME
 =======
-Resource4=IDD_DLGCOMMAND
+Resource4=IDR_MAINFRAME
 >>>>>>> .r13
 Class7=CCommAdvancedDlg
 <<<<<<< .mine
-Resource5=IDD_DLGSCRIPTHELP
+Resource5=IDD_DLGPROTOCOL
 =======
-Resource5=IDD_DLGSCRIPTHELP
+Resource5=IDD_DLGPROTOCOL
 >>>>>>> .r13
 Class8=CProtocolEditDlg
 Class9=CMyEditEx
 Class10=CScriptHelpDlg
 Class11=CUpgradeDlg
-Resource6=IDD_ABOUTBOX
-Resource7=IDD_DLGADVANCED
-Resource8=IDD_DLGUPGRADE
+Resource6=IDD_MYCOMM_FORM
+Resource7=IDD_ABOUTBOX
+Resource8=IDD_DLGADVANCED
 Resource9=IDD_PROPPAGE_SMALL (English (U.S.))
-Resource10=IDD_DLGPROTOCOL
-Resource11=IDR_MAINFRAME
+Resource10=IDD_DLGSCRIPTHELP
+Resource11=IDD_DLGUPGRADE
 Class12=CSendFileByXModem
 Class13=CRemoteApplyDlg
 Resource12=IDD_DLGSENDFILE
