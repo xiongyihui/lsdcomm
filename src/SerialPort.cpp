@@ -164,7 +164,7 @@ BOOL CSerialPort::InitPort(CWnd* pPortOwner,	// the owner (CWnd) of the port (re
 	}
 
 	// prepare port strings
-	sprintf(szPort, "COM%d", portnr);
+	sprintf(szPort, "\\\\.\\COM%d", portnr);
 	// stop is index 0 = 1 1=1.5 2=2
 	int mystop;
 	int myparity;
@@ -402,18 +402,18 @@ UINT CSerialPort::CommThread(LPVOID pParam)
 		case 1:	// read event
 			{
 				GetCommMask(port->m_hComm, &CommEvent);
-				if (CommEvent & EV_RXCHAR) //Ω” ’µΩ◊÷∑˚£¨≤¢÷√”⁄ ‰»Îª∫≥Â«¯÷– 
+				if (CommEvent & EV_RXCHAR) //Êé•Êî∂Âà∞Â≠óÁ¨¶ÔºåÂπ∂ÁΩÆ‰∫éËæìÂÖ•ÁºìÂÜ≤Âå∫‰∏≠ 
 					ReceiveChar(port, comstat);
 				
-				if (CommEvent & EV_CTS) //CTS–≈∫≈◊¥Ã¨∑¢…˙±‰ªØ
+				if (CommEvent & EV_CTS) //CTS‰ø°Âè∑Áä∂ÊÄÅÂèëÁîüÂèòÂåñ
 					::SendMessage(port->m_pOwner->m_hWnd, WM_COMM_CTS_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
-				if (CommEvent & EV_RXFLAG) //Ω” ’µΩ ¬º˛◊÷∑˚£¨≤¢÷√”⁄ ‰»Îª∫≥Â«¯÷– 
+				if (CommEvent & EV_RXFLAG) //Êé•Êî∂Âà∞‰∫ã‰ª∂Â≠óÁ¨¶ÔºåÂπ∂ÁΩÆ‰∫éËæìÂÖ•ÁºìÂÜ≤Âå∫‰∏≠ 
 					::SendMessage(port->m_pOwner->m_hWnd, WM_COMM_RXFLAG_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
-				if (CommEvent & EV_BREAK)  // ‰»Î÷–∑¢…˙÷–∂œ
+				if (CommEvent & EV_BREAK)  //ËæìÂÖ•‰∏≠ÂèëÁîü‰∏≠Êñ≠
 					::SendMessage(port->m_pOwner->m_hWnd, WM_COMM_BREAK_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
-				if (CommEvent & EV_ERR) //∑¢…˙œﬂ¬∑◊¥Ã¨¥ÌŒÛ£¨œﬂ¬∑◊¥Ã¨¥ÌŒÛ∞¸¿®CE_FRAME,CE_OVERRUN∫ÕCE_RXPARITY 
+				if (CommEvent & EV_ERR) //ÂèëÁîüÁ∫øË∑ØÁä∂ÊÄÅÈîôËØØÔºåÁ∫øË∑ØÁä∂ÊÄÅÈîôËØØÂåÖÊã¨CE_FRAME,CE_OVERRUNÂíåCE_RXPARITY 
 					::SendMessage(port->m_pOwner->m_hWnd, WM_COMM_ERR_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
-				if (CommEvent & EV_RING) //ºÏ≤‚µΩ’Ò¡Â÷∏ æ
+				if (CommEvent & EV_RING) //Ê£ÄÊµãÂà∞ÊåØÈìÉÊåáÁ§∫
 					::SendMessage(port->m_pOwner->m_hWnd, WM_COMM_RING_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
 					
 				break;
@@ -789,7 +789,7 @@ void CSerialPort::SendData(LPCTSTR lpszData, const int nLength)
 BOOL CSerialPort::RecvData(LPTSTR lpszData, const int nSize)
 {
 	//
-	//Ω” ’ ˝æ›
+	//Êé•Êî∂Êï∞ÊçÆ
 	//
 	assert(m_hComm!=0);
 	memset(lpszData,0,nSize);
@@ -805,25 +805,3 @@ BOOL CSerialPort::RecvData(LPTSTR lpszData, const int nSize)
 	
 	return TRUE;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
