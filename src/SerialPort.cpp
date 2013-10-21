@@ -16,6 +16,7 @@
 
 #include "stdafx.h"
 #include "SerialPort.h"
+#include "resource.h"
 
 #include <assert.h>
  
@@ -340,6 +341,14 @@ UINT CSerialPort::CommThread(LPVOID pParam)
 					// All other error codes indicate a serious error has
 					// occured.  Process this error.
 					port->ProcessErrorMessage("WaitCommEvent()");
+
+					::SendNotifyMessage(port->m_pOwner->m_hWnd,
+								WM_COMMAND, MAKELONG(IDC_BTOPENCOMM, BN_CLICKED),
+								(LPARAM)(port->m_pOwner->m_hWnd)); 
+					port->m_bThreadAlive = FALSE;
+
+					// Kill this thread.  break is not needed, but makes me feel better.
+					AfxEndThread(100);
 					break;
 				}
 			}
@@ -386,7 +395,7 @@ UINT CSerialPort::CommThread(LPVOID pParam)
 		// until one of nine events occur that require action.
 		Event = WaitForMultipleObjects(3, port->m_hEventArray, FALSE, INFINITE);
 
-		switch (Event)
+ 		switch (Event)
 		{
 		case 0:
 			{
@@ -403,26 +412,49 @@ UINT CSerialPort::CommThread(LPVOID pParam)
 			{
 				GetCommMask(port->m_hComm, &CommEvent);
 				if (CommEvent & EV_RXCHAR) //接收到字符，并置于输入缓冲区中 
-					ReceiveChar(port, comstat);
+				{
+					if (!ReceiveChar(port, comstat))
+					{
+						::SendNotifyMessage(port->m_pOwner->m_hWnd,
+								WM_COMMAND, MAKELONG(IDC_BTOPENCOMM, BN_CLICKED),
+								(LPARAM)(port->m_pOwner->m_hWnd)); 
+						port->m_bThreadAlive = FALSE;
+				
+						// Kill this thread.  break is not needed, but makes me feel better.
+						AfxEndThread(100);
+						break;
+					}
+
+				}
 				
 				if (CommEvent & EV_CTS) //CTS信号状态发生变化
-					::SendMessage(port->m_pOwner->m_hWnd, WM_COMM_CTS_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
+					::SendNotifyMessage(port->m_pOwner->m_hWnd, WM_COMM_CTS_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
 				if (CommEvent & EV_RXFLAG) //接收到事件字符，并置于输入缓冲区中 
-					::SendMessage(port->m_pOwner->m_hWnd, WM_COMM_RXFLAG_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
+					::SendNotifyMessage(port->m_pOwner->m_hWnd, WM_COMM_RXFLAG_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
 				if (CommEvent & EV_BREAK)  //输入中发生中断
-					::SendMessage(port->m_pOwner->m_hWnd, WM_COMM_BREAK_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
+					::SendNotifyMessage(port->m_pOwner->m_hWnd, WM_COMM_BREAK_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
 				if (CommEvent & EV_ERR) //发生线路状态错误，线路状态错误包括CE_FRAME,CE_OVERRUN和CE_RXPARITY 
-					::SendMessage(port->m_pOwner->m_hWnd, WM_COMM_ERR_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
+					::SendNotifyMessage(port->m_pOwner->m_hWnd, WM_COMM_ERR_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
 				if (CommEvent & EV_RING) //检测到振铃指示
-					::SendMessage(port->m_pOwner->m_hWnd, WM_COMM_RING_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
+					::SendNotifyMessage(port->m_pOwner->m_hWnd, WM_COMM_RING_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
 					
 				break;
 			}  
 		case 2: // write event
 			{
 				// Write character event from port
-				WriteChar(port);
-				break;
+				if (!WriteChar(port))
+				{
+					::SendNotifyMessage(port->m_pOwner->m_hWnd,
+								WM_COMMAND, MAKELONG(IDC_BTOPENCOMM, BN_CLICKED),
+								(LPARAM)(port->m_pOwner->m_hWnd)); 
+
+					port->m_bThreadAlive = FALSE;
+				
+					// Kill this thread.  break is not needed, but makes me feel better.
+					AfxEndThread(100);
+					break;
+				}
 			}
 
 		} // end switch
@@ -494,7 +526,7 @@ void CSerialPort::ProcessErrorMessage(char* ErrorText)
 //
 // Write a character.
 //
-void CSerialPort::WriteChar(CSerialPort* port)
+bool CSerialPort::WriteChar(CSerialPort* port)
 {
 	BOOL bWrite = TRUE;
 	BOOL bResult = TRUE;
@@ -540,6 +572,9 @@ void CSerialPort::WriteChar(CSerialPort* port)
 					{
 						// all other error codes
 						port->ProcessErrorMessage("WriteFile()");
+
+						LeaveCriticalSection(&port->m_csCommunicationSync);
+						return FALSE;
 					}
 			}
 		} 
@@ -564,6 +599,7 @@ void CSerialPort::WriteChar(CSerialPort* port)
 		if (!bResult)  
 		{
 			port->ProcessErrorMessage("GetOverlappedResults() in WriteFile()");
+			return FALSE;
 		}	
 	} // end if (!bWrite)
 
@@ -572,12 +608,13 @@ void CSerialPort::WriteChar(CSerialPort* port)
 	{
 		TRACE("WARNING: WriteFile() error.. Bytes Sent: %d; Message Length: %d\n", BytesSent, strlen((char*)port->m_szWriteBuffer));
 	}
+	return true;
 }
 
 //
 // Character received. Inform the owner
 //
-void CSerialPort::ReceiveChar(CSerialPort* port, COMSTAT comstat)
+bool CSerialPort::ReceiveChar(CSerialPort* port, COMSTAT comstat)
 {
 	BOOL  bRead = TRUE; 
 	BOOL  bResult = TRUE;
@@ -613,7 +650,7 @@ void CSerialPort::ReceiveChar(CSerialPort* port, COMSTAT comstat)
 		if (comstat.cbInQue == 0)
 		{
 			// break out when all bytes have been read
-			break;
+			return TRUE;
 		}
 						
 		EnterCriticalSection(&port->m_csCommunicationSync);
@@ -641,7 +678,9 @@ void CSerialPort::ReceiveChar(CSerialPort* port, COMSTAT comstat)
 						{
 							// Another error has occured.  Process this error.
 							port->ProcessErrorMessage("ReadFile()");
-							break;
+							
+							LeaveCriticalSection(&port->m_csCommunicationSync);
+							return FALSE;
 						} 
 				}
 			}

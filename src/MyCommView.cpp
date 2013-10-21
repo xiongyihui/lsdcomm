@@ -368,7 +368,7 @@ void CMyCommView::OnBtopencomm()
 			myApp->DoSetStautsBarText(SBSCOMM,_T("串口:√"));
 		}
 		else
-			AfxMessageBox(_T("串口被占用！"));
+			AfxMessageBox(_T("打开串口失败！"));
 	}
 
 	// send botton

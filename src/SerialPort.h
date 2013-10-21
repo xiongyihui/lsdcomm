@@ -75,8 +75,8 @@ protected:
 	// protected memberfunctions
 	void		ProcessErrorMessage(char* ErrorText);
 	static UINT	CommThread(LPVOID pParam);
-	static void	ReceiveChar(CSerialPort* port, COMSTAT comstat);
-	static void	WriteChar(CSerialPort* port);
+	static bool	ReceiveChar(CSerialPort* port, COMSTAT comstat);
+	static bool	WriteChar(CSerialPort* port);
 
 	// thread
 	CWinThread*			m_Thread;
