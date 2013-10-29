@@ -529,19 +529,19 @@ void CMyCommView::OnBtSend()
 		char data[512];
 		int len=DoStr2Hex(m_strSendData,data);
 		GetDocument()->m_Comm.WriteToPort(data,len);
-		GetDocument()->m_RXCount+=(long)((m_strSendData.GetLength()+1)/3);
+		GetDocument()->m_TXCount+=(long)((m_strSendData.GetLength()+1)/3);
 		CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
 		CString str;
-		str.Format("TX:%d",GetDocument()->m_RXCount);
+		str.Format("TX:%d",GetDocument()->m_TXCount);
 		myApp->DoSetStautsBarText(SBSTX,str);
 	}
 	else 
 	{
 		GetDocument()->m_Comm.WriteToPort((LPCTSTR)m_strSendData);	//发送数据
-		GetDocument()->m_RXCount+=m_strSendData.GetLength();
+		GetDocument()->m_TXCount+=m_strSendData.GetLength();
 		CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
 		CString str;
-		str.Format("TX:%d",GetDocument()->m_RXCount);
+		str.Format("TX:%d",GetDocument()->m_TXCount);
 		myApp->DoSetStautsBarText(SBSTX,str);
 	}
 	
@@ -637,29 +637,33 @@ void CMyCommView::OnTimer(UINT nIDEvent)
 
 LONG CMyCommView::OnCommunication(WPARAM ch, LPARAM port)
 {
+	char get = (char)ch;
 	
 	if (m_IsViewReceiveData)
 	{
 		if (m_ctrlReceiveHex.GetCheck())
 		{
 			CString str;
-			str.Format("%02X ",ch);
+			str.Format("%02X ", get);
 			m_EditLogger.AddText(str);
 			
 		}
 		else{
 			CString str;
-			str.Format("%c",ch);
+			str.Format("%c",get);
 			m_EditLogger.AddText(str);
 			
 		}
 		UpdateData(FALSE);
 	}
-	GetDocument()->m_RXCount++;
+
+	CMyCommDoc * document = GetDocument();
+	document->m_RXCount++;
 	CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
-	CString str;
-	str.Format("RX:%d",GetDocument()->m_RXCount);
-	myApp->DoSetStautsBarText(SBSRX,str);
+
+	CString rxcount;
+	rxcount.Format("RX:%d", document->m_RXCount);
+	myApp->DoSetStautsBarText(SBSRX, rxcount);
 	m_ctrlReciveData.LineScroll(m_ctrlReciveData.GetLineCount());
 	
 	return 0;
@@ -784,15 +788,15 @@ void CMyCommView::DoRunScript(const CString str)
 		{
 			int len=DoStr2Hex(SendStr,data);
 			GetDocument()->m_Comm.WriteToPort(data,len);
-			GetDocument()->m_RXCount+=(long)((SendStr.GetLength()+1)/3);
+			GetDocument()->m_TXCount+=(long)((SendStr.GetLength()+1)/3);
 			CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
 			CString str;
-			str.Format("TX:%d",GetDocument()->m_RXCount);
+			str.Format("TX:%d",GetDocument()->m_TXCount);
 			myApp->DoSetStautsBarText(SBSTX,str);
 		}
 		else{
 			GetDocument()->m_Comm.WriteToPort((LPCTSTR)SendStr);	//发送数据
-			GetDocument()->m_RXCount+=SendStr.GetLength();
+			GetDocument()->m_TXCount+=SendStr.GetLength();
 			CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
 			CString str;
 			str.Format("TX:%d",GetDocument()->m_RXCount);
