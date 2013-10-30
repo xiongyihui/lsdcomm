@@ -74,6 +74,7 @@ BOOL IsFileExist( CString strFileName )
 
 void ThreadCheckVersion()
 {
+#if 0
 	//app dir
 	CString myAppDir;
 	CMyCommApp *myApp = (CMyCommApp *)AfxGetApp();
@@ -114,7 +115,6 @@ void ThreadCheckVersion()
 			myMain->m_IsNewVertxt = TRUE;
 	   }
 	   else{
-		   
 		   char s[256];
 		   _tcscpy(s,vertext.GetBuffer(vertext.GetLength())) ;
 		   if(myMain->DonwLoadFile("http://lsdcomm.googlecode.com/svn/trunk/lsdcomm/version/ver.txt",
@@ -125,7 +125,7 @@ void ThreadCheckVersion()
 		   return;
 	   }
 	}
-	
+#endif
 }
 
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
