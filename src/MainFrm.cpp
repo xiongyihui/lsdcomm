@@ -88,7 +88,7 @@ void ThreadCheckVersion()
 		CString myver;
 		char s[256];
 		_tcscpy(s,vertext.GetBuffer(vertext.GetLength())) ;
-		if(myMain->DonwLoadFile("http://lsdcomm.googlecode.com/svn/trunk/lsdcomm/version/ver.txt",
+		if(myMain->DonwLoadFile("http://git.oschina.net/yihui/lsdcomm/raw/master/release/version.txt",
 			s))
 			myMain->m_IsNewVertxt = TRUE;
 		return;
@@ -117,7 +117,7 @@ void ThreadCheckVersion()
 	   else{
 		   char s[256];
 		   _tcscpy(s,vertext.GetBuffer(vertext.GetLength())) ;
-		   if(myMain->DonwLoadFile("http://lsdcomm.googlecode.com/svn/trunk/lsdcomm/version/ver.txt",
+		   if(myMain->DonwLoadFile("http://git.oschina.net/yihui/lsdcomm/raw/master/release/version.txt",
 			   s))
 				myMain->m_IsNewVertxt = TRUE;
 		   myfile.Close();
@@ -537,7 +537,7 @@ void CMainFrame::OnAppUpgrade()
 	{
 		char s[256];
 		_tcscpy(s,vertext.GetBuffer(vertext.GetLength())) ;
-		if(!DonwLoadFile("http://lsdcomm.googlecode.com/svn/trunk/lsdcomm/version/ver.txt",s))
+		if(!DonwLoadFile("http://git.oschina.net/yihui/lsdcomm/raw/master/release/version.txt",s))
 		{
 			AfxMessageBox(_T("无法连接服务器。"));
 			return;
@@ -668,7 +668,7 @@ BOOL CMainFrame::DonwLoadFile(PSTR pURL, LPSTR SaveAsFilePath)
 void CMainFrame::OnAppHome() 
 {
 	// TODO: Add your command handler code here
-	ShellExecute(NULL,NULL,"Http://lsdcomm.googlecode.com",NULL,NULL,SW_SHOW);
+	ShellExecute(NULL,NULL,"http://git.oschina.net/yihui/lsdcomm",NULL,NULL,SW_SHOW);
 }
 
 void CMainFrame::OnSendFile() 

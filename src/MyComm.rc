@@ -164,13 +164,15 @@ FONT 9, "宋体"
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,17,23,20,20
     LTEXT           "LSDComm 版本：",IDC_STATIC,47,23,56,8,SS_NOPREFIX
-    LTEXT           "版权所有 (C) 2008",IDC_STATIC,47,38,119,8
+    LTEXT           "版权所有 (C) 2008,2013",IDC_STATIC,47,38,119,8
     DEFPUSHBUTTON   "确定",IDOK,202,144,50,14,WS_GROUP
-    LTEXT           "http://lsdcomm.googlecode.com",IDC_STATIC,47,52,117,8
+    LTEXT           "http://git.oschina.net/yihui/lsdcomm",IDC_STATIC,47,52,
+                    145,8
     GROUPBOX        "开源项目",IDC_STATIC,7,7,245,70
     GROUPBOX        "贡献者",IDC_STATIC,7,81,245,58
     LTEXT           "mrlong.com@gmail.com",IDC_STATIC,18,94,81,8
     LTEXT           "版本",IDC_STATIC_VERSION,110,23,93,8
+    LTEXT           "xiongyihui3@gmail.com",IDC_STATIC,18,107,85,8
 END
 
 IDD_MYCOMM_FORM DIALOG DISCARDABLE  0, 0, 385, 300
@@ -481,8 +483,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,2,0,0
- PRODUCTVERSION 1,2,0,0
+ FILEVERSION 1,4,0,0
+ PRODUCTVERSION 1,4,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -498,16 +500,16 @@ BEGIN
         BLOCK "080404b0"
         BEGIN
             VALUE "Comments", "\0"
-            VALUE "CompanyName", "HTTP://lsdcomm.googlecode.com\0"
+            VALUE "CompanyName", "http://git.oschina.net/yihui/lsdcomm/\0"
             VALUE "FileDescription", "LSDComm Microsoft 基础类应用程序\0"
-            VALUE "FileVersion", "1, 2, 0, 0\0"
+            VALUE "FileVersion", "1, 4, 0, 0\0"
             VALUE "InternalName", "LSDComm\0"
-            VALUE "LegalCopyright", "版权所有 (C) 2008\0"
+            VALUE "LegalCopyright", "版权所有 (C) 2013\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "LSDComm.EXE\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "LSDComm 应用程序\0"
-            VALUE "ProductVersion", "1, 2, 0, 0\0"
+            VALUE "ProductVersion", "1, 4, 0, 0\0"
             VALUE "SpecialBuild", "\0"
         END
     END

@@ -125,7 +125,7 @@ BOOL CMyCommApp::InitInstance()
 	//
 	//
 	//
-	m_AppVersion = "1.3"; 
+	m_AppVersion = "1.4"; 
 	
 	//=============================================================================
 	m_downfileexefilename = "";

@@ -517,7 +517,8 @@ void CSerialPort::ProcessErrorMessage(char* ErrorText)
 	);
 
 	sprintf(Temp, "WARNING:  %s Failed with the following error: \n%s\nPort: %d\n", (char*)ErrorText, lpMsgBuf, m_nPortNr); 
-	MessageBox(NULL, Temp, "Application Error", MB_ICONSTOP);
+//	MessageBox(NULL, Temp, "Application Error", MB_ICONSTOP);
+//	TRACE(Temp);
 
 	LocalFree(lpMsgBuf);
 	delete[] Temp;
