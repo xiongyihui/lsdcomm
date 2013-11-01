@@ -7,6 +7,8 @@
 // CommandDlg.h : header file
 //
 
+#include "MainFrm.h"
+
 /////////////////////////////////////////////////////////////////////////////
 // CCommandDlg dialog
 
@@ -115,8 +117,12 @@ protected:
 	// Generated message map functions
 	//{{AFX_MSG(CCommandDlg)
 	afx_msg void OnBtscripthelp();
+	afx_msg void OnBtSendCmd(UINT nID);
 	//}}AFX_MSG
-	DECLARE_MESSAGE_MAP()
+	DECLARE_MESSAGE_MAP();
+
+private:
+	CMainFrame *frame;
 };
 
 //{{AFX_INSERT_LOCATION}}

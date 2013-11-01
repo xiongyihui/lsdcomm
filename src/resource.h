@@ -156,6 +156,26 @@
 #define IDC_RD_YMODEM                   1128
 #define IDC_RD_ZMODEM                   1129
 #define IDC_RD_1KXMODEM                 1130
+#define IDC_BUTTON2                     1136
+#define IDC_BUTTON3                     1137
+#define IDC_BUTTON4                     1138
+#define IDC_BUTTON5                     1139
+#define IDC_BUTTON6                     1140
+#define IDC_BUTTON7                     1141
+#define IDC_BUTTON8                     1142
+#define IDC_BUTTON9                     1144
+#define IDC_BUTTON10                    1145
+#define IDC_BUTTON11                    1146
+#define IDC_BUTTON12                    1147
+#define IDC_BUTTON13                    1148
+#define IDC_BUTTON14                    1149
+#define IDC_BUTTON15                    1150
+#define IDC_BUTTON16                    1151
+#define IDC_BUTTON17                    1152
+#define IDC_BUTTON18                    1153
+#define IDC_BUTTON19                    1154
+#define IDC_BUTTON20                    1155
+#define IDC_BUTTON21                    1156
 #define ID_EDIT_COMMAND                 32771
 #define IDC_EDITPROTOCOL                32772
 #define IDC_EDIT_PROTOCOL               32774
@@ -183,7 +203,7 @@
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        152
 #define _APS_NEXT_COMMAND_VALUE         32796
-#define _APS_NEXT_CONTROL_VALUE         1136
+#define _APS_NEXT_CONTROL_VALUE         1138
 #define _APS_NEXT_SYMED_VALUE           105
 #endif
 #endif

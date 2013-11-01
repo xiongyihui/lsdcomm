@@ -74,14 +74,15 @@ public:
 	virtual void Dump(CDumpContext& dc) const;
 #endif
 
+	int m_CurrenthistoryIndex; 
+	int DoStr2Hex(CString str,char* data);
+	void DoRunScript(const CString str);
+
 protected:
 	CToolTipCtrl m_hint;
-	int m_CurrenthistoryIndex;   
-
-	int DoStr2Hex(CString str,char* data);
+  
 	char DoHexChar(char c);
-	BOOL DoIsNumeric(const CString &strText);
-	void DoRunScript(const CString str);
+	BOOL DoIsNumeric(const CString &strText);	
 	void DoUpdateLayout();
 	HICON DoGetButtonIcon(UINT nID);
 	CString DoGetReciveSelected();

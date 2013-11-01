@@ -426,7 +426,7 @@ UINT CSerialPort::CommThread(LPVOID pParam)
 					}
 
 				}
-				
+#if 0				
 				if (CommEvent & EV_CTS) //CTS信号状态发生变化
 					::SendNotifyMessage(port->m_pOwner->m_hWnd, WM_COMM_CTS_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
 				if (CommEvent & EV_RXFLAG) //接收到事件字符，并置于输入缓冲区中 
@@ -437,7 +437,7 @@ UINT CSerialPort::CommThread(LPVOID pParam)
 					::SendNotifyMessage(port->m_pOwner->m_hWnd, WM_COMM_ERR_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
 				if (CommEvent & EV_RING) //检测到振铃指示
 					::SendNotifyMessage(port->m_pOwner->m_hWnd, WM_COMM_RING_DETECTED, (WPARAM) 0, (LPARAM) port->m_nPortNr);
-					
+#endif					
 				break;
 			}  
 		case 2: // write event

@@ -260,7 +260,7 @@ void CMainFrame::OnClose()
 void CMainFrame::OnEditCommand() 
 {
 	// TODO: Add your command handler code here
-	CCommandDlg dlg;
+	CCommandDlg dlg(this);
 	CMyCommDoc   *Doc   =  (CMyCommDoc   *)GetActiveDocument();
 	dlg.m_strName_1    = Doc->m_Command[0].m_strName;
 	dlg.m_strCommand_1 = Doc->m_Command[0].m_strCommand;

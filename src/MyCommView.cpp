@@ -401,14 +401,20 @@ int CMyCommView::DoStr2Hex(CString str,char* data)
 		if(i>=len) break;
 		l=str[i];
 		t=DoHexChar(h);
-		t1=DoHexChar(l);
-		if((t==16)||(t1==16))
+		if (t == 16)
 			break;
-		else 
-			t=t*16+t1;
+		if (l != ' ')
+		{
+			t1=DoHexChar(l);
+			if (t1 != 16)
+				t=t*16+t1;
+		}
+
 		i++;
 		data[rlen]=(char)t;
 		rlen++;
+		if (l != ' ' && t1 == 16)
+			break;
 	}
 	return rlen;
 }
@@ -529,7 +535,7 @@ void CMyCommView::OnBtSend()
 		char data[512];
 		int len=DoStr2Hex(m_strSendData,data);
 		GetDocument()->m_Comm.WriteToPort(data,len);
-		GetDocument()->m_TXCount+=(long)((m_strSendData.GetLength()+1)/3);
+		GetDocument()->m_TXCount += len;
 		CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
 		CString str;
 		str.Format("TX:%d",GetDocument()->m_TXCount);
@@ -538,7 +544,7 @@ void CMyCommView::OnBtSend()
 	else 
 	{
 		GetDocument()->m_Comm.WriteToPort((LPCTSTR)m_strSendData);	//发送数据
-		GetDocument()->m_TXCount+=m_strSendData.GetLength();
+		GetDocument()->m_TXCount += m_strSendData.GetLength();
 		CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
 		CString str;
 		str.Format("TX:%d",GetDocument()->m_TXCount);
@@ -611,7 +617,7 @@ BOOL CMyCommView::PreTranslateMessage(MSG* pMsg)
 					return true;
 				}
 
-				if (pMsg->wParam == 'A' && GetKeyState(VK_CONTROL))
+				if (pMsg->wParam == 'A' && (GetKeyState(VK_CONTROL) & 0xFF00) == 0xFF00)
 				{
 					((CEdit *)GetFocus())->SetSel(0, -1);
 					return true;
@@ -701,6 +707,8 @@ void CMyCommView::OnSelchangeCbcommand()
 		m_ctrlSendHex.SetCheck(GetDocument()->m_Command[myindex].m_IsHex);
 		m_ctrlSendScript.SetCheck(GetDocument()->m_Command[myindex].m_isScript);	
 		UpdateData(FALSE);
+
+		OnBtSend();
 	}
 }
 
@@ -798,30 +806,50 @@ void CMyCommView::DoRunScript(const CString str)
 				m_EditLogger.AddText(_T(ErrorStr));
 				return;	
 			}
-			SendStr=GetDocument()->m_Command[commandindex].m_strCommand;	
-		}	
-		else{
-			SendStr = Paramsstr;
-		}
-		
-		if(m_ctrlSendHex.GetCheck())
-		{
-			int len=DoStr2Hex(SendStr,data);
-			GetDocument()->m_Comm.WriteToPort(data,len);
-			GetDocument()->m_TXCount+=(long)((SendStr.GetLength()+1)/3);
+			SendStr=GetDocument()->m_Command[commandindex].m_strCommand;
+			if (GetDocument()->m_Command[commandindex].m_IsHex)
+			{
+				int len=DoStr2Hex(SendStr,data);
+				GetDocument()->m_Comm.WriteToPort(data,len);
+				GetDocument()->m_TXCount += len;
+				
+			}
+			else
+			{
+				GetDocument()->m_Comm.WriteToPort((LPCTSTR)SendStr);	//发送数据
+				GetDocument()->m_TXCount+=SendStr.GetLength();
+			}
+
 			CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
 			CString str;
 			str.Format("TX:%d",GetDocument()->m_TXCount);
 			myApp->DoSetStautsBarText(SBSTX,str);
+		}	
+		else
+		{
+			SendStr = Paramsstr;
+
+			if(m_ctrlSendHex.GetCheck())
+			{
+				int len=DoStr2Hex(SendStr,data);
+				GetDocument()->m_Comm.WriteToPort(data,len);
+				GetDocument()->m_TXCount += len;
+				CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
+				CString str;
+				str.Format("TX:%d",GetDocument()->m_TXCount);
+				myApp->DoSetStautsBarText(SBSTX,str);
+			}
+			else{
+				GetDocument()->m_Comm.WriteToPort((LPCTSTR)SendStr);	//发送数据
+				GetDocument()->m_TXCount+=SendStr.GetLength();
+				CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
+				CString str;
+				str.Format("TX:%d",GetDocument()->m_TXCount);
+				myApp->DoSetStautsBarText(SBSTX,str);
+			}
 		}
-		else{
-			GetDocument()->m_Comm.WriteToPort((LPCTSTR)SendStr);	//发送数据
-			GetDocument()->m_TXCount+=SendStr.GetLength();
-			CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
-			CString str;
-			str.Format("TX:%d",GetDocument()->m_RXCount);
-			myApp->DoSetStautsBarText(SBSTX,str);
-		}
+		
+
 	}
 	else if (Commandstr=="SLEEP")
 	{
