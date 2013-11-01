@@ -590,21 +590,41 @@ BOOL CMyCommView::PreTranslateMessage(MSG* pMsg)
 {
 	// TODO: Add your specialized code here and/or call the base class
 	m_hint.RelayEvent(pMsg);
-	if ( GetFocus()!=NULL && GetFocus()->GetDlgCtrlID() == IDC_EDSENDDATA)
+	if (pMsg->message == WM_KEYDOWN)
 	{
-		CMyCommApp * myApp = (CMyCommApp * )AfxGetApp();
-		// enter
-		if( myApp->m_SendkeyType == SKENTER && pMsg->wParam==VK_RETURN && pMsg->message==WM_KEYDOWN)  
-		{  
-			OnBtSend();
-			return   true; 			
-		}   
-		//shift + enter
-		else if ( myApp->m_SendkeyType == SKSHIFTENTER && pMsg->wParam == VK_RETURN &&
-			 GetKeyState(VK_SHIFT) && pMsg->message==WM_KEYDOWN)
+		if (GetFocus() != NULL)
 		{
-			OnBtSend();
-			return true;
+			if (GetFocus()->GetDlgCtrlID() == IDC_EDSENDDATA)
+			{
+				CMyCommApp * myApp = (CMyCommApp * )AfxGetApp();
+				// enter
+				if( myApp->m_SendkeyType == SKENTER && pMsg->wParam==VK_RETURN)  
+				{  
+					OnBtSend();
+					return   true; 			
+				}   
+				//shift + enter
+				else if ( myApp->m_SendkeyType == SKSHIFTENTER && pMsg->wParam == VK_RETURN &&
+					 GetKeyState(VK_SHIFT))
+				{
+					OnBtSend();
+					return true;
+				}
+
+				if (pMsg->wParam == 'A' && GetKeyState(VK_CONTROL))
+				{
+					((CEdit *)GetFocus())->SetSel(0, -1);
+					return true;
+				}
+			} 
+			else if (GetFocus()->GetDlgCtrlID() == IDC_EDRECDATA || GetFocus()->GetDlgCtrlID() == IDC_EDRECDATAVALUE)
+			{
+				if (pMsg->wParam == 'A' && GetKeyState(VK_CONTROL))
+				{
+					((CEdit *)GetFocus())->SetSel(0, -1);
+					return true;
+				}
+			}
 		}
 	}
 	
