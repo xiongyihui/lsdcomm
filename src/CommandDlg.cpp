@@ -16,12 +16,10 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////////////
 // CCommandDlg dialog
-
-
 CCommandDlg::CCommandDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CCommandDlg::IDD, pParent)
 {
-	frame = (CMainFrame *)pParent;
+	win = pParent;
 	//{{AFX_DATA_INIT(CCommandDlg)
 	m_strCommand_1 = _T("");
 	m_strName_1 = _T("");
@@ -237,6 +235,7 @@ void CCommandDlg::OnBtSendCmd(UINT nID)
 		IDC_EDNAME_12, IDC_EDNAME_13, IDC_EDNAME_14, IDC_EDNAME_15, IDC_EDNAME_16, IDC_EDNAME_17, 
 		IDC_EDNAME_18, IDC_EDNAME_19, IDC_EDNAME_20};
 
+	CMainFrame *frame = (CMainFrame *)win;
 	CMyCommDoc   *Doc   =  (CMyCommDoc   *)(frame->GetActiveDocument());
 	CMyCommView *myView = (CMyCommView *)(frame->GetActiveView());
 

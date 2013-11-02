@@ -122,7 +122,7 @@ protected:
 	DECLARE_MESSAGE_MAP();
 
 private:
-	CMainFrame *frame;
+	CWnd *win;
 };
 
 //{{AFX_INSERT_LOCATION}}

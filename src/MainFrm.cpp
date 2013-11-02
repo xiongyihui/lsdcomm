@@ -74,7 +74,7 @@ BOOL IsFileExist( CString strFileName )
 
 void ThreadCheckVersion()
 {
-#if 0
+#if 1
 	//app dir
 	CString myAppDir;
 	CMyCommApp *myApp = (CMyCommApp *)AfxGetApp();
@@ -643,7 +643,16 @@ BOOL CMainFrame::DonwLoadFile(PSTR pURL, LPSTR SaveAsFilePath)
 		dwHttpRequestFlags);
 	
 	pHttpFile->AddRequestHeaders(szHeaders);
-	pHttpFile->SendRequest(); //发送请求
+
+	try
+	{
+		pHttpFile->SendRequest(); //发送请求
+	}
+	catch (CInternetException* IE)
+	{
+		return false;
+	}
+
 	CStdioFile f; 
 	if( !f.Open( SaveAsFilePath, 
 		CFile::modeCreate | CFile::modeWrite | CFile::typeBinary ) )
