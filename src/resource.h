@@ -23,6 +23,7 @@
 #define IDD_DLGUPGRADE                  145
 #define IDR_MENU_CHECK                  149
 #define IDD_DLGSENDFILE                 150
+#define IDI_ICONY                       155
 #define IDC_EDRECDATA                   1000
 #define IDC_EDSENDDATA                  1001
 #define IDC_BTSEND                      1010
@@ -201,7 +202,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        152
+#define _APS_NEXT_RESOURCE_VALUE        156
 #define _APS_NEXT_COMMAND_VALUE         32796
 #define _APS_NEXT_CONTROL_VALUE         1138
 #define _APS_NEXT_SYMED_VALUE           105

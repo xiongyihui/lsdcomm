@@ -70,6 +70,7 @@ IDR_MAINFRAME           ICON    DISCARDABLE     "res\\MyComm.ico"
 IDR_MYCOMMTYPE          ICON    DISCARDABLE     "res\\MyCommDoc.ico"
 IDI_ICONCLEAR           ICON    DISCARDABLE     "res\\icon1.ico"
 IDI_ICONCALC            ICON    DISCARDABLE     "res\\abc32.ico"
+IDI_ICONY               ICON    DISCARDABLE     "res\\cat2.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -163,6 +164,7 @@ BEGIN
     LTEXT           "mrlong.com@gmail.com",IDC_STATIC,18,94,81,8
     LTEXT           "版本",IDC_STATIC_VERSION,110,23,93,8
     LTEXT           "xiongyihui3@gmail.com",IDC_STATIC,18,107,85,8
+    ICON            IDI_ICONY,IDC_STATIC,222,98,21,21
 END
 
 IDD_MYCOMM_FORM DIALOG DISCARDABLE  0, 0, 385, 300
@@ -475,8 +477,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,4,0,0
- PRODUCTVERSION 1,4,0,0
+ FILEVERSION 1,5,0,0
+ PRODUCTVERSION 1,5,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -494,14 +496,14 @@ BEGIN
             VALUE "Comments", "\0"
             VALUE "CompanyName", "http://git.oschina.net/yihui/lsdcomm/\0"
             VALUE "FileDescription", "LSDComm Microsoft 基础类应用程序\0"
-            VALUE "FileVersion", "1, 4, 0, 0\0"
+            VALUE "FileVersion", "1, 5, 0, 0\0"
             VALUE "InternalName", "LSDComm\0"
-            VALUE "LegalCopyright", "版权所有 (C) 2013\0"
+            VALUE "LegalCopyright", "版权所有 (C) 2008, 2013\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "LSDComm.EXE\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "LSDComm 应用程序\0"
-            VALUE "ProductVersion", "1, 4, 0, 0\0"
+            VALUE "ProductVersion", "1, 5, 0, 0\0"
             VALUE "SpecialBuild", "\0"
         END
     END

@@ -1,6 +1,12 @@
-1.4
-http://git.oschina.net/yihui/lsdcomm/raw/master/release/LSDComm.exe
-更新日期:2013-10-31
+1.5
+http://git.oschina.net/yihui/lsdcomm/raw/master/release/LSDComm-latest.exe
+更新日期:2013-11-2
+>>----------------------------------------------
+>> 版本=1.5 更新日期: 2013-11-2
+>> 修改内容:
+>>   1) 支持ctrl+a、ctrl+c、ctrl+v等快捷键
+>>   2) 增强通信命令
+>> 
 >>----------------------------------------------
 >> 版本=1.4 更新日期: 2013-10-31
 >> 修改内容:
