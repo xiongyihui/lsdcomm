@@ -224,13 +224,13 @@ void CMyCommView::OnInitialUpdate()
 	case SKENTER:
 		{
 			CButton * mybt = (CButton *) GetDlgItem(IDC_BTSEND);
-			mybt->SetWindowText("发送 E");
+			mybt->SetWindowText("Send(E)");
 			break;
 		}	
 	case SKSHIFTENTER:
 		{
 			CButton * mybt = (CButton *) GetDlgItem(IDC_BTSEND);
-			mybt->SetWindowText("发送 S");
+			mybt->SetWindowText("Send(S)");
 			break;
 		}
 	default:
@@ -248,7 +248,7 @@ void CMyCommView::OnInitialUpdate()
 	//value
 	m_ReceiveValue = GetDocument()->m_strReceiveValue;
 	m_CheckDataStyle = CDSSUM;
-	m_CheckData.SetWindowText(_T("累加和"));
+	m_CheckData.SetWindowText(_T("Checksum"));
 	
 
 	UpdateData(FALSE);
@@ -286,10 +286,10 @@ void CMyCommView::OnBtopencomm()
 	{
 		GetDocument()->CloseComm();
 
-		m_ctrlOpenComm.SetWindowText(_T(" 打开串口"));
+		m_ctrlOpenComm.SetWindowText(_T(" Open Device"));
 		GetDocument()->m_ComAction = FALSE;
 		CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
-		myApp->DoSetStautsBarText(SBSCOMM,_T("串口:×"));
+		myApp->DoSetStautsBarText(SBSCOMM,_T("Port:×"));
 	}
 	else{
 		CString mycom;
@@ -306,7 +306,7 @@ void CMyCommView::OnBtopencomm()
 
 		if (mycomPrefix.CompareNoCase("COM") || (port <= 0))
 		{
-			AfxMessageBox(_T("请选择可用串口"));
+			AfxMessageBox(_T("Please select available port"));
 			return ;
 		}
 		
@@ -314,14 +314,14 @@ void CMyCommView::OnBtopencomm()
 		m_ctrlBaudRate.GetWindowText(mystr);
 		if (!DoIsNumeric(mystr)) 
 		{	
-			AfxMessageBox(_T("请选择波特率"));
+			AfxMessageBox(_T("Please select baud rate"));
 			return;
 		}	
 		GetDocument()->m_intBaudRate = atoi(mystr);
 		m_ctrlDataBits.GetWindowText(mystr);
 		if (!DoIsNumeric(mystr)) 
 		{
-			AfxMessageBox(_T("请选择数据位"));
+			AfxMessageBox(_T("Please select data bits"));
 			return;
 		}	
 		GetDocument()->m_intDataBits = atoi(mystr);
@@ -350,7 +350,7 @@ void CMyCommView::OnBtopencomm()
 		
 		if (m_ctrlStopBits.GetCurSel()<0) 
 		{
-			AfxMessageBox(_T("请选择停止位"));
+			AfxMessageBox(_T("Please select stop bit(s)"));
 			return;
 		}	
 		GetDocument()->m_intStopBits = m_ctrlStopBits.GetCurSel();  //index 表示
@@ -360,15 +360,15 @@ void CMyCommView::OnBtopencomm()
 			CBitmap myBitmap;
 			myBitmap.LoadBitmap(IDB_BITMAPOPENCOM);
 			m_ctrlOpenComm.SetBitmap(myBitmap);
-			m_ctrlOpenComm.SetWindowText(_T("关闭串口"));
+			m_ctrlOpenComm.SetWindowText(_T("Close Device"));
 			GetDocument()->m_ComAction = TRUE;
 			CEdit * myedit = (CEdit *)GetDlgItem(IDC_EDSENDDATA);
 			myedit->SetFocus();
 			CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
-			myApp->DoSetStautsBarText(SBSCOMM,_T("串口:√"));
+			myApp->DoSetStautsBarText(SBSCOMM,_T("Port:√"));
 		}
 		else
-			AfxMessageBox(_T("打开串口失败！"));
+			AfxMessageBox(_T("Failed to open device!"));
 	}
 
 	// send botton
@@ -564,7 +564,7 @@ void CMyCommView::OnBtviewprotocol()
 	if (!GetDocument()->m_strProtocol.IsEmpty())
 		m_EditLogger.AddText( "\n\r" + GetDocument()->m_strProtocol );
 	else
-		m_EditLogger.AddText(_T("\n\r无串口通信协议内容\n\r"));
+		m_EditLogger.AddText(_T("\n\rNo protocol\n\r"));
 		
 	UpdateData(FALSE);
 	
@@ -740,14 +740,14 @@ void CMyCommView::OnBtviewrecdata()
 	if (m_IsViewReceiveData)
 	{
 		CButton * myb = (CButton *) GetDlgItem(IDC_BTVIEWRECDATA);
-		myb->SetWindowText(_T("停止显示"));
-		m_EditLogger.AddText(_T("\r\n继续显示\r\n"));
+		myb->SetWindowText(_T("Stop"));
+		m_EditLogger.AddText(_T("\r\nContinue\r\n"));
 	}
 	else
 	{
 		CButton * myb = (CButton *) GetDlgItem(IDC_BTVIEWRECDATA);
-		myb->SetWindowText(_T("继续显示"));
-		m_EditLogger.AddText(_T("\r\n停止显示"));
+		myb->SetWindowText(_T("Continue"));
+		m_EditLogger.AddText(_T("\r\nStop"));
 	}
 }
 
@@ -883,7 +883,7 @@ void CMyCommView::DoRunScript(const CString str)
 	}
 	else{
 		CString ErrorStr;
-		ErrorStr.Format("\n\r语法出错2 %s\n\r",str);
+		ErrorStr.Format("\n\rSyntax Error2 %s\n\r",str);
 		m_EditLogger.AddText(_T(ErrorStr));
 	}
 		
@@ -912,8 +912,8 @@ void CMyCommView::OnSendkeyNone()
 	CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
 	myApp->m_SendkeyType = SKNONE;
 	CButton * mybt = (CButton *) GetDlgItem(IDC_BTSEND);
-	mybt->SetWindowText(_T("发送"));
-	myApp->DoSetStautsBarText(SBSSENDKEY,"无");
+	mybt->SetWindowText(_T("Send"));
+	myApp->DoSetStautsBarText(SBSSENDKEY,"None");
 }
 
 void CMyCommView::OnSendkeyEnter() 
@@ -922,7 +922,7 @@ void CMyCommView::OnSendkeyEnter()
 	CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
 	myApp->m_SendkeyType = SKENTER;
 	CButton * mybt = (CButton *) GetDlgItem(IDC_BTSEND);
-	mybt->SetWindowText(_T("发送 E"));
+	mybt->SetWindowText(_T("Send(E)"));
 	myApp->DoSetStautsBarText(SBSSENDKEY,"E");
 }
 
@@ -932,7 +932,7 @@ void CMyCommView::OnSendkeyShiftenter()
 	CMyCommApp * myApp = (CMyCommApp *)AfxGetApp();
 	myApp->m_SendkeyType = SKSHIFTENTER;
 	CButton * mybt = (CButton *) GetDlgItem(IDC_BTSEND);
-	mybt->SetWindowText(_T("发送 S"));
+	mybt->SetWindowText(_T("Send(S)"));
 	myApp->DoSetStautsBarText(SBSSENDKEY,"S");
 }
 
@@ -944,12 +944,12 @@ void CMyCommView::OnBtvisiblevalue()
 	m_IsShowValueWindow = !m_IsShowValueWindow;
 	if (m_IsShowValueWindow)
 	{	
-		mybt->SetWindowText(_T("关闭结果窗"));
+		mybt->SetWindowText(_T("Hide"));
 		myedit->ShowWindow(SW_SHOW); //SW_HIDE
 	
 	}
     else{ 
-		mybt->SetWindowText(_T("显示结果窗"));
+		mybt->SetWindowText(_T("Result"));
 		myedit->ShowWindow(SW_HIDE);
 	}
 	DoUpdateLayout();
@@ -1199,7 +1199,7 @@ void CMyCommView::OnCheckSum()
 {
 	// TODO: Add your command handler code here
 	m_CheckDataStyle = CDSSUM;
-	m_CheckData.SetWindowText(_T("累加和"));
+	m_CheckData.SetWindowText(_T("SUM"));
 	CString mystr = DoGetReciveSelected();
 	mystr.TrimLeft(); mystr.TrimRight();
 	if (mystr == "") return;

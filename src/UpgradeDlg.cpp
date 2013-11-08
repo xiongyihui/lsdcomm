@@ -56,7 +56,7 @@ void CUpgradeDlg::OnOK()
 	CMainFrame * myMain = (CMainFrame *)AfxGetMainWnd();
 	if(!myMain->DonwLoadFile(s2,s))
 	{
-		AfxMessageBox(_T("ÎÞ·¨Éý¼¶¡£"));
+		AfxMessageBox(_T("Can not upgrade"));
 		return;
 	}
 	else{

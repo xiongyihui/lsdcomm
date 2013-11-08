@@ -103,13 +103,13 @@ void ThreadCheckVersion()
 			CMyCommView * myview = (CMyCommView *) myMain->GetActiveView();
 			//myview->m_EditLogger.AddText(vertext);
 			//myview->m_EditLogger.AddText(myApp->m_AppVersion+"\r\n");
-			myview->m_EditLogger.AddText(">>最新版本:"+myverion+"\r\n");
+			myview->m_EditLogger.AddText(">>Latest Version:"+myverion+"\r\n");
 			CString strLine;
 			myfile.ReadString(strLine); // downfilename line:2
 			myApp->m_downfileexefilename = strLine;
 			myfile.ReadString(strLine); //line:3
 			myview->m_EditLogger.AddText(">>"+strLine +"\r\n");
-			myview->m_EditLogger.AddText(">>升级点击主菜单的[帮助]->[在线升级]\r\n");
+			myview->m_EditLogger.AddText(">>Click menu[Help]->[Upgrade]\r\n");
 
 			myfile.Close();
 			myMain->m_IsNewVertxt = TRUE;
@@ -539,7 +539,7 @@ void CMainFrame::OnAppUpgrade()
 		_tcscpy(s,vertext.GetBuffer(vertext.GetLength())) ;
 		if(!DonwLoadFile("http://git.oschina.net/yihui/lsdcomm/raw/master/release/version.txt",s))
 		{
-			AfxMessageBox(_T("无法连接服务器。"));
+			AfxMessageBox(_T("Can't connect the server"));
 			return;
 		}
 		myMain->m_IsNewVertxt = TRUE;
@@ -548,7 +548,7 @@ void CMainFrame::OnAppUpgrade()
 		
 	if(!myfile.Open(vertext,CFile::modeRead))
 	{
-		AfxMessageBox(_T("打开升级文件出错。"));
+		AfxMessageBox(_T("Failed to open upgrade file"));
 		return;
 	}
 	else{
@@ -561,7 +561,7 @@ void CMainFrame::OnAppUpgrade()
 			//new version
 			myhasUpgrade = TRUE;
 			CMyCommView * myview = (CMyCommView *) myMain->GetActiveView();
-			myStr = "最新版本:"+myverion+"\r\n";
+			myStr = "Latest Version:"+myverion+"\r\n";
 			CString strLine;
 			myfile.ReadString(strLine); // downfilename line:2
 			myApp->m_downfileexefilename = strLine;
@@ -573,7 +573,7 @@ void CMainFrame::OnAppUpgrade()
 			} 
 		}
 		else{
-			myStr = myApp->m_AppVersion + "版本已是最新了";
+			myStr = myApp->m_AppVersion + " is the latest version";
 		}
 		
 	}
@@ -597,7 +597,7 @@ void CMainFrame::OnAppUpgrade()
 		myAppDir = DoGetShortFileName(myApp->m_AppDir);
 		batfile.WriteString("@echo off\n\r");
 		CString myexename;
-		myexename = myAppDir + "\\LSDComm.exe";
+		myexename = myAppDir + "\\LSDComm-latest.exe";
 					
 		batfile.WriteString("del "+ myexename + "\n\r");
 		batfile.WriteString("if exist "+ myexename +" goto loop" + "\n\r");
@@ -685,7 +685,7 @@ void CMainFrame::OnSendFile()
 	// TODO: Add your command handler code here
 	CMyCommDoc   *Doc   =  (CMyCommDoc   *)GetActiveDocument();
 	if (!Doc->m_ComAction) {
-		AfxMessageBox(_T("串口没有打开！"));
+		AfxMessageBox(_T("Device is not open"));
 		return;
 	}
 	
@@ -697,7 +697,7 @@ void CMainFrame::OnSendFile()
 		CFile fp;
 		if(!(fp.Open((LPCTSTR)dlg.m_SendFileName ,CFile::modeRead))) 
 		{
-			AfxMessageBox(_T("打开文件出错!"));
+			AfxMessageBox(_T("Failed to open file!"));
 			return;
 		}
 		fp.SeekToEnd();
@@ -714,7 +714,7 @@ void CMainFrame::OnSendFile()
 
 		//send
 		CMyCommView * myview = (CMyCommView *)GetActiveView();
-		myview->m_EditLogger.AddText(_T("发送文件....\r\n"));
+		myview->m_EditLogger.AddText(_T("Send file....\r\n"));
 		BOOL mySendOk;
         
 		switch(dlg.m_ModemType) {
@@ -734,9 +734,9 @@ void CMainFrame::OnSendFile()
 		}
 
 		if(mySendOk)
-			myview->m_EditLogger.AddText(_T("完成发送。\r\n"));
+			myview->m_EditLogger.AddText(_T("Success\r\n"));
 		else
-			myview->m_EditLogger.AddText(_T("发送失败！！！\n\r"));
+			myview->m_EditLogger.AddText(_T("Failed\n\r"));
 
 	}
 }
