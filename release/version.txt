@@ -1,5 +1,5 @@
 1.5
-http://git.oschina.net/yihui/lsdcomm/raw/master/release/LSDComm-latest.exe
+https://github.com/xiongyihui/lsdcomm/raw/master/release/LSDComm-latest.exe
 更新日期:2013-11-2
 >>----------------------------------------------
 >> 版本=1.5 更新日期: 2013-11-2
