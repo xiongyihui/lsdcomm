@@ -537,7 +537,7 @@ void CMainFrame::OnAppUpgrade()
 	{
 		char s[256];
 		_tcscpy(s,vertext.GetBuffer(vertext.GetLength())) ;
-		if(!DonwLoadFile("http://git.oschina.net/yihui/lsdcomm/raw/master/release/version.txt",s))
+		if(!DonwLoadFile("https://github.com/xiongyihui/lsdcomm/raw/github/release/version.txt",s))
 		{
 			AfxMessageBox(_T("Can't connect the server"));
 			return;
