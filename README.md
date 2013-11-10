@@ -10,3 +10,8 @@
 + 增加其他功能如校验功能(累加和,CRC)。
 + 保存历史的发送指令，省去你重新输入。
 + 自动升级
+
+## 截图
+![main](screenshot/main.png)
+
+![command view](screenshot/command.png)
