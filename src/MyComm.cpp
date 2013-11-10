@@ -40,40 +40,39 @@ CMyCommApp::CMyCommApp()
 	char   re[3]   =   {VK_RETURN,   0x0a};
 	mystr += "//"; mystr += re;
 	mystr += "//2008-1-15 author:mrlong" ;mystr += re; 
-	mystr += "//不区分大小写";mystr += re; 
+	mystr += "//Case-insensitive";mystr += re; 
 	mystr += "//"; mystr += re;
 	mystr +=re;
-	mystr += "语法格式: 命令=参数1,参数2,参数3,..参数n ;"; mystr +=re;
-	mystr += "          注意每个语句必须用;号结束。"; mystr+=re;
-	mystr += "注释符# ，必须是第一个字符与独占一行。例如 #我的说明了"; mystr +=re;
+	mystr += "Syntax: Command=Param1,Param2,Param3,...,ParamN ;"; mystr +=re;
+	mystr += "          Note: Each statement must end with ';'."; mystr+=re;
+	mystr += "A line with '#' at first, is a comment."; mystr +=re;
 	mystr +=re;
 	
 	
-	mystr += "1. send 发送命令 "; mystr += re;
-	mystr += " 例如: 1.1 send=%1; 其中%1表示指令1"; mystr +=re;
+	mystr += "1. send"; mystr += re;
+	mystr += " For example: 1.1 send=%1; %1 represent No.1 command"; mystr +=re;
 	mystr += "       1.2 Send=68 01 01 68 41 00 41 16;"; mystr +=re;
 	
 	mystr +=re;
-	mystr += "2. sleep 停留时间(单位毫秒) "; mystr +=re;
-	mystr += " 例如: 2.1 sleep=300;"; mystr +=re;
+	mystr += "2. sleep (in milliseconds) "; mystr +=re;
+	mystr += " For example: 2.1 sleep=300;"; mystr +=re;
 	
 	mystr +=re;
-	mystr += "3. out 发送字符到接收窗口"; mystr +=re;
-	mystr += " 例如: 3.1 out=我的字符;"; mystr +=re;
+	mystr += "3. out, send characters to the RX window "; mystr +=re;
+	mystr += " For example: 3.1 out=hello, world;"; mystr +=re;
 	
 	mystr +=re;
-	mystr += "4. date 将时间发送到窗口"; mystr +=re;
-	mystr += " 例如: 4.1 date=%Y-%m-%d %H:%M:%S 参数表示格式"; mystr +=re; 
-	mystr += "   %Y=2008 ; %y=08, %m 与 %M 不同，注意这个参数的大小写。"; mystr += re;
-	mystr += "       4.2 date; 无参数默认是格式为%Y-%m-%d %H:%M:%S。"; mystr +=re;
+	mystr += "4. date"; mystr +=re;
+	mystr += " For example: 4.1 date=%Y-%m-%d %H:%M:%S"; mystr +=re; 
+	mystr += "   %Y=2008 ; %y=08, %m and %M are different"; mystr += re;
+	mystr += "       4.2 date; default format is %Y-%m-%d %H:%M:%S。"; mystr +=re;
 	
 	mystr +=re;
-	mystr += "5. clear 清空接收窗口数据"; mystr +=re;
-	mystr += " 例如 clear;"; mystr +=re;
+	mystr += "5. clear, clear receive window"; mystr +=re;
 	
 	mystr +=re;
-	mystr += "6. help 在接收区显示脚本帮助"; mystr += re;
-	mystr += " 例如 help;"; mystr += re;
+	mystr += "6. help, show help text in the receive window"; mystr += re;
+
 
 	m_ScriptHelp = mystr;
 	

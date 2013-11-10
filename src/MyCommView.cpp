@@ -564,10 +564,7 @@ void CMyCommView::OnBtviewprotocol()
 	if (!GetDocument()->m_strProtocol.IsEmpty())
 		m_EditLogger.AddText( "\n\r" + GetDocument()->m_strProtocol );
 	else
-		m_EditLogger.AddText(_T("\n\rNo protocol\n\r"));
-		
-	UpdateData(FALSE);
-	
+		m_EditLogger.AddText(_T("\n\rNo protocol\n\r"));	
 }
 
 void CMyCommView::OnBtclearreceivedata() 
@@ -680,7 +677,6 @@ LONG CMyCommView::OnCommunication(WPARAM ch, LPARAM port)
 			m_EditLogger.AddText(str);
 			
 		}
-		UpdateData(FALSE);
 	}
 
 	CMyCommDoc * document = GetDocument();
@@ -741,13 +737,13 @@ void CMyCommView::OnBtviewrecdata()
 	{
 		CButton * myb = (CButton *) GetDlgItem(IDC_BTVIEWRECDATA);
 		myb->SetWindowText(_T("Stop"));
-		m_EditLogger.AddText(_T("\r\nContinue\r\n"));
+//		m_EditLogger.AddText(_T("\r\nContinue\r\n"));
 	}
 	else
 	{
 		CButton * myb = (CButton *) GetDlgItem(IDC_BTVIEWRECDATA);
 		myb->SetWindowText(_T("Continue"));
-		m_EditLogger.AddText(_T("\r\nStop"));
+//		m_EditLogger.AddText(_T("\r\nStop"));
 	}
 }
 
@@ -1218,11 +1214,11 @@ void CMyCommView::OnCheckSum()
 	else 
 		m_ReceiveValue += "\r\n" + myvalue;
 	
-	UpdateData(FALSE);
 	if(!m_IsShowValueWindow) OnBtvisiblevalue();
 	CEdit *myEdit = (CEdit *)GetDlgItem(IDC_EDRECDATAVALUE);
-	myEdit->LineScroll(myEdit->GetLineCount());
 
+	myEdit->SetWindowText(m_ReceiveValue);
+	myEdit->LineScroll(myEdit->GetLineCount());
 }
 
 void CMyCommView::OnCheckCrc() 
@@ -1254,9 +1250,9 @@ void CMyCommView::OnCheckCrc()
 	else 
 		m_ReceiveValue += "\r\n" + strLowBit + ' ' + strHighBit;
 	
-	UpdateData(FALSE);
 	if(!m_IsShowValueWindow) OnBtvisiblevalue();
 	CEdit *myEdit = (CEdit *)GetDlgItem(IDC_EDRECDATAVALUE);
+	myEdit->SetWindowText(m_ReceiveValue);
 	myEdit->LineScroll(myEdit->GetLineCount());
 }
 

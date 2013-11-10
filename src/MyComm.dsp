@@ -261,6 +261,14 @@ SOURCE=.\res\bmp00001.bmp
 # End Source File
 # Begin Source File
 
+SOURCE=.\res\cat.ico
+# End Source File
+# Begin Source File
+
+SOURCE=.\res\cat2.ico
+# End Source File
+# Begin Source File
+
 SOURCE=.\res\default1.bin
 # End Source File
 # Begin Source File
